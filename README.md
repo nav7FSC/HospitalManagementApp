@@ -1,4 +1,4 @@
-# Hospital Management org.education.hospitalmanagmentapp.App
+# Hospital Management App
 
 ## Table of Contents
 1. [Project Overview](#project-overview)
