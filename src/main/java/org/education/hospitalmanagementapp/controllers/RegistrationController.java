@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 
 public class RegistrationController {
 
+
     @FXML
     private TextField FirstNameField;
 
