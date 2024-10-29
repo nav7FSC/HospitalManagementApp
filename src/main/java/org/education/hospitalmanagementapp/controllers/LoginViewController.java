@@ -21,6 +21,7 @@ public class LoginViewController {
     @FXML
     private ImageView menu;
 
+
     @FXML
     private ImageView noti_image;
 
