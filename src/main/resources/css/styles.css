@@ -1,0 +1,27 @@
+.text-field {
+    -fx-prompt-text-fill: black; /* Set prompt text color to black */
+    -fx-font-size: 14px;
+    -fx-alignment: baseline-left;
+    -fx-background-color: transparent; /* Transparent background */
+    -fx-border-color: transparent transparent black transparent; /* Underline effect */
+    -fx-border-width: 0 0 2px 0; /* Border width for underline */
+    -fx-padding: 5 0 5 0; /* Padding */
+    -fx-text-fill: black; /* Text color */
+}
+
+.text-field:hover {
+    -fx-border-color: purple; /* Purple border on hover */
+}
+
+.text-field:focused {
+    -fx-border-color: transparent transparent #007acc transparent; /* Blue border when focused */
+}
+
+.image {
+    -fx-border-color: transparent;
+    -fx-border-width: 2px;
+}
+
+.image:hover {
+    -fx-border-color: purple;
+}
