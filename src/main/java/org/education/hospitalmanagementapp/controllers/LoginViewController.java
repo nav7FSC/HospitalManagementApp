@@ -17,7 +17,7 @@ public class LoginViewController {
 
     @FXML
     private Button login_Button;
-//menu
+
     @FXML
     private ImageView menu;
 
