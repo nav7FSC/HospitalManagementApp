@@ -1,4 +1,4 @@
 package org.education.hospitalmanagementapp.controllers;
 
-public class LoginController {
+public class LoginViewController {
 }
