@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="982.0" prefWidth="1512.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="982.0" prefWidth="1512.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RegistrationController">
     <left>
         <ImageView fitHeight="982.0" fitWidth="957.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
             <image>
@@ -23,9 +23,9 @@
     <right>
         <VBox alignment="CENTER" fillWidth="false" prefHeight="982.0" prefWidth="874.0" style="-fx-background-color: #AFD8DA;" BorderPane.alignment="CENTER">
             <children>
-                <HBox alignment="CENTER_RIGHT" prefHeight="76.0" prefWidth="661.0">
+                <HBox alignment="CENTER_RIGHT" prefHeight="76.0" prefWidth="694.0">
                     <children>
-                        <Label style="-fx-text-fill: white;" text="HOSPITAL APP LOGIN">
+                        <Label prefHeight="43.0" prefWidth="446.0" style="-fx-text-fill: white;" text="HOSPITAL APP REGISTRATION">
                             <font>
                                 <Font name="Avenir Light Oblique" size="29.0" />
                             </font>
@@ -81,34 +81,56 @@
                 </HBox>
                 <VBox alignment="CENTER" fillWidth="false" prefHeight="419.0" prefWidth="825.0" spacing="30.0" VBox.vgrow="ALWAYS">
                     <children>
-                        <Label prefHeight="25.0" prefWidth="342.0" style="-fx-text-fill: white;" text="LOGIN WITH YOUR CREDENTIALS">
+                        <Label prefHeight="25.0" prefWidth="342.0" style="-fx-text-fill: white;" text="REGISTER WITH A NEW ACCOUNT ">
                             <font>
                                 <Font name="Avenir Light Oblique" size="17.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="userField" alignment="TOP_LEFT" maxHeight="70.0" maxWidth="399.0" prefHeight="70.0" prefWidth="399.0" promptText="Username" styleClass="text-fields" stylesheets="@../css/styles.css">
+                        <TextField fx:id="FirstNameField" alignment="TOP_LEFT" prefHeight="70.0" prefWidth="399.0" promptText="First Name" styleClass="text-fields" stylesheets="@../css/styles.css">
                             <font>
-                                <Font size="11.0" />
-                            </font></TextField>
-                        <TextField fx:id="emailField" alignment="TOP_LEFT" maxHeight="70.0" maxWidth="399.0" prefHeight="70.0" prefWidth="399.0" promptText="E-mail Address" styleClass="text-fields" stylesheets="@../css/styles.css">
-                            <font>
-                                <Font size="11.0" />
-                            </font></TextField>
-                        <TextField fx:id="passField" alignment="TOP_LEFT" maxHeight="70.0" maxWidth="399.0" prefHeight="70.0" prefWidth="399.0" promptText="Password" styleClass="text-fields" stylesheets="@../css/styles.css">
-                            <font>
-                                <Font size="11.0" />
-                            </font></TextField>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="403.0" spacing="30.0">
+                                <Font size="14.0" />
+                            </font>
+                        </TextField>
+                        <TextField fx:id="lastNameField" alignment="TOP_LEFT" prefHeight="70.0" prefWidth="399.0" promptText="Last Name" styleClass="text-fields" stylesheets="@../css/styles.css" />
+                        <TextField fx:id="usernameField" alignment="TOP_LEFT" prefHeight="70.0" prefWidth="399.0" promptText="User Name" styleClass="text-fields" stylesheets="@../css/styles.css" />
+                        <TextField fx:id="emailField" alignment="TOP_LEFT" prefHeight="70.0" prefWidth="399.0" promptText="Email Address " styleClass="text-fields" stylesheets="@../css/styles.css" />
+                        <VBox prefHeight="109.0" prefWidth="400.0">
                             <children>
-                                <Button fx:id="login_Button" mnemonicParsing="false" onAction="#loginUser" prefHeight="40.0" prefWidth="84.0" style="-fx-background-color: #E8DEF8; -fx-background-radius: 20px; -fx-text-fill: black;" text="Login">
+                                <TextField fx:id="passwordField" alignment="TOP_LEFT" prefHeight="70.0" prefWidth="399.0" promptText="Password" styleClass="text-fields" stylesheets="@../css/styles.css" />
+                                <Label prefHeight="46.0" prefWidth="400.0" text="Passwords must be at least 8 characters long, containing a mix of uppercase and lowercase letters." wrapText="true" />
+                            </children>
+                        </VBox>
+                        <TextField fx:id="confirmPassField" alignment="TOP_LEFT" prefHeight="70.0" prefWidth="399.0" promptText="Confirm Password" styleClass="text-fields" stylesheets="@../css/styles.css" />
+                        <HBox alignment="CENTER" prefHeight="45.0" prefWidth="395.0">
+                            <children>
+                                <Label style="-fx-text-fill: white;" text="Agree to the terms of services ">
                                     <font>
-                                        <Font name="System Bold" size="13.0" />
-                                    </font></Button>
-                                <Button fx:id="regiter_Button" mnemonicParsing="false" onAction="#registerUser" prefHeight="40.0" prefWidth="227.0" style="-fx-background-color: #E8DEF8; -fx-background-radius: 20px; -fx-text-fill: black;" text="Register with a new account">
+                                        <Font name="Avenir Light Oblique" size="20.0" />
+                                    </font>
+                                    <opaqueInsets>
+                                        <Insets right="40.0" />
+                                    </opaqueInsets>
+                                </Label>
+                                <ImageView fx:id="tosButton" fitHeight="37.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" styleClass="image">
+                                    <image>
+                                        <Image url="@../images/Switch.png" />
+                                    </image>
+                                    <HBox.margin>
+                                        <Insets left="35.0" />
+                                    </HBox.margin>
+                                </ImageView>
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="56.0" prefWidth="403.0" spacing="30.0">
+                            <children>
+                                <Button fx:id="login_Button" mnemonicParsing="false" onAction="#loginUser" prefHeight="40.0" prefWidth="122.0" style="-fx-background-color: #E8DEF8; -fx-background-radius: 20px; -fx-text-fill: black;" text="Create Account">
                                     <font>
                                         <Font name="System Bold" size="13.0" />
                                     </font></Button>
                             </children>
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
                         </HBox>
                     </children>
                     <VBox.margin>
