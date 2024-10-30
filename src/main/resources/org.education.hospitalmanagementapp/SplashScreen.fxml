@@ -1,14 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.education.hospitalmanagementapp.controllers.SplashController"
-           style="-fx-background-color: #2E3B4E; -fx-alignment: center;">
-
-    <!-- Logo Image -->
-    <ImageView fx:id="logoImage" fitWidth="200" fitHeight="200" />
-
-    <!-- Optional Text Under Logo -->
-    <Text text="Welcome to Hospital Management App" style="-fx-fill: #FFFFFF; -fx-font-size: 24px;" />
-</StackPane>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="982.0" prefWidth="1512.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.education.hospitalmanagementapp.controllers.SplashController">
+    <left>
+        <ImageView fitHeight="982.0" fitWidth="979.0" pickOnBounds="true" BorderPane.alignment="CENTER">
+            <image>
+                <Image url="@../images/SplashScreenHospital.png" />
+            </image>
+        </ImageView>
+    </left>
+    <right>
+        <VBox alignment="CENTER" prefHeight="982.0" prefWidth="534.0" style="-fx-background-color: #AFD8DA;" BorderPane.alignment="CENTER">
+            <children>
+                <ImageView fx:id="logoImage" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                <Label style="-fx-text-fill: white;" text="Welcome to the Hospital App" textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font name="Avenir Light" size="45.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="40.0" top="40.0" />
+                    </padding>
+                </Label>
+                <ProgressIndicator style="-fx-progress-color: white;" />
+                <Label style="-fx-text-fill: white;" text="Loading">
+                    <font>
+                        <Font name="Avenir Light" size="30.0" />
+                    </font>
+                </Label>
+            </children>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+            <effect>
+                <Blend />
+            </effect>
+        </VBox>
+    </right>
+</BorderPane>
