@@ -10,8 +10,8 @@ import java.sql.Statement;
 
 
 public class AuthService {
-    final String MYSQL_SERVER_URL = "jdbc:mysql://hospitalappserver.mysql.database.azure.com/";
-    final String DB_URL = "jdbc:mysql://hospitalappserver.mysql.database.azure.com/DBname";
+    final String MYSQL_SERVER_URL = "jdbc:mysql://hospitalmanagement.mysql.database.azure.com";
+    final String DB_URL = "jdbc:mysql://hospitalmanagement.mysql.database.azure.com/DBname";
     final String USERNAME = "hospitaladmin";
     final String PASSWORD = "Manager1!";
 
