@@ -25,7 +25,7 @@ public class SplashController {
     @FXML
     public void initialize() {
         // Load logo image from the resources/images directory
-        logoImage.setImage(new Image(getClass().getResourceAsStream("/org/education/hospitalmanagementapp/images/logo.png"))); // Adjust the path as necessary
+        logoImage.setImage(new Image(getClass().getResource("/images/Hospital.png").toExternalForm())); // Adjust the path as necessary
 
         // Set a pause for the splash screen
         PauseTransition pause = new PauseTransition(Duration.seconds(3)); // Display for 3 seconds
