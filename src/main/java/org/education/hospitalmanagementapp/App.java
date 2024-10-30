@@ -16,7 +16,7 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Load the splash screen
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/education/hospitalmanagementapp/SplashScreen.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org.education.hospitalmanagementapp/SplashScreen.fxml"));
         Parent splashRoot = loader.load();
 
         // Set up the splash screen scene
@@ -38,7 +38,7 @@ public class App extends Application {
     private void loadLoginScene(Stage primaryStage) {
         try {
             // Load the login view
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/education/hospitalmanagementapp/LoginView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org.education.hospitalmanagementapp/LoginView.fxml"));
             Parent loginRoot = loader.load();
 
             // Set the login scene
