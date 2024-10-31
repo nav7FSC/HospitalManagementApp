@@ -12,8 +12,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="982.0" prefWidth="1512.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.education.hospitalmanagementapp.controllers.LoginViewController">
     <left>
         <ImageView fitHeight="982.0" fitWidth="957.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
@@ -58,12 +56,12 @@
                                         <Image url="@../images/notification.png" />
                                     </image>
                                 </ImageView>
-                                <Label fx:id="num_of_noti" text="0" textFill="#030101" StackPane.alignment="TOP_RIGHT">
+                                <Label fx:id="num_of_noti" style="-fx-text-fill: white;" text="0" textFill="#030101" StackPane.alignment="TOP_RIGHT">
                                     <font>
                                         <Font name="Helvetica" size="14.0" />
                                     </font>
                                     <StackPane.margin>
-                                        <Insets right="13.0" top="9.0" />
+                                        <Insets right="13.0" top="7.0" />
                                     </StackPane.margin>
                                 </Label>
                             </children>
