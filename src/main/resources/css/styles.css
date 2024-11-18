@@ -1,27 +1,170 @@
 .text-field {
-    -fx-prompt-text-fill: black; /* Set prompt text color to black */
-    -fx-font-size: 14px;
+    -fx-prompt-text-fill: black;
+    -fx-font-size: 20px;
     -fx-alignment: baseline-left;
-    -fx-background-color: transparent; /* Transparent background */
-    -fx-border-color: transparent transparent black transparent; /* Underline effect */
-    -fx-border-width: 0 0 2px 0; /* Border width for underline */
-    -fx-padding: 5 0 5 0; /* Padding */
-    -fx-text-fill: black; /* Text color */
+    -fx-background-color: #F8F7FA;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: transparent;
+    -fx-padding: 10 15;
+    -fx-text-fill: black;
+    -fx-min-height: 40px;
 }
 
 .text-field:hover {
-    -fx-border-color: purple; /* Purple border on hover */
+    -fx-background-color: #F0EEF5;
 }
 
 .text-field:focused {
-    -fx-border-color: transparent transparent #007acc transparent; /* Blue border when focused */
-}
-
-.image {
-    -fx-border-color: transparent;
+    -fx-border-color: black;
     -fx-border-width: 2px;
 }
 
-.image:hover {
-    -fx-border-color: purple;
+.custom-date-picker {
+    -fx-background-color: #F8F7FA;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+}
+
+.custom-date-picker .text-field {
+    -fx-background-color: transparent;
+    -fx-prompt-text-fill: black;
+}
+
+.custom-date-picker .arrow-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.custom-date-picker .arrow-button:hover {
+    -fx-background-color: #F0EEF5;
+}
+
+.custom-date-picker .date-picker-popup {
+    -fx-background-color: #F8F7FA;
+    -fx-background-radius: 8px;
+}
+
+.custom-date-picker .date-picker-popup .month-year-pane {
+    -fx-background-color: #6750A4;
+    -fx-background-radius: 8px 8px 0 0;
+}
+
+.custom-date-picker .date-picker-popup .month-year-pane .label {
+    -fx-text-fill: white;
+}
+
+.custom-date-picker .date-picker-popup .calendar-grid {
+    -fx-background-color: #F8F7FA;
+}
+
+.custom-date-picker .date-picker-popup .day-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+}
+
+.custom-date-picker .date-picker-popup .day-cell:hover {
+    -fx-background-color: #F0EEF5;
+}
+
+.custom-date-picker .date-picker-popup .selected {
+    -fx-background-color: #6750A4;
+    -fx-text-fill: white;
+}
+
+.time-date-container {
+    -fx-spacing: 15;
+    -fx-padding: 20;
+}
+
+.picker-box {
+    -fx-background-color: #F8F7FA;
+    -fx-background-radius: 16px;
+    -fx-padding: 15;
+    -fx-min-width: 300px;
+    -fx-min-height: 100px;
+    -fx-alignment: center-left;
+    -fx-spacing: 10;
+}
+
+.time-input {
+    -fx-font-size: 25px;
+    -fx-background-color: #F8F7FA;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-padding: 15;
+}
+
+.time-field {
+    -fx-pref-width: 60px;
+    -fx-alignment: CENTER;
+}
+
+.am-pm-toggle {
+    -fx-background-color: #F8F7FA;
+    -fx-text-fill: #6750A4;
+    -fx-background-radius: 30px;
+    -fx-padding: 5 10;
+    -fx-border-color: transparent;
+    -fx-min-width: 45px;
+    -fx-min-height: 30px;
+    -fx-font-size: 12px;
+    -fx-alignment: center;
+}
+
+.am-pm-toggle:selected {
+    -fx-background-color: #6750A4;
+    -fx-text-fill: white;
+}
+
+.am-pm-toggle:hover {
+    -fx-background-color: #F0EEF5;
+}
+
+.am-pm-toggle:selected:hover {
+    -fx-background-color: #5B4593;
+}
+
+.confirm-button {
+    -fx-background-color: #4B9B9B;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 40px;
+    -fx-padding: 12 24;
+    -fx-min-width: 200px;
+    -fx-cursor: hand;
+}
+
+.confirm-button:hover {
+    -fx-background-color: #408686;
+}
+
+.nav-button {
+    -fx-background-color: #6750A4;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 40px;
+    -fx-padding: 10 20;
+    -fx-min-width: 120px;
+}
+
+.nav-button:hover {
+    -fx-background-color: #5B4593;
+}
+
+.header-text {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.dialog-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #6750A4;
+    -fx-font-weight: bold;
+    -fx-padding: 8 16;
+}
+
+.dialog-button:hover {
+    -fx-background-color: rgba(103, 80, 164, 0.1);
 }

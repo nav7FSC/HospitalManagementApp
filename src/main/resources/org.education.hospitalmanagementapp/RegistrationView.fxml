@@ -43,7 +43,7 @@
                         </ImageView>
                         <StackPane prefHeight="76.0" prefWidth="74.0">
                             <children>
-                                <ImageView fitHeight="76.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true" styleClass="image">
+                                <ImageView fx:id="profile_Image" fitHeight="76.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true" styleClass="image">
                                     <image>
                                         <Image url="@../images/Generic_avatar.png" />
                                     </image>
