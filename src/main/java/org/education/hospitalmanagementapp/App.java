@@ -15,7 +15,7 @@ import org.education.hospitalmanagementapp.controllers.SplashController;
 import org.education.hospitalmanagementapp.services.AuthServiceClass;
 
 public class App extends Application {
-
+//comment to see if my commits are working
     private static AuthServiceClass asc;
     private Stage primaryStage;
     private BorderPane root;
