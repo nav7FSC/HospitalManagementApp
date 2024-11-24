@@ -6,21 +6,24 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import org.education.hospitalmanagementapp.SceneManager;
+import org.education.hospitalmanagementapp.services.AuthServiceClass;
 
 public class LoginViewController {
+
+    private static AuthServiceClass asc;
 
     @FXML
     private ImageView calendar_image;
 
     @FXML
-    private TextField emailField;
+    private TextField userField, passField, emailField;
 
     @FXML
     private Button login_Button;
 
     @FXML
     private ImageView menu;
+
 
     @FXML
     private ImageView noti_image;
@@ -29,23 +32,29 @@ public class LoginViewController {
     private Label num_of_noti;
 
     @FXML
-    private TextField passField;
-
-    @FXML
     private Button regiter_Button;
 
     @FXML
-    private TextField userField;
-
-    @FXML
     void loginUser(ActionEvent event) {
-        // Add any login logic here if needed
-        // For now, we'll just navigate to the MainMenu.fxml
-        SceneManager.loadScene("MainMenu.fxml");
+        String username = userField.getText();
+        String email = emailField.getText();
+        String password = passField.getText();
+
+        if (username.isEmpty() || email.isEmpty() || password.isEmpty()) {
+            System.out.println("All fields are required.");
+            return;
+        }
+
+        asc = new AuthServiceClass();
+
+        asc.insertUser(username, email, password);
+
+        System.out.println("User details saved to the database!");
     }
 
     @FXML
     void registerUser(ActionEvent event) {
-        // Add registration logic here if needed
+
     }
+
 }
