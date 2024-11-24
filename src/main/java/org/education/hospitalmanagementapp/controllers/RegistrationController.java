@@ -2,54 +2,32 @@ package org.education.hospitalmanagementapp.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
+import org.education.hospitalmanagementapp.services.AuthServiceClass;
 
 public class RegistrationController {
 
+    AuthServiceClass asc;
 
     @FXML
-    private TextField FirstNameField;
-
-
-    @FXML
-    private ImageView calendar_image;
-
-    @FXML
-    private TextField confirmPassField;
-
-    @FXML
-    private TextField emailField;
-
-    @FXML
-    private TextField lastNameField;
-
-    @FXML
-    private Button login_Button;
-
-    @FXML
-    private ImageView menu;
-
-    @FXML
-    private ImageView noti_image;
-
-    @FXML
-    private Label num_of_noti;
-
-    @FXML
-    private TextField passwordField;
-
-    @FXML
-    private ImageView tosButton;
-
-    @FXML
-    private TextField usernameField;
+    private TextField usernameField, emailField, passwordField;
 
     @FXML
     void loginUser(ActionEvent event) {
+        String username = usernameField.getText();
+        String email = emailField.getText();
+        String password = passwordField.getText();
 
+        if (username.isEmpty() || email.isEmpty() || password.isEmpty()) {
+            System.out.println("All fields are required.");
+            return;
+        }
+
+        asc = new AuthServiceClass();
+
+        asc.insertUser(username, email, password);
+
+        System.out.println("User details saved to the database!");
     }
 
 }
