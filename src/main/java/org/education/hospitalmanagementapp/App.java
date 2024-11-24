@@ -12,9 +12,11 @@ import javafx.util.Duration;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 import org.education.hospitalmanagementapp.controllers.SplashController;
+import org.education.hospitalmanagementapp.services.AuthServiceClass;
 
 public class App extends Application {
 
+    private static AuthServiceClass asc;
     private Stage primaryStage;
     private BorderPane root;
     private boolean allowFullScreenExit = false;
@@ -99,6 +101,8 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
+        asc = new AuthServiceClass();
+        asc.connectToDatabase();
         launch(args);
     }
 }
