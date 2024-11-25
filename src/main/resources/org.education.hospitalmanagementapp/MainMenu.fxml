@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="982.0" prefWidth="1512.0" style="-fx-background-color: #AFD8DA;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.education.hospitalmanagementapp.controllers.MainMenuController">
+   <right>
+      <ImageView fitHeight="982.0" fitWidth="359.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+         <image>
+            <Image url="@../images/MainMenuLeftPage.png" />
+         </image>
+      </ImageView>
+   </right>
+   <left>
+      <VBox prefHeight="982.0" prefWidth="1153.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label style="-fx-text-fill: white;" text="Hospital Main Menu">
+                     <font>
+                        <Font name="Avenir Black Oblique" size="56.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="40.0" />
+                     </HBox.margin>
+                  </Label>
+                  <ImageView fx:id="menu" fitHeight="87.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/menu.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="60.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <StackPane prefHeight="76.0" prefWidth="74.0">
+                     <children>
+                        <ImageView fx:id="profile_Image" fitHeight="76.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Generic_avatar.png" />
+                           </image>
+                           <StackPane.margin>
+                              <Insets left="30.0" right="70.0" />
+                           </StackPane.margin>
+                        </ImageView>
+                        <ImageView fx:id="noti_image" fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/notification.png" />
+                           </image>
+                           <StackPane.margin>
+                              <Insets bottom="60.0" left="20.0" />
+                           </StackPane.margin>
+                        </ImageView>
+                        <Label fx:id="num_of_noti" style="-fx-text-fill: white;" text="0">
+                           <StackPane.margin>
+                              <Insets bottom="60.0" left="20.0" />
+                           </StackPane.margin>
+                        </Label>
+                     </children>
+                  </StackPane>
+               </children>
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="goToUsrManagementBttn" mnemonicParsing="false" onAction="#GoToUsrManagement" prefHeight="122.0" prefWidth="312.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="User Management">
+                     <font>
+                        <Font name="Avenir Light" size="17.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="40.0" />
+                     </HBox.margin></Button>
+                  <Button fx:id="ApptmntBttn" mnemonicParsing="false" prefHeight="122.0" prefWidth="312.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="Appointment Management">
+                     <font>
+                        <Font size="17.0" />
+                     </font></Button>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="50.0" top="50.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="patientBttn" mnemonicParsing="false" prefHeight="122.0" prefWidth="312.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="Patient Management">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="40.0" />
+                     </HBox.margin></Button>
+                  <Button fx:id="billingBttn" mnemonicParsing="false" prefHeight="122.0" prefWidth="312.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="Billing/Invoices">
+                     <font>
+                        <Font size="17.0" />
+                     </font></Button>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="50.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="reportBttn" mnemonicParsing="false" prefHeight="122.0" prefWidth="312.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="Report Generation">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="40.0" />
+                     </HBox.margin></Button>
+                  <Button fx:id="inventoryBttn" mnemonicParsing="false" prefHeight="122.0" prefWidth="312.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="Inventory Management">
+                     <font>
+                        <Font size="17.0" />
+                     </font></Button>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="70.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="mainMenuSignOutBttn" mnemonicParsing="false" prefHeight="83.0" prefWidth="270.0" styleClass="nav-button" stylesheets="@../css/styles.css" text="Sign Out">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="40.0" />
+                     </HBox.margin></Button>
+                  <Button fx:id="goToDashBttn" mnemonicParsing="false" prefHeight="83.0" prefWidth="270.0" styleClass="nav-button" stylesheets="@../css/styles.css" text="Go to DashBoard ">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </left>
+</BorderPane>
