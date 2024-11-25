@@ -79,7 +79,7 @@
                             <HBox.margin>
                                 <Insets right="40.0" />
                             </HBox.margin></Button>
-                        <Button fx:id="ApptmntBttn" mnemonicParsing="false" prefHeight="122.0" prefWidth="312.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="Appointment Management">
+                        <Button fx:id="ApptmntBttn" mnemonicParsing="false" onAction="#goToApptManagement" prefHeight="122.0" prefWidth="312.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="Appointment Management">
                             <font>
                                 <Font size="17.0" />
                             </font></Button>
@@ -133,7 +133,7 @@
                             <HBox.margin>
                                 <Insets right="40.0" />
                             </HBox.margin></Button>
-                        <Button fx:id="goToDashBttn" mnemonicParsing="false" onAction="#GoToUsrManagement" prefHeight="83.0" prefWidth="270.0" styleClass="nav-button" stylesheets="@../css/styles.css" text="Go to DashBoard ">
+                        <Button fx:id="goToDashBttn" mnemonicParsing="false" onAction="#goToDash" prefHeight="83.0" prefWidth="270.0" styleClass="nav-button" stylesheets="@../css/styles.css" text="Go to DashBoard ">
                             <font>
                                 <Font size="15.0" />
                             </font></Button>
