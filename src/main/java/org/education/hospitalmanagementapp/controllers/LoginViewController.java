@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import org.education.hospitalmanagementapp.SceneManager;
 
 public class LoginViewController {
 
@@ -20,7 +21,6 @@ public class LoginViewController {
 
     @FXML
     private ImageView menu;
-
 
     @FXML
     private ImageView noti_image;
@@ -39,12 +39,13 @@ public class LoginViewController {
 
     @FXML
     void loginUser(ActionEvent event) {
-
+        // Add any login logic here if needed
+        // For now, we'll just navigate to the MainMenu.fxml
+        SceneManager.loadScene("MainMenu.fxml");
     }
 
     @FXML
     void registerUser(ActionEvent event) {
-
+        // Add registration logic here if needed
     }
-
 }
