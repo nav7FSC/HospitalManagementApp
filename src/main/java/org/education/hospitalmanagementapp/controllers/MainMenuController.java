@@ -52,6 +52,20 @@ public class MainMenuController {
     @FXML
     void GoToUsrManagement(ActionEvent event) {
         try{
+            Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/UserManagement.fxml"));
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void goToDash(ActionEvent event) {
+        try{
             Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/HospitalDashBoard.fxml"));
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
@@ -63,4 +77,17 @@ public class MainMenuController {
         }
     }
 
+    @FXML
+    void goToApptManagement(ActionEvent event) {
+        try{
+            Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/ScheduleAppointment.fxml"));
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
