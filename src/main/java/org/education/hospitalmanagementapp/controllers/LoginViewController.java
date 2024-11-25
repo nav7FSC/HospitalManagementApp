@@ -33,7 +33,18 @@ public class LoginViewController {
         asc.insertUser(username, email, password);
 
         System.out.println("User details saved to the database!");
+        try{
+            Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
 
     @FXML
     void registerUser(ActionEvent event) {
