@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="982.0" prefWidth="1512.0" style="-fx-background-color: #AFD8DA;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <right>
+      <ImageView fitHeight="982.0" fitWidth="359.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+         <image>
+            <Image url="@../images/MainMenuLeftPage.png" />
+         </image></ImageView>
+   </right>
+   <left>
+      <VBox prefHeight="982.0" prefWidth="1153.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label style="-fx-text-fill: white;" text="Hospital Billing/Invoices">
+                     <font>
+                        <Font name="Calibri Bold Italic" size="66.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="70.0" />
+                     </HBox.margin>
+                  </Label>
+                  <ImageView fx:id="menu" fitHeight="87.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/menu.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="15.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <StackPane prefHeight="76.0" prefWidth="74.0">
+                     <children>
+                        <ImageView fx:id="profile_Image" fitHeight="76.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Generic_avatar.png" />
+                           </image>
+                           <StackPane.margin>
+                              <Insets right="50.0" />
+                           </StackPane.margin>
+                        </ImageView>
+                        <ImageView fx:id="noti_image" fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/notification.png" />
+                           </image>
+                           <StackPane.margin>
+                              <Insets bottom="55.0" left="40.0" right="40.0" />
+                           </StackPane.margin>
+                        </ImageView>
+                        <Label fx:id="num_of_noti" style="-fx-text-fill: white;" text="0">
+                           <StackPane.margin>
+                              <Insets bottom="55.0" left="40.0" right="40.0" />
+                           </StackPane.margin>
+                        </Label>
+                     </children>
+                  </StackPane>
+               </children>
+               <VBox.margin>
+                  <Insets top="40.0" />
+               </VBox.margin>
+            </HBox>
+            <Label style="-fx-text-fill: white;" text="ENTER PARTIENT INFORMATION TO CHARGE PATIENT:">
+               <font>
+                  <Font name="Calibri Bold Italic" size="32.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="240.0" top="40.0" />
+               </VBox.margin>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <StackPane prefHeight="68.0" prefWidth="250.0">
+                     <children>
+                        <TextField fx:id="billing_Id_Field" prefHeight="68.0" prefWidth="210.0" promptText="Enter Patient ID" styleClass="text-fields" stylesheets="@../css/styles.css" />
+                        <ImageView fx:id="clear_Id" fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Trailingicon.png" />
+                           </image>
+                           <StackPane.margin>
+                              <Insets left="190.0" />
+                           </StackPane.margin>
+                        </ImageView>
+                     </children>
+                  </StackPane>
+                  <StackPane prefHeight="150.0" prefWidth="250.0">
+                     <children>
+                        <TextField fx:id="invoice_Field" prefHeight="68.0" prefWidth="250.0" promptText="Enter Invoice Number" styleClass="text-fields" stylesheets="@../css/styles.css">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </TextField>
+                        <ImageView fx:id="clear_Invoice" fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Trailingicon.png" />
+                           </image>
+                           <StackPane.margin>
+                              <Insets left="200.0" />
+                           </StackPane.margin>
+                        </ImageView>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin>
+                  </StackPane>
+               </children>
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
+            </HBox>
+            <Label style="-fx-text-fill: white;" text="ENTER SERVICE INFORMATION PROVIDED TO THE PATIENT:">
+               <font>
+                  <Font name="Calibri Bold Italic" size="32.0" />
+               </font>
+               <padding>
+                  <Insets left="230.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets top="25.0" />
+               </VBox.margin>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <StackPane prefHeight="150.0" prefWidth="250.0">
+                     <children>
+                        <TextField fx:id="typeOfServiceField" prefHeight="68.0" prefWidth="210.0" promptText="Enter Type of Service" styleClass="text-fields" stylesheets="@../css/styles.css" />
+                        <ImageView fx:id="clearTypeField" fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Trailingicon.png" />
+                           </image>
+                           <StackPane.margin>
+                              <Insets left="190.0" />
+                           </StackPane.margin>
+                        </ImageView>
+                     </children>
+                     <HBox.margin>
+                        <Insets right="40.0" />
+                     </HBox.margin>
+                  </StackPane>
+                  <StackPane prefHeight="150.0" prefWidth="250.0">
+                     <children>
+                        <TextField fx:id="priceField" prefHeight="68.0" prefWidth="210.0" promptText="Enter Price of Service " styleClass="text-fields" stylesheets="@../css/styles.css">
+                           <StackPane.margin>
+                              <Insets />
+                           </StackPane.margin>
+                        </TextField>
+                        <ImageView fx:id="clearPriceField" fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Trailingicon.png" />
+                           </image>
+                           <StackPane.margin>
+                              <Insets left="200.0" />
+                           </StackPane.margin>
+                        </ImageView>
+                     </children>
+                  </StackPane>
+               </children>
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
+            </HBox>
+            <Button fx:id="chargeButton" mnemonicParsing="false" onAction="#calculatePatientCharge" prefHeight="68.0" prefWidth="199.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="Charge Patient">
+               <font>
+                  <Font name="Calibri" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="480.0" top="80.0" />
+               </VBox.margin>
+            </Button>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="signOut_Bttn" mnemonicParsing="false" onAction="#signOut" prefHeight="83.0" prefWidth="270.0" styleClass="nav-button" stylesheets="@../css/styles.css" text="Sign Out">
+                     <font>
+                        <Font name="Calibri" size="17.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="mainmenuBttn" mnemonicParsing="false" onAction="#gotoMain" prefHeight="83.0" prefWidth="270.0" styleClass="nav-button" stylesheets="@../css/styles.css" text="Go To Main Menu">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </left>
+</BorderPane>
