@@ -12,72 +12,72 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="982.0" prefWidth="1512.0" style="-fx-background-color: #AFD8DA;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.education.hospitalmanagementapp.controllers.DashBoardController">
-   <top>
-      <VBox prefHeight="982.0" prefWidth="1512.0" BorderPane.alignment="CENTER">
-         <children>
-            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label style="-fx-text-fill: white;" text="Hospital DashBoard">
-                     <font>
-                        <Font name="Avenir Black Oblique" size="57.0" />
-                     </font>
-                  </Label>
-                  <ImageView fitHeight="87.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/menu.png" />
-                     </image>
-                     <HBox.margin>
-                        <Insets left="300.0" />
-                     </HBox.margin>
-                  </ImageView>
-                  <StackPane prefHeight="76.0" prefWidth="74.0">
-                     <children>
-                        <ImageView fitHeight="76.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/Generic_avatar.png" />
-                           </image>
-                           <StackPane.margin>
-                              <Insets left="20.0" right="50.0" />
-                           </StackPane.margin>
-                        </ImageView>
-                        <ImageView fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/notification.png" />
-                           </image>
-                           <StackPane.margin>
-                              <Insets bottom="60.0" left="20.0" />
-                           </StackPane.margin>
-                        </ImageView>
-                        <Label style="-fx-text-fill: white;" text="0">
-                           <StackPane.margin>
-                              <Insets bottom="60.0" left="20.0" />
-                           </StackPane.margin>
+    <top>
+        <VBox prefHeight="982.0" prefWidth="1512.0" BorderPane.alignment="CENTER">
+            <children>
+                <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <Label style="-fx-text-fill: white;" text="Hospital DashBoard">
+                            <font>
+                                <Font name="Avenir Black Oblique" size="57.0" />
+                            </font>
                         </Label>
-                     </children>
-                  </StackPane>
-               </children>
-               <VBox.margin>
-                  <Insets bottom="600.0" top="30.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Button fx:id="dashSignOut" mnemonicParsing="false" prefHeight="83.0" prefWidth="270.0" styleClass="nav-button" stylesheets="@../css/styles.css" text="Sign Out">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="50.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="dashGotoMain" mnemonicParsing="false" prefHeight="83.0" prefWidth="270.0" styleClass="nav-button" stylesheets="@../css/styles.css" text="Go to Main Menu">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </Button>
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-   </top>
+                        <ImageView fitHeight="87.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/menu.png" />
+                            </image>
+                            <HBox.margin>
+                                <Insets left="300.0" />
+                            </HBox.margin>
+                        </ImageView>
+                        <StackPane prefHeight="76.0" prefWidth="74.0">
+                            <children>
+                                <ImageView fitHeight="76.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/Generic_avatar.png" />
+                                    </image>
+                                    <StackPane.margin>
+                                        <Insets left="20.0" right="50.0" />
+                                    </StackPane.margin>
+                                </ImageView>
+                                <ImageView fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/notification.png" />
+                                    </image>
+                                    <StackPane.margin>
+                                        <Insets bottom="60.0" left="20.0" />
+                                    </StackPane.margin>
+                                </ImageView>
+                                <Label style="-fx-text-fill: white;" text="0">
+                                    <StackPane.margin>
+                                        <Insets bottom="60.0" left="20.0" />
+                                    </StackPane.margin>
+                                </Label>
+                            </children>
+                        </StackPane>
+                    </children>
+                    <VBox.margin>
+                        <Insets bottom="600.0" top="30.0" />
+                    </VBox.margin>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <Button fx:id="dashSignOut" mnemonicParsing="false" onAction="#signOut" prefHeight="83.0" prefWidth="270.0" styleClass="nav-button" stylesheets="@../css/styles.css" text="Sign Out">
+                            <font>
+                                <Font size="25.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets right="50.0" />
+                            </HBox.margin>
+                        </Button>
+                        <Button fx:id="dashGotoMain" mnemonicParsing="false" onAction="#goToMain" prefHeight="83.0" prefWidth="270.0" styleClass="nav-button" stylesheets="@../css/styles.css" text="Go to Main Menu">
+                            <font>
+                                <Font size="25.0" />
+                            </font>
+                        </Button>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </top>
 </BorderPane>
