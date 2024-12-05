@@ -1,6 +1,6 @@
 .text-field {
     -fx-prompt-text-fill: black;
-    -fx-font-size: 20px;
+    -fx-font-size: 15px;
     -fx-alignment: baseline-left;
     -fx-background-color: #F8F7FA;
     -fx-background-radius: 8px;
