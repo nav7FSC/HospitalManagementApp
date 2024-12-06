@@ -6,13 +6,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.education.hospitalmanagementapp.AlertMessages;
 import org.education.hospitalmanagementapp.services.AuthServiceClass;
 
 public class LoginViewController {
-
-    private static AuthServiceClass asc;
+    private AlertMessages alert = new AlertMessages();
+    private static AuthServiceClass asc = new AuthServiceClass();
 
     @FXML
     private TextField userField, passField, emailField;
@@ -24,11 +26,9 @@ public class LoginViewController {
         String password = passField.getText();
 
         if (username.isEmpty() || email.isEmpty() || password.isEmpty()) {
-            System.out.println("All fields are required.");
+            alert.errorMessage("Please fill in all fields.");
             return;
         }
-
-        asc = new AuthServiceClass();
 
         boolean isValidUser = asc.validateUser(username, email, password);
 
@@ -44,7 +44,7 @@ public class LoginViewController {
                 e.printStackTrace();
             }
         } else {
-            System.out.println("Invalid login credentials. Please try again.");
+            alert.errorMessage("Invalid login credentials. Please try again.");
         }
     }
 
