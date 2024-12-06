@@ -30,18 +30,21 @@ public class LoginViewController {
 
         asc = new AuthServiceClass();
 
-        asc.insertUser(username, email, password);
+        boolean isValidUser = asc.validateUser(username, email, password);
 
-        System.out.println("User details saved to the database!");
-        try{
-            Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(scene);
-            window.show();
-        }catch (Exception e) {
-            e.printStackTrace();
+        if (isValidUser) {
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+                Scene scene = new Scene(root);
+                scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(scene);
+                window.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Invalid login credentials. Please try again.");
         }
     }
 

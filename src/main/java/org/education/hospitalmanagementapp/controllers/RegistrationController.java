@@ -2,7 +2,12 @@ package org.education.hospitalmanagementapp.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import org.education.hospitalmanagementapp.services.AuthServiceClass;
 
 public class RegistrationController {
@@ -28,6 +33,17 @@ public class RegistrationController {
         asc.insertUser(username, email, password);
 
         System.out.println("User details saved to the database!");
+
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
