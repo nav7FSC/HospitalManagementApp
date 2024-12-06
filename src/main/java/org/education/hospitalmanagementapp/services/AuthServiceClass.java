@@ -108,4 +108,26 @@ public class AuthServiceClass {
 
         return isValidUser;
     }
+
+    public boolean usernameExists(String username) {
+        boolean exists = false;
+
+        String query = "SELECT COUNT(*) FROM users WHERE username = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                exists = rs.getInt(1) > 0; // If count > 0, the username exists
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return exists;
+    }
+
 }
