@@ -31,4 +31,18 @@ public class DashBoardController {
         }
     }
 
+    @FXML
+    void  signOut(ActionEvent event){
+        try{
+            Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/LoginView.fxml"));
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

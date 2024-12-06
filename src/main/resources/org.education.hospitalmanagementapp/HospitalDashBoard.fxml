@@ -62,7 +62,7 @@
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                     <children>
-                        <Button fx:id="dashSignOut" mnemonicParsing="false" prefHeight="83.0" prefWidth="270.0" styleClass="nav-button" stylesheets="@../css/styles.css" text="Sign Out">
+                        <Button fx:id="dashSignOut" mnemonicParsing="false" onAction="#signOut" prefHeight="83.0" prefWidth="270.0" styleClass="nav-button" stylesheets="@../css/styles.css" text="Sign Out">
                             <font>
                                 <Font size="25.0" />
                             </font>
