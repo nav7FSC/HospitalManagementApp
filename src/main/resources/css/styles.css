@@ -169,3 +169,9 @@
 .dialog-button:hover {
     -fx-background-color: rgba(103, 80, 164, 0.1);
 }
+.category-card {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-padding: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 4);
+}
