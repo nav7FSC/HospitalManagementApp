@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -60,23 +59,7 @@
                         <Insets bottom="600.0" top="30.0" />
                     </VBox.margin>
                 </HBox>
-                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                    <children>
-                        <Button fx:id="dashSignOut" mnemonicParsing="false" onAction="#signOut" prefHeight="83.0" prefWidth="270.0" styleClass="nav-button" stylesheets="@../css/styles.css" text="Sign Out">
-                            <font>
-                                <Font size="25.0" />
-                            </font>
-                            <HBox.margin>
-                                <Insets right="50.0" />
-                            </HBox.margin>
-                        </Button>
-                        <Button fx:id="dashGotoMain" mnemonicParsing="false" onAction="#goToMain" prefHeight="83.0" prefWidth="270.0" styleClass="nav-button" stylesheets="@../css/styles.css" text="Go to Main Menu">
-                            <font>
-                                <Font size="25.0" />
-                            </font>
-                        </Button>
-                    </children>
-                </HBox>
+                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" />
             </children>
         </VBox>
     </top>

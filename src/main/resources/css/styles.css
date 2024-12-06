@@ -175,3 +175,97 @@
     -fx-padding: 15;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 4);
 }
+/* Calendar Styles */
+.calendar-grid {
+    -fx-background-color: white;
+    -fx-padding: 10;
+    -fx-hgap: 5;
+    -fx-vgap: 5;
+}
+
+.weekday-label {
+    -fx-text-fill: #666666;
+    -fx-font-size: 12px;
+    -fx-padding: 5 0;
+    -fx-alignment: center;
+}
+
+.date-label {
+    -fx-padding: 5;
+    -fx-alignment: center;
+    -fx-min-width: 30px;
+    -fx-min-height: 30px;
+    -fx-background-radius: 15px;
+}
+
+.date-label:selected {
+    -fx-background-color: #6750A4;
+    -fx-text-fill: white;
+}
+
+/* Chart Styles */
+.custom-chart {
+    -fx-background-color: white;
+    -fx-padding: 15;
+    -fx-background-radius: 8px;
+}
+
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+.chart-vertical-grid-lines {
+    -fx-stroke: transparent;
+}
+
+.chart-horizontal-grid-lines {
+    -fx-stroke: #eeeeee;
+}
+
+.chart-bar {
+    -fx-bar-fill: #6750A4;
+}
+
+.chart-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+.chart-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #666666;
+}
+
+/* Upcoming Events Styles */
+.upcoming-events-list {
+    -fx-background-color: white;
+    -fx-padding: 10;
+    -fx-spacing: 10;
+}
+
+.event-row {
+    -fx-spacing: 10;
+    -fx-alignment: center-left;
+    -fx-padding: 5;
+}
+/* Navigation Arrows */
+.calendar-nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #6750A4;
+    -fx-font-size: 16px;
+    -fx-padding: 5;
+    -fx-min-width: 30px;
+    -fx-min-height: 30px;
+}
+
+.calendar-nav-button:hover {
+    -fx-background-color: #F0EEF5;
+}
+
+/* Calendar Header */
+.calendar-header {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-padding: 10 5;
+}
