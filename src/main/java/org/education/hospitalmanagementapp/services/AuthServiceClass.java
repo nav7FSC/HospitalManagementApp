@@ -80,4 +80,54 @@ public class AuthServiceClass {
         }
     }
 
+    public boolean validateUser(String username, String email, String password) {
+        boolean isValidUser = false;
+
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+
+            String sql = "SELECT COUNT(*) FROM users WHERE username = ? AND email = ? AND password = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, email);
+            preparedStatement.setString(3, password);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                isValidUser = count > 0;
+            }
+
+            resultSet.close();
+            preparedStatement.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return isValidUser;
+    }
+
+    public boolean usernameExists(String username) {
+        boolean exists = false;
+
+        String query = "SELECT COUNT(*) FROM users WHERE username = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                exists = rs.getInt(1) > 0; // If count > 0, the username exists
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return exists;
+    }
+
 }
