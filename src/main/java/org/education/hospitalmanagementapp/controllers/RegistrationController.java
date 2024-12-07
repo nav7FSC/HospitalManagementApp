@@ -62,6 +62,9 @@ public class RegistrationController {
             e.printStackTrace();
         }
     }
+    void goBackToLogInPage (ActionEvent event){
+        //TODO implement the code to make the user go back to the login page
+    }
 
     private boolean validateInput(String username, String email, String password) {
         if (!USERNAME_PATTERN.matcher(username).matches() && !EMAILPATTERN.matcher(email).matches() && !PASSWORD_PATTERN.matcher(password).matches()) {

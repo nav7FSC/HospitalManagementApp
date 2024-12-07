@@ -123,6 +123,11 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="56.0" prefWidth="403.0" spacing="20.0">
                             <children>
+                        <Button mnemonicParsing="false" onAction="#goBackToLogInPage" prefHeight="40.0" prefWidth="122.0" style="-fx-background-color: #E8DEF8; -fx-background-radius: 20px;" text="Login">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Button>
                                 <Button fx:id="login_Button" mnemonicParsing="false" onAction="#loginUser" prefHeight="40.0" prefWidth="122.0" style="-fx-background-color: #E8DEF8; -fx-background-radius: 20px; -fx-text-fill: black;" text="Create Account">
                                     <font>
                                         <Font name="System Bold" size="13.0" />
