@@ -47,6 +47,7 @@ public class RegistrationController {
             return;
         }
 
+
         asc.insertUser(username, email, password);
 
         alert.successMessage("Successfully created your account!");

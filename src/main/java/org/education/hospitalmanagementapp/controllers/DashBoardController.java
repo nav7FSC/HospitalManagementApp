@@ -209,6 +209,7 @@ public class DashBoardController implements Initializable {
         });
     }
 
+
     // Method to update user profile to be called when we have the user data
     public void updateUserProfile(String userName, String imagePath) {
         userNameLabel.setText(userName);
