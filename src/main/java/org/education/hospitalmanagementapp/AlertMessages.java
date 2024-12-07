@@ -20,4 +20,12 @@ public class AlertMessages {
         alert.setContentText(text);
         alert.showAndWait();
     }
+
+    public void warningMessage(String text){
+        alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Warning");
+        alert.setHeaderText(null);
+        alert.setContentText(text);
+        alert.showAndWait();
+    }
 }

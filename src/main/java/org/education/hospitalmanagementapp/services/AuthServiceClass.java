@@ -130,4 +130,27 @@ public class AuthServiceClass {
         return exists;
     }
 
+    public void updateUser(String email, String newUsername, String newPassword) {
+        String updateQuery = "UPDATE users SET username = ?, password = ? WHERE email = ?";
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(updateQuery)) {
+
+            stmt.setString(1, newUsername);
+            stmt.setString(2, newPassword);
+            stmt.setString(3, email);
+
+            int rowsUpdated = stmt.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                System.out.println("User information updated successfully.");
+            } else {
+                System.out.println("Failed to update user information.");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

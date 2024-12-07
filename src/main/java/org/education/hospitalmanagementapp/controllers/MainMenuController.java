@@ -50,7 +50,7 @@ public class MainMenuController {
     private Button reportBttn;
 
     @FXML
-    void GoToUsrManagement(ActionEvent event) {
+    void GoToUsrManagement(ActionEvent event){
         try{
             Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/UserManagement.fxml"));
             Scene scene = new Scene(root);
@@ -64,7 +64,7 @@ public class MainMenuController {
     }
 
     @FXML
-    void goToDash(ActionEvent event) {
+    void goToDash(ActionEvent event){
         try{
             Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/HospitalDashBoard.fxml"));
             Scene scene = new Scene(root);
@@ -78,7 +78,7 @@ public class MainMenuController {
     }
 
     @FXML
-    void goToApptManagement(ActionEvent event) {
+    void goToApptManagement(ActionEvent event){
         try{
             Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/ScheduleAppointment.fxml"));
             Scene scene = new Scene(root);
@@ -92,7 +92,7 @@ public class MainMenuController {
     }
 
     @FXML
-    void  signOut(ActionEvent event){
+    void signOut(ActionEvent event){
         try{
             Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/LoginView.fxml"));
             Scene scene = new Scene(root);

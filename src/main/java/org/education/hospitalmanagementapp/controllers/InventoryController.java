@@ -87,6 +87,7 @@ public class InventoryController{
     @FXML
     private Button signOutBttn;
 
+
     @FXML
     void goToMain(ActionEvent event) {
 
