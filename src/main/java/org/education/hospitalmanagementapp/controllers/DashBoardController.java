@@ -2,157 +2,227 @@ package org.education.hospitalmanagementapp.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.geometry.Pos;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import javafx.geometry.Insets;
+import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Circle;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class DashBoardController implements Initializable {
-    // Existing FXML injected fields
     @FXML private Button dashSignOut;
     @FXML private Button dashGotoMain;
-
-    // New FXML injected containers
     @FXML private VBox calendarContainer;
-    @FXML private VBox upcomingEventsContainer;
-    @FXML private VBox salesChartContainer;
-    @FXML private VBox patientChartContainer;
-    @FXML private VBox staffChartContainer;
-    @FXML private VBox inventoryChartContainer;
+    @FXML private ImageView userProfileImage;
+    @FXML private Label userNameLabel;
+    @FXML private Button signOutBttn;
+    @FXML private Button mainBttn;
+
+    // Chart containers
+    @FXML private BarChart<String, Number> salesChart;
+    @FXML private BarChart<String, Number> patientChart;
+    @FXML private BarChart<String, Number> staffChart;
+    @FXML private BarChart<String, Number> inventoryChart;
+
+    // this is for testing the calendar
+    private final Map<LocalDate, String> sampleAppointments = new HashMap<>();
+
+    private LocalDate currentDate = LocalDate.now();
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        initializeCalendar();
+
+        //testing
+        initializeSampleAppointments();
+
+        createCalendarInContainer();
         initializeCharts();
     }
-    private VBox createUpcomingEventsList() {
-        VBox eventsContainer = new VBox(10); // 10 is the spacing between elements
-        eventsContainer.getStyleClass().add("upcoming-events-list");
-
-        // Add sample events or placeholder
-        for (int i = 0; i < 3; i++) {
-            HBox eventRow = new HBox(10);
-            eventRow.getStyleClass().add("event-row");
-
-            // Add star icon
-            Label starIcon = new Label("★");
-            starIcon.getStyleClass().add("star-icon");
-
-            // Add event details
-            Label eventDetails = new Label("...");
-            eventDetails.getStyleClass().add("event-details");
-
-            eventRow.getChildren().addAll(starIcon, eventDetails);
-            eventsContainer.getChildren().add(eventRow);
-        }
-
-        return eventsContainer;
+    //  to set up test data
+    private void initializeSampleAppointments() {
+        // Adding some sample appointments
+        LocalDate today = LocalDate.now();
+        sampleAppointments.put(today.plusDays(2), "Doctor's Appointment");
+        sampleAppointments.put(today.plusDays(5), "Follow-up Checkup");
+        sampleAppointments.put(today.plusDays(10), "Specialist Consultation");
     }
 
-    private void initializeCalendar() {
-        GridPane calendar = createCalendar();
-        calendarContainer.getChildren().add(calendar);
+    private void createCalendarInContainer() {
+        calendarContainer.getChildren().clear();
+        calendarContainer.setSpacing(20);
+        calendarContainer.setPadding(new Insets(20));
 
-        VBox upcomingEvents = createUpcomingEventsList();
-        upcomingEventsContainer.getChildren().add(upcomingEvents);
-    }
+        // Create header with navigation
+        HBox header = new HBox(40);
+        header.setAlignment(Pos.CENTER);
+        header.setPadding(new Insets(0, 0, 20, 0));
 
-
-    private void initializeCharts() {
-        // Create and add charts to their containers
-        salesChartContainer.getChildren().add(createBarChart("Revenue"));
-        patientChartContainer.getChildren().add(createBarChart("Patients"));
-        staffChartContainer.getChildren().add(createBarChart("Staff"));
-        inventoryChartContainer.getChildren().add(createBarChart("Inventory"));
-    }
-
-    private GridPane createCalendar() {
-        GridPane calendar = new GridPane();
-        calendar.getStyleClass().add("calendar-grid");
-
-        // Add month navigation
-        HBox header = new HBox();
         Button prevMonth = new Button("<");
         Button nextMonth = new Button(">");
         Label monthLabel = new Label("CALENDAR EVENTS");
-        header.getChildren().addAll(monthLabel, prevMonth, nextMonth);
-        calendar.add(header, 0, 0, 7, 1);
+
+        prevMonth.getStyleClass().add("calendar-nav-button");
+        nextMonth.getStyleClass().add("calendar-nav-button");
+        monthLabel.getStyleClass().add("calendar-header");
+
+        header.getChildren().addAll(prevMonth, monthLabel, nextMonth);
+
+        // Create calendar grid
+        GridPane calendarGrid = new GridPane();
+        calendarGrid.getStyleClass().add("calendar-grid");
+        calendarGrid.setHgap(30);
+        calendarGrid.setVgap(30);
+        calendarGrid.setAlignment(Pos.CENTER);
+        calendarGrid.setPadding(new Insets(10));
 
         // Add weekday headers
         String[] days = {"SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"};
         for (int i = 0; i < 7; i++) {
             Label dayLabel = new Label(days[i]);
             dayLabel.getStyleClass().add("weekday-label");
-            calendar.add(dayLabel, i, 1);
+            dayLabel.setMaxWidth(Double.MAX_VALUE);
+            dayLabel.setAlignment(Pos.CENTER);
+            calendarGrid.add(dayLabel, i, 0);
         }
 
+        // Calculate first day of month offset
+        LocalDate firstOfMonth = currentDate.withDayOfMonth(1);
+        int dayOfWeek = firstOfMonth.getDayOfWeek().getValue() % 7;
+        int daysInMonth = currentDate.lengthOfMonth();
+
         // Add calendar days
-        int dayOfMonth = 1;
-        for (int week = 0; week < 6; week++) {
-            for (int day = 0; day < 7; day++) {
-                if (dayOfMonth <= 30) {  // Adjust based on actual month length
-                    Label dateLabel = new Label(String.valueOf(dayOfMonth));
-                    dateLabel.getStyleClass().add("date-label");
-                    calendar.add(dateLabel, day, week + 2);
-                    dayOfMonth++;
-                }
+        int row = 1;
+        int col = dayOfWeek;
+
+        for (int day = 1; day <= daysInMonth; day++) {
+            StackPane dateContainer = new StackPane();
+            Label dateLabel = new Label(String.valueOf(day));
+            dateLabel.getStyleClass().add("date-label");
+            dateLabel.setMaxWidth(Double.MAX_VALUE);
+            dateLabel.setAlignment(Pos.CENTER);
+
+            // Check if date has appointment and add indicator
+            if (hasAppointment(LocalDate.of(currentDate.getYear(),
+                    currentDate.getMonth(), day))) {
+                Circle indicator = new Circle(3);
+                indicator.getStyleClass().add("appointment-indicator");
+                dateContainer.getChildren().addAll(dateLabel, indicator);
+                StackPane.setAlignment(indicator, Pos.BOTTOM_CENTER);
+                StackPane.setMargin(indicator, new Insets(0, 0, 2, 0));
+            } else {
+                dateContainer.getChildren().add(dateLabel);
+            }
+
+            if (day == currentDate.getDayOfMonth()) {
+                dateLabel.getStyleClass().add("selected");
+            }
+
+            dateContainer.setOnMouseEntered(e ->
+                    dateLabel.getStyleClass().add("date-hover"));
+            dateContainer.setOnMouseExited(e ->
+                    dateLabel.getStyleClass().remove("date-hover"));
+
+            calendarGrid.add(dateContainer, col, row);
+
+            col++;
+            if (col > 6) {
+                col = 0;
+                row++;
             }
         }
 
-        return calendar;
+        calendarContainer.getChildren().addAll(header, calendarGrid);
+
+        prevMonth.setOnAction(e -> navigateMonth(-1));
+        nextMonth.setOnAction(e -> navigateMonth(1));
     }
 
-    private BarChart<String, Number> createBarChart(String title) {
-        CategoryAxis xAxis = new CategoryAxis();
-        NumberAxis yAxis = new NumberAxis();
-        BarChart<String, Number> chart = new BarChart<>(xAxis, yAxis);
+    // Using for testing now but change later to interact with the DB
+    private boolean hasAppointment(LocalDate date) {
+        return sampleAppointments.containsKey(date);
+    }
 
-        VBox chartContainer = new VBox(5);
-        Label titleLabel = new Label(title);
-        Label subtitleLabel = new Label("TOTAL " + title.toUpperCase() + " FOR TODAY");
+    private void navigateMonth(int months) {
+        currentDate = currentDate.plusMonths(months);
+        createCalendarInContainer();
+    }
+    private void initializeCharts() {
+        // Initialize all charts
+        setupChart(salesChart, "#6750A4");
+        setupChart(patientChart, "#4B9B9B");
+        setupChart(staffChart, "#FF8C42");
+        setupChart(inventoryChart, "#FF69B4");
+    }
+    private void setupChart(BarChart<String, Number> chart, String color) {
 
-        chart.setTitle("");
-        chart.setLegendVisible(false);
         chart.setAnimated(false);
-        chart.getStyleClass().add("custom-chart");
+        chart.setLegendVisible(false);
+        chart.setVerticalGridLinesVisible(false);
+        chart.setHorizontalGridLinesVisible(true);
 
-        // Add more realistic data points
+        CategoryAxis xAxis = (CategoryAxis) chart.getXAxis();
+        NumberAxis yAxis = (NumberAxis) chart.getYAxis();
+
+        xAxis.setTickLabelGap(10);
+        xAxis.setTickMarkVisible(false);
+        xAxis.setTickLabelsVisible(false);
+
+        yAxis.setTickLabelFill(javafx.scene.paint.Color.valueOf("#666666"));
+        yAxis.setTickMarkVisible(false);
+        yAxis.setMinorTickVisible(false);
+
+        // Adding sample data
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.getData().addAll(
-                new XYChart.Data<>("1", 80),
-                new XYChart.Data<>("2", 120),
-                new XYChart.Data<>("3", 90),
-                new XYChart.Data<>("4", 110),
-                new XYChart.Data<>("5", 140),
-                new XYChart.Data<>("6", 100)
+                new XYChart.Data<>("1", 100),
+                new XYChart.Data<>("2", 150),
+                new XYChart.Data<>("3", 80),
+                new XYChart.Data<>("4", 200),
+                new XYChart.Data<>("5", 120),
+                new XYChart.Data<>("6", 170)
         );
 
         chart.getData().add(series);
-        return chart;
+
+        // Styling the bars
+        series.getData().forEach(data -> {
+            data.getNode().setStyle(
+                    "-fx-bar-fill: " + color + ";"
+            );
+        });
     }
 
-    // Your existing methods
+    // Method to update user profile to be called when we have the user data
+    public void updateUserProfile(String userName, String imagePath) {
+        userNameLabel.setText(userName);
+        if (imagePath != null && !imagePath.isEmpty()) {
+            userProfileImage.setImage(new javafx.scene.image.Image(imagePath));
+        }
+    }
+
     @FXML
     private void signOut(ActionEvent event) {
-        // Existing code
+        // Implement sign out logic
     }
 
     @FXML
     private void goToMain(ActionEvent event) {
-        // Existing code
+        // Implement main menu navigation
     }
 }

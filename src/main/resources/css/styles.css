@@ -203,11 +203,100 @@
     -fx-text-fill: white;
 }
 
-/* Chart Styles */
+.calendar-grid {
+    -fx-background-color: transparent;
+    -fx-alignment: center;
+    -fx-min-width: 400px;
+    -fx-pref-width: 424px; /* Container width - padding */
+}
+
+.date-label {
+    -fx-padding: 8 8;
+    -fx-min-width: 40px;
+    -fx-min-height: 40px;
+    -fx-pref-width: 40px;
+    -fx-pref-height: 40px;
+    -fx-alignment: center;
+    -fx-background-radius: 20;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+}
+
+.date-label:selected {
+    -fx-background-color: #6750A4;
+    -fx-text-fill: white;
+}
+
+.date-hover {
+    -fx-background-color: #F0EEF5;
+}
+
+.appointment-indicator {
+    -fx-fill: #6750A4;
+    -fx-translate-y: 8;
+}
+
+.weekday-label {
+    -fx-text-fill: #666666;
+    -fx-font-size: 14px;
+    -fx-padding: 5 0;
+    -fx-min-width: 40px;
+    -fx-alignment: center;
+}
+
+.calendar-nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #6750A4;
+    -fx-font-size: 18px;
+    -fx-min-width: 30px;
+    -fx-min-height: 30px;
+    -fx-cursor: hand;
+}
+
+.calendar-nav-button:hover {
+    -fx-background-color: #F0EEF5;
+    -fx-background-radius: 15;
+}
+
+.calendar-header {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+.sales-card {
+    -fx-border-color: #6750A4;
+    -fx-border-width: 0 0 3 0;
+}
+
+.patient-card {
+    -fx-border-color: #4B9B9B;
+    -fx-border-width: 0 0 3 0;
+}
+
+.staff-card {
+    -fx-border-color: #FF8C42;
+    -fx-border-width: 0 0 3 0;
+}
+
+.inventory-card {
+    -fx-border-color: #FF69B4;
+    -fx-border-width: 0 0 3 0;
+}
+
+.chart-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.chart-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #666666;
+}
+
 .custom-chart {
-    -fx-background-color: white;
-    -fx-padding: 15;
-    -fx-background-radius: 8px;
+    -fx-background-color: transparent;
+    -fx-padding: 10;
 }
 
 .chart-plot-background {
@@ -222,50 +311,14 @@
     -fx-stroke: #eeeeee;
 }
 
-.chart-bar {
+.default-color0.chart-bar {
     -fx-bar-fill: #6750A4;
 }
 
-.chart-title {
-    -fx-font-size: 16px;
+.user-name-label {
+    -fx-font-size: 18px;
     -fx-font-weight: bold;
     -fx-text-fill: #333333;
-}
-.chart-subtitle {
-    -fx-font-size: 12px;
-    -fx-text-fill: #666666;
-}
-
-/* Upcoming Events Styles */
-.upcoming-events-list {
-    -fx-background-color: white;
-    -fx-padding: 10;
-    -fx-spacing: 10;
-}
-
-.event-row {
-    -fx-spacing: 10;
-    -fx-alignment: center-left;
-    -fx-padding: 5;
-}
-/* Navigation Arrows */
-.calendar-nav-button {
-    -fx-background-color: transparent;
-    -fx-text-fill: #6750A4;
-    -fx-font-size: 16px;
-    -fx-padding: 5;
-    -fx-min-width: 30px;
-    -fx-min-height: 30px;
-}
-
-.calendar-nav-button:hover {
-    -fx-background-color: #F0EEF5;
-}
-
-/* Calendar Header */
-.calendar-header {
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #333333;
-    -fx-padding: 10 5;
+    -fx-padding: 10 0 0 0;
+    -fx-alignment: center;
 }
