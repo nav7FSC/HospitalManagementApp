@@ -63,8 +63,18 @@ public class RegistrationController {
             e.printStackTrace();
         }
     }
-    void goBackToLogInPage (ActionEvent event){
-        //TODO implement the code to make the user go back to the login page
+    @FXML
+    private void goBackToLogInPage(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/LoginView.fxml"));
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private boolean validateInput(String username, String email, String password) {

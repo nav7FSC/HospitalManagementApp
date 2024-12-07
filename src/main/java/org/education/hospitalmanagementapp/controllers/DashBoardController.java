@@ -2,14 +2,19 @@ package org.education.hospitalmanagementapp.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -17,6 +22,7 @@ import javafx.scene.layout.VBox;
 import javafx.geometry.Insets;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -25,40 +31,39 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 public class DashBoardController implements Initializable {
-    @FXML private Button dashSignOut;
-    @FXML private Button dashGotoMain;
-    @FXML private VBox calendarContainer;
-    @FXML private ImageView userProfileImage;
-    @FXML private Label userNameLabel;
-    @FXML private Button signOutBttn;
-    @FXML private Button mainBttn;
+    @FXML
+    private Button dashSignOut;
+    @FXML
+    private Button dashGotoMain;
+    @FXML
+    private VBox calendarContainer;
+    @FXML
+    private ImageView userProfileImage;
+    @FXML
+    private Label userNameLabel;
 
     // Chart containers
-    @FXML private BarChart<String, Number> salesChart;
-    @FXML private BarChart<String, Number> patientChart;
-    @FXML private BarChart<String, Number> staffChart;
-    @FXML private BarChart<String, Number> inventoryChart;
+    @FXML
+    private BarChart<String, Number> salesChart;
+    @FXML
+    private BarChart<String, Number> patientChart;
+    @FXML
+    private BarChart<String, Number> staffChart;
+    @FXML
+    private BarChart<String, Number> inventoryChart;
 
-    // this is for testing the calendar
     private final Map<LocalDate, String> sampleAppointments = new HashMap<>();
-
     private LocalDate currentDate = LocalDate.now();
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        //testing
         initializeSampleAppointments();
-
         createCalendarInContainer();
         initializeCharts();
     }
-    //  to set up test data
+
     private void initializeSampleAppointments() {
-        // Adding some sample appointments
         LocalDate today = LocalDate.now();
-        //add toolkit later on to show when hovering over appointment dates
         sampleAppointments.put(today.plusDays(2), "Doctor's Appointment");
         sampleAppointments.put(today.plusDays(5), "Follow-up Checkup");
         sampleAppointments.put(today.plusDays(10), "Specialist Consultation");
@@ -76,7 +81,10 @@ public class DashBoardController implements Initializable {
 
         Button prevMonth = new Button("<");
         Button nextMonth = new Button(">");
-        Label monthLabel = new Label("CALENDAR EVENTS");
+
+        // Updated the label to show current month and year
+        String monthYearText = currentDate.getMonth().toString() + " " + currentDate.getYear();
+        Label monthLabel = new Label(monthYearText);
 
         prevMonth.getStyleClass().add("calendar-nav-button");
         nextMonth.getStyleClass().add("calendar-nav-button");
@@ -84,7 +92,6 @@ public class DashBoardController implements Initializable {
 
         header.getChildren().addAll(prevMonth, monthLabel, nextMonth);
 
-        // Create calendar grid
         GridPane calendarGrid = new GridPane();
         calendarGrid.getStyleClass().add("calendar-grid");
         calendarGrid.setHgap(30);
@@ -92,7 +99,6 @@ public class DashBoardController implements Initializable {
         calendarGrid.setAlignment(Pos.CENTER);
         calendarGrid.setPadding(new Insets(10));
 
-        // Add weekday headers
         String[] days = {"SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"};
         for (int i = 0; i < 7; i++) {
             Label dayLabel = new Label(days[i]);
@@ -102,15 +108,15 @@ public class DashBoardController implements Initializable {
             calendarGrid.add(dayLabel, i, 0);
         }
 
-        // Calculate first day of month offset
+        // Calculating first day of month offset
         LocalDate firstOfMonth = currentDate.withDayOfMonth(1);
         int dayOfWeek = firstOfMonth.getDayOfWeek().getValue() % 7;
         int daysInMonth = currentDate.lengthOfMonth();
 
-        // Add calendar days
         int row = 1;
         int col = dayOfWeek;
 
+        // Adding the calendar days
         for (int day = 1; day <= daysInMonth; day++) {
             StackPane dateContainer = new StackPane();
             Label dateLabel = new Label(String.valueOf(day));
@@ -118,11 +124,17 @@ public class DashBoardController implements Initializable {
             dateLabel.setMaxWidth(Double.MAX_VALUE);
             dateLabel.setAlignment(Pos.CENTER);
 
-            // Check if date has appointment and add indicator
-            if (hasAppointment(LocalDate.of(currentDate.getYear(),
-                    currentDate.getMonth(), day))) {
+            LocalDate currentDateInLoop = LocalDate.of(currentDate.getYear(),
+                    currentDate.getMonth(), day);
+
+            if (hasAppointment(currentDateInLoop)) {
                 Circle indicator = new Circle(3);
                 indicator.getStyleClass().add("appointment-indicator");
+
+                Tooltip tooltip = new Tooltip(sampleAppointments.get(currentDateInLoop));
+                tooltip.getStyleClass().add("appointment-tooltip");
+                Tooltip.install(dateContainer, tooltip);
+
                 dateContainer.getChildren().addAll(dateLabel, indicator);
                 StackPane.setAlignment(indicator, Pos.BOTTOM_CENTER);
                 StackPane.setMargin(indicator, new Insets(0, 0, 2, 0));
@@ -154,7 +166,31 @@ public class DashBoardController implements Initializable {
         nextMonth.setOnAction(e -> navigateMonth(1));
     }
 
-    // Using for testing now but change later to interact with the DB
+    private void createDateLabel(int day, StackPane dateContainer) {
+        Label dateLabel = new Label(String.valueOf(day));
+        dateLabel.getStyleClass().add("date-label");
+        dateLabel.setMaxWidth(Double.MAX_VALUE);
+        dateLabel.setAlignment(Pos.CENTER);
+
+        LocalDate currentDateInLoop = LocalDate.of(currentDate.getYear(),
+                currentDate.getMonth(), day);
+
+        if (hasAppointment(currentDateInLoop)) {
+            Circle indicator = new Circle(3);
+            indicator.getStyleClass().add("appointment-indicator");
+
+            Tooltip tooltip = new Tooltip(sampleAppointments.get(currentDateInLoop));
+            tooltip.getStyleClass().add("appointment-tooltip");
+            Tooltip.install(dateContainer, tooltip);
+
+            dateContainer.getChildren().addAll(dateLabel, indicator);
+            StackPane.setAlignment(indicator, Pos.BOTTOM_CENTER);
+            StackPane.setMargin(indicator, new Insets(0, 0, 2, 0));
+        } else {
+            dateContainer.getChildren().add(dateLabel);
+        }
+    }
+
     private boolean hasAppointment(LocalDate date) {
         return sampleAppointments.containsKey(date);
     }
@@ -163,15 +199,15 @@ public class DashBoardController implements Initializable {
         currentDate = currentDate.plusMonths(months);
         createCalendarInContainer();
     }
+
     private void initializeCharts() {
-        // Initialize all charts
         setupChart(salesChart, "#6750A4");
         setupChart(patientChart, "#4B9B9B");
         setupChart(staffChart, "#FF8C42");
         setupChart(inventoryChart, "#FF69B4");
     }
-    private void setupChart(BarChart<String, Number> chart, String color) {
 
+    private void setupChart(BarChart<String, Number> chart, String color) {
         chart.setAnimated(false);
         chart.setLegendVisible(false);
         chart.setVerticalGridLinesVisible(false);
@@ -188,7 +224,6 @@ public class DashBoardController implements Initializable {
         yAxis.setTickMarkVisible(false);
         yAxis.setMinorTickVisible(false);
 
-        // Adding sample data
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.getData().addAll(
                 new XYChart.Data<>("1", 100),
@@ -201,16 +236,11 @@ public class DashBoardController implements Initializable {
 
         chart.getData().add(series);
 
-        // Styling the bars
         series.getData().forEach(data -> {
-            data.getNode().setStyle(
-                    "-fx-bar-fill: " + color + ";"
-            );
+            data.getNode().setStyle("-fx-bar-fill: " + color + ";");
         });
     }
 
-
-    // Method to update user profile to be called when we have the user data
     public void updateUserProfile(String userName, String imagePath) {
         userNameLabel.setText(userName);
         if (imagePath != null && !imagePath.isEmpty()) {
@@ -220,11 +250,26 @@ public class DashBoardController implements Initializable {
 
     @FXML
     private void signOut(ActionEvent event) {
-        // Implement sign out logic
+        try {
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     private void goToMain(ActionEvent event) {
-        // Implement main menu navigation
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
