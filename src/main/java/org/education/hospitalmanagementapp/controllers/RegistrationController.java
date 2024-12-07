@@ -47,6 +47,7 @@ public class RegistrationController {
             return;
         }
 
+
         asc.insertUser(username, email, password);
 
         alert.successMessage("Successfully created your account!");
@@ -61,6 +62,9 @@ public class RegistrationController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    void goBackToLogInPage (ActionEvent event){
+        //TODO implement the code to make the user go back to the login page
     }
 
     private boolean validateInput(String username, String email, String password) {

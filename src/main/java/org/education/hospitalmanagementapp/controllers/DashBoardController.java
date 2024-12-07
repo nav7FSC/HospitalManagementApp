@@ -58,6 +58,7 @@ public class DashBoardController implements Initializable {
     private void initializeSampleAppointments() {
         // Adding some sample appointments
         LocalDate today = LocalDate.now();
+        //add toolkit later on to show when hovering over appointment dates
         sampleAppointments.put(today.plusDays(2), "Doctor's Appointment");
         sampleAppointments.put(today.plusDays(5), "Follow-up Checkup");
         sampleAppointments.put(today.plusDays(10), "Specialist Consultation");
@@ -207,6 +208,7 @@ public class DashBoardController implements Initializable {
             );
         });
     }
+
 
     // Method to update user profile to be called when we have the user data
     public void updateUserProfile(String userName, String imagePath) {

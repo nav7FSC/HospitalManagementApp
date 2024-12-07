@@ -93,6 +93,7 @@ public class App extends Application {
                     primaryStage.toFront();
                 });
 
+
                 fadeOut.play();
             } catch (Exception e) {
                 e.printStackTrace();
