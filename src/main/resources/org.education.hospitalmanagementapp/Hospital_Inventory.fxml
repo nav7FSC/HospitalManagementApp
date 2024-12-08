@@ -14,7 +14,7 @@
                <children>
                   <Label style="-fx-text-fill: white;" text="Hospital Inventory">
                      <font>
-                        <Font name="Avenir Black Oblique" size="62.0" />
+                        <Font name="Inter Semi Bold Italic" size="62.0" />
                      </font>
                      <HBox.margin>
                         <Insets right="250.0" />
@@ -64,7 +64,7 @@
                      <children>
                         <Label text="VACCINES">
                            <font>
-                              <Font name="System Bold" size="26.0" />
+                              <Font name="Inter Semi Bold" size="26.0" />
                            </font>
                         </Label>
                         <StackPane prefHeight="90.0" prefWidth="378.0">
@@ -216,7 +216,7 @@
                      <children>
                         <Label text="DRUGS">
                            <font>
-                              <Font name="System Bold" size="26.0" />
+                              <Font name="Inter Semi Bold" size="26.0" />
                            </font>
                         </Label>
                         <StackPane prefHeight="90.0" prefWidth="378.0">
@@ -368,7 +368,7 @@
                      <children>
                         <Label text="HOSPITAL TECH">
                            <font>
-                              <Font name="System Bold" size="26.0" />
+                              <Font name="Inter Semi Bold" size="26.0" />
                            </font>
                         </Label>
                         <StackPane prefHeight="90.0" prefWidth="378.0">
@@ -520,7 +520,7 @@
                      <children>
                         <Label text="Hospital Equipement">
                            <font>
-                              <Font name="System Bold" size="26.0" />
+                              <Font name="Inter Semi Bold" size="26.0" />
                            </font>
                         </Label>
                         <StackPane prefHeight="90.0" prefWidth="378.0">

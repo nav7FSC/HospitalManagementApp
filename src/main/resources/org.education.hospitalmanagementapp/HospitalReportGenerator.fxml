@@ -21,7 +21,7 @@
                <children>
                   <Label style="-fx-text-fill: white;" text="HOSPITAL REPORT GENERATOR">
                      <font>
-                        <Font name="Calibri Bold Italic" size="55.0" />
+                        <Font name="Inter Semi Bold Italic" size="55.0" />
                      </font>
                      <HBox.margin>
                         <Insets right="40.0" />
@@ -67,7 +67,7 @@
             </HBox>
             <Label style="-fx-text-fill: white;" text="GENERATE PATIENT RECORD REPORT:">
                <font>
-                  <Font name="Calibri Bold Italic" size="36.0" />
+                  <Font name="Inter Semi Bold Italic" size="36.0" />
                </font>
                <VBox.margin>
                   <Insets left="300.0" top="35.0" />
@@ -88,7 +88,7 @@
             </HBox>
             <Label style="-fx-text-fill: white;" text="GENERATE STAFF RECORD REPORT:">
                <font>
-                  <Font name="Calibri Bold Italic" size="36.0" />
+                  <Font name="Inter Semi Bold Italic" size="36.0" />
                </font>
                <VBox.margin>
                   <Insets left="300.0" top="15.0" />
@@ -106,7 +106,7 @@
             </HBox>
             <Label style="-fx-text-fill: white;" text="GENERATE BILLING REPORT:">
                <font>
-                  <Font name="Calibri Bold Italic" size="36.0" />
+                  <Font name="Inter Semi Bold Italic" size="36.0" />
                </font>
                <VBox.margin>
                   <Insets left="350.0" top="15.0" />
@@ -129,12 +129,12 @@
                <children>
                   <Button mnemonicParsing="false" onAction="#signOut" prefHeight="83.0" prefWidth="270.0" styleClass="nav-button" stylesheets="@../css/styles.css" text="Sign Out">
                      <font>
-                        <Font size="18.0" />
+                        <Font name="Inter Semi Bold" size="18.0" />
                      </font>
                   </Button>
                   <Button mnemonicParsing="false" onAction="#goToMain" prefHeight="83.0" prefWidth="270.0" styleClass="nav-button" stylesheets="@../css/styles.css" text="Go To Main Menu">
                      <font>
-                        <Font size="18.0" />
+                        <Font name="Inter Semi Bold" size="18.0" />
                      </font>
                      <HBox.margin>
                         <Insets left="40.0" />

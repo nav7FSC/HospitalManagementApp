@@ -21,7 +21,7 @@
                <children>
                   <Label style="-fx-text-fill: white;" text="HOSPITAL PATIENT MANAGEMENT">
                      <font>
-                        <Font name="Calibri Bold Italic" size="50.0" />
+                        <Font name="Inter Semi Bold Italic" size="50.0" />
                      </font>
                      <HBox.margin>
                         <Insets right="50.0" />
@@ -67,7 +67,7 @@
             </HBox>
             <Label style="-fx-text-fill: white;" text="ENTER PATIENT INFORMATION:">
                <font>
-                  <Font name="Calibri Bold Italic" size="37.0" />
+                  <Font name="Inter Semi Bold Italic" size="37.0" />
                </font>
                <VBox.margin>
                   <Insets left="340.0" top="40.0" />
@@ -125,7 +125,7 @@
             </HBox>
             <Button fx:id="confirmPatienBttn" mnemonicParsing="false" onAction="#confirm" prefHeight="68.0" prefWidth="199.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="Confrim Patient Info">
                <font>
-                  <Font size="15.0" />
+                  <Font name="Inter Semi Bold" size="15.0" />
                </font>
                <VBox.margin>
                   <Insets left="480.0" top="20.0" />
@@ -133,7 +133,7 @@
             </Button>
             <Label style="-fx-text-fill: white;" text="EDIT PATIENT INFORMATION:">
                <font>
-                  <Font name="Calibri Bold Italic" size="37.0" />
+                  <Font name="Inter Semi Bold Italic" size="37.0" />
                </font>
                <VBox.margin>
                   <Insets />
@@ -197,7 +197,7 @@
             </HBox>
             <Button fx:id="changePatientBttn" mnemonicParsing="false" onAction="#changePatient" prefHeight="68.0" prefWidth="199.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="Change Patient Info">
                <font>
-                  <Font size="15.0" />
+                  <Font name="Inter Semi Bold" size="15.0" />
                </font>
                <VBox.margin>
                   <Insets left="480.0" top="20.0" />
@@ -207,7 +207,7 @@
                <children>
                   <Button mnemonicParsing="false" onAction="#signOut" prefHeight="83.0" prefWidth="270.0" styleClass="nav-button" stylesheets="@../css/styles.css" text="Sign Out">
                      <font>
-                        <Font size="15.0" />
+                        <Font name="Inter Semi Bold" size="15.0" />
                      </font>
                   </Button>
                   <Button mnemonicParsing="false" onAction="#goToMain" prefHeight="83.0" prefWidth="270.0" styleClass="nav-button" stylesheets="@../css/styles.css" text="Go To Main Menu">
@@ -215,7 +215,7 @@
                         <Insets left="40.0" />
                      </HBox.margin>
                      <font>
-                        <Font size="15.0" />
+                        <Font name="Inter Semi Bold" size="15.0" />
                      </font>
                   </Button>
                </children>
