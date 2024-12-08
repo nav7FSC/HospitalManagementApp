@@ -2,10 +2,15 @@ package org.education.hospitalmanagementapp.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 public class PatientManagerController {
 
@@ -46,9 +51,6 @@ public class PatientManagerController {
     private TextField lastNameField;
 
     @FXML
-    private Button mainMenuBttn;
-
-    @FXML
     private ImageView menu;
 
     @FXML
@@ -67,9 +69,6 @@ public class PatientManagerController {
     private ImageView profile_Image;
 
     @FXML
-    private Button signOutBttn;
-
-    @FXML
     void changePatient(ActionEvent event) {
 
     }
@@ -80,13 +79,31 @@ public class PatientManagerController {
     }
 
     @FXML
-    void gotoMain(ActionEvent event) {
-
+    void goToMain(ActionEvent event){
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
-    void signOutAction(ActionEvent event) {
-
+    void signOut(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/LoginView.fxml"));
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
