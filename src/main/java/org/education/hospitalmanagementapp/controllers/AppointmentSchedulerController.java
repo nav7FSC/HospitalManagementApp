@@ -74,4 +74,9 @@ public class AppointmentSchedulerController {
     @FXML
     private Label time_Ok;
 
+    @FXML
+    void goToMain(ActionEvent event) {
+
+    }
+
 }
