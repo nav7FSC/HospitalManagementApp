@@ -79,6 +79,9 @@
                             <font>
                                 <Font name="Inter Semi Bold" size="19.0" />
                             </font>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
                         </Label>
                         <TextField fx:id="FirstNameField" alignment="TOP_LEFT" prefHeight="70.0" prefWidth="399.0" promptText="First Name" styleClass="text-fields" stylesheets="@../css/styles.css">
                             <font>
