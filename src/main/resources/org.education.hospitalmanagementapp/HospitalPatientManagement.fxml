@@ -21,7 +21,7 @@
                <children>
                   <Label style="-fx-text-fill: white;" text="HOSPITAL PATIENT MANAGEMENT">
                      <font>
-                        <Font name="Calibri Bold Italic" size="50.0" />
+                        <Font name="Inter Semi Bold Italic" size="50.0" />
                      </font>
                      <HBox.margin>
                         <Insets right="50.0" />

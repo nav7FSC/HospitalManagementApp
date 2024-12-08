@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ProgressIndicator?>
-<?import javafx.scene.effect.Blend?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="982.0" prefWidth="1512.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.education.hospitalmanagementapp.controllers.SplashController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="982.0" prefWidth="1512.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.education.hospitalmanagementapp.controllers.SplashController">
     <left>
         <ImageView fitHeight="982.0" fitWidth="979.0" pickOnBounds="true" BorderPane.alignment="CENTER">
             <image>
@@ -25,7 +21,7 @@
                 <ImageView fx:id="logoImage" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                 <Label style="-fx-text-fill: white;" text="Welcome to the Hospital App" textAlignment="CENTER" wrapText="true">
                     <font>
-                        <Font name="Avenir Light" size="45.0" />
+                        <Font name="Inter Semi Bold Italic" size="45.0" />
                     </font>
                     <padding>
                         <Insets bottom="40.0" top="40.0" />

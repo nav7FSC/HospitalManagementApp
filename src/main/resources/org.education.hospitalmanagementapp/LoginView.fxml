@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="982.0" prefWidth="1512.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.education.hospitalmanagementapp.controllers.LoginViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="982.0" prefWidth="1512.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.education.hospitalmanagementapp.controllers.LoginViewController">
     <left>
         <ImageView fitHeight="982.0" fitWidth="957.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
             <image>
@@ -27,7 +21,7 @@
                     <children>
                         <Label style="-fx-text-fill: white;" text="HOSPITAL APP LOGIN">
                             <font>
-                                <Font name="Avenir Light Oblique" size="29.0" />
+                                <Font name="Inter Semi Bold Italic" size="33.0" />
                             </font>
                             <opaqueInsets>
                                 <Insets />
@@ -83,7 +77,7 @@
                     <children>
                         <Label prefHeight="25.0" prefWidth="342.0" style="-fx-text-fill: white;" text="LOGIN WITH YOUR CREDENTIALS">
                             <font>
-                                <Font name="Avenir Light Oblique" size="17.0" />
+                                <Font name="Inter Semi Bold" size="20.0" />
                             </font>
                         </Label>
                         <TextField fx:id="userField" alignment="TOP_LEFT" maxHeight="70.0" maxWidth="399.0" prefHeight="70.0" prefWidth="399.0" promptText="Username" styleClass="text-fields" stylesheets="@../css/styles.css">
@@ -102,11 +96,11 @@
                             <children>
                                 <Button fx:id="login_Button" mnemonicParsing="false" onAction="#loginUser" prefHeight="40.0" prefWidth="84.0" style="-fx-background-color: #E8DEF8; -fx-background-radius: 20px; -fx-text-fill: black;" text="Login">
                                     <font>
-                                        <Font name="System Bold" size="13.0" />
+                                        <Font name="Inter Semi Bold" size="13.0" />
                                     </font></Button>
                                 <Button fx:id="regiter_Button" mnemonicParsing="false" onAction="#registerUser" prefHeight="40.0" prefWidth="227.0" style="-fx-background-color: #E8DEF8; -fx-background-radius: 20px; -fx-text-fill: black;" text="Register with a new account">
                                     <font>
-                                        <Font name="System Bold" size="13.0" />
+                                        <Font name="Inter Semi Bold" size="13.0" />
                                     </font></Button>
                             </children>
                         </HBox>

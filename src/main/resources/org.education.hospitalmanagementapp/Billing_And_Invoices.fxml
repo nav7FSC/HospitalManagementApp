@@ -20,7 +20,7 @@
                <children>
                   <Label style="-fx-text-fill: white;" text="Hospital Billing/Invoices">
                      <font>
-                        <Font name="Calibri Bold Italic" size="66.0" />
+                        <Font name="Inter Semi Bold Italic" size="66.0" />
                      </font>
                      <HBox.margin>
                         <Insets right="70.0" />

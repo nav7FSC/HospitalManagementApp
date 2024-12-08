@@ -21,7 +21,7 @@
                <children>
                   <Label style="-fx-text-fill: white;" text="HOSPITAL REPORT GENERATOR">
                      <font>
-                        <Font name="Calibri Bold Italic" size="55.0" />
+                        <Font name="Inter Semi Bold Italic" size="55.0" />
                      </font>
                      <HBox.margin>
                         <Insets right="40.0" />

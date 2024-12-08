@@ -21,7 +21,7 @@
                     <children>
                         <Label style="-fx-text-fill: white;" text="Hospital Main Menu">
                             <font>
-                                <Font name="Avenir Black Oblique" size="56.0" />
+                                <Font name="Inter Semi Bold Italic" size="56.0" />
                             </font>
                             <HBox.margin>
                                 <Insets right="40.0" />
@@ -123,14 +123,14 @@
                     <children>
                         <Button mnemonicParsing="false" onAction="#signOut" prefHeight="83.0" prefWidth="270.0" styleClass="nav-button" stylesheets="@../css/styles.css" text="Sign Out">
                             <font>
-                                <Font size="15.0" />
+                                <Font name="Inter Semi Bold" size="15.0" />
                             </font>
                             <HBox.margin>
                                 <Insets right="40.0" />
                             </HBox.margin></Button>
                         <Button mnemonicParsing="false" onAction="#goToDash" prefHeight="83.0" prefWidth="270.0" styleClass="nav-button" stylesheets="@../css/styles.css" text="Go to DashBoard ">
                             <font>
-                                <Font size="15.0" />
+                                <Font name="Inter Semi Bold" size="15.0" />
                             </font></Button>
                     </children>
                 </HBox>

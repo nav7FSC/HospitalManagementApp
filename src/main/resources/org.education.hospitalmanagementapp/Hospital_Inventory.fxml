@@ -14,7 +14,7 @@
                <children>
                   <Label style="-fx-text-fill: white;" text="Hospital Inventory">
                      <font>
-                        <Font name="Avenir Black Oblique" size="62.0" />
+                        <Font name="Inter Semi Bold Italic" size="62.0" />
                      </font>
                      <HBox.margin>
                         <Insets right="250.0" />
