@@ -17,6 +17,7 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import org.education.hospitalmanagementapp.AlertMessages;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -47,7 +48,7 @@ public class AppointmentSchedulerController {
     private TextField doctorLastName;
 
     @FXML
-    private TextField doctor_ID;
+    private TextField appointmentType;
 
     @FXML
     private TextField hourField;
@@ -73,6 +74,7 @@ public class AppointmentSchedulerController {
     @FXML
     private ImageView profile_Image;
 
+    private AlertMessages alertMessages = new AlertMessages();
 
     final String MYSQL_SERVER_URL = "jdbc:mysql://hospitalmanagement.mysql.database.azure.com/";
     final String DB_URL = "jdbc:mysql://hospitalmanagement.mysql.database.azure.com/hospital-management";
@@ -87,14 +89,14 @@ public class AppointmentSchedulerController {
         addNameFieldValidation(patientLastName);
         addNameFieldValidation(doctorFirstName);
         addNameFieldValidation(doctorLastName);
-        addIDFieldValidation(doctor_ID);
+        addNameFieldValidation(appointmentType);
     }
 
     // Method to reset the date picker when dateCancel is clicked
     @FXML
     void resetDatePicker(MouseEvent event) {
-        datePicker.setValue(null); // Reset the date picker to no selection
-        System.out.println("Date picker reset.");
+        datePicker.setValue(null);
+        alertMessages.successMessage("Date picker reset.");
     }
 
     @FXML
@@ -104,13 +106,13 @@ public class AppointmentSchedulerController {
 
         if (selectedDate != null) {
             if (selectedDate.isBefore(currentDate)) {
-                System.out.println("Error: Cannot select a past date. Please choose a future date.");
-                datePicker.setValue(null); // Reset the date picker
+                alertMessages.warningMessage("Cannot select a past date. Please choose a future date.");
+                datePicker.setValue(null);
             } else {
-                System.out.println("Selected Date: " + selectedDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+                alertMessages.successMessage("Selected Date: " + selectedDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
             }
         } else {
-            System.out.println("No date selected.");
+            alertMessages.warningMessage("No date selected.");
         }
     }
 
@@ -129,13 +131,6 @@ public class AppointmentSchedulerController {
         });
     }
 
-    private void addIDFieldValidation(TextField field) {
-        field.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d{0,6}")) {
-                field.setText(oldValue);
-            }
-        });
-    }
 
     @FXML
     void toggleAMPM(ActionEvent event) {
@@ -148,9 +143,9 @@ public class AppointmentSchedulerController {
 
     @FXML
     void resetTimeFields(MouseEvent event) {
-        hourField.clear(); // Clear hour field
-        minuteField.clear(); // Clear minute field
-        System.out.println("Time fields reset.");
+        hourField.clear();
+        minuteField.clear();
+        alertMessages.successMessage("Time fields reset.");
     }
 
     @FXML
@@ -160,15 +155,15 @@ public class AppointmentSchedulerController {
         String amPm = amtoggle.isSelected() ? "AM" : "PM";
 
         if (!hour.isEmpty() && !minute.isEmpty()) {
-            System.out.println("Saved Time: " + hour + ":" + minute + " " + amPm);
+            alertMessages.successMessage("Saved Time: " + hour + ":" + minute + " " + amPm);
         } else {
-            System.out.println("Hour or Minute field is empty.");
+            alertMessages.warningMessage("Hour or Minute field is empty.");
         }
     }
 
 
-    private void insertAppointment(int patientID, String patientFirstName, String patientLastName, String doctorId, String doctorFirstName, String doctorLastName, String appointmentDate, String appointmentTime) {
-        String sql = "INSERT INTO appointments (PatientID, patient_first_name, patient_last_name, doctor_id, doctor_first_name, doctor_last_name, appointment_date, appointment_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    private void insertAppointment(int patientID, String patientFirstName, String patientLastName, String appointmentType, String doctorFirstName, String doctorLastName, String appointmentDate, String appointmentTime) {
+        String sql = "INSERT INTO appointments (PatientID, patient_first_name, patient_last_name, appointment_type, doctor_first_name, doctor_last_name, appointment_date, appointment_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -176,37 +171,37 @@ public class AppointmentSchedulerController {
             pstmt.setInt(1, patientID);
             pstmt.setString(2, patientFirstName);
             pstmt.setString(3, patientLastName);
-            pstmt.setString(4, doctorId);
+            pstmt.setString(4, appointmentType);
             pstmt.setString(5, doctorFirstName);
             pstmt.setString(6, doctorLastName);
             pstmt.setString(7, appointmentDate);
             pstmt.setString(8, appointmentTime);
 
             int affectedRows = pstmt.executeUpdate();
+
             if (affectedRows > 0) {
-                System.out.println("Appointment scheduled successfully.");
+                alertMessages.successMessage("Appointment scheduled successfully.");
             } else {
-                System.out.println("Failed to schedule appointment.");
+                alertMessages.errorMessage("Failed to schedule appointment.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     @FXML
     void confirmAppoitnment(ActionEvent event) {
         String patientFirstName = this.patientFirstName.getText();
         String patientLastName = this.patientLastName.getText();
-        String doctorId = this.doctor_ID.getText();
+        String appointmentType = this.appointmentType.getText();
         String doctorFirstName = this.doctorFirstName.getText();
         String doctorLastName = this.doctorLastName.getText();
 
         LocalDate date = datePicker.getValue();
         LocalDate currentDate = LocalDate.now();
 
-        if (date == null || date.isBefore(currentDate)) {
-            System.out.println("Please select a valid future date.");
+        if (date == null || date.isBefore(LocalDate.now())) {
+            alertMessages.warningMessage("Please select a valid future date.");
             return;
         }
 
@@ -217,7 +212,7 @@ public class AppointmentSchedulerController {
         String amPm = amtoggle.isSelected() ? "AM" : "PM";
 
         if (hour.isEmpty() || minute.isEmpty()) {
-            System.out.println("Please enter both hour and minute.");
+            alertMessages.warningMessage("Please enter both hour and minute.");
             return;
         }
 
@@ -225,7 +220,7 @@ public class AppointmentSchedulerController {
         int minuteInt = Integer.parseInt(minute);
 
         if (hourInt < 1 || hourInt > 12 || minuteInt < 0 || minuteInt > 59) {
-            System.out.println("Invalid time. Please enter a valid time.");
+            alertMessages.errorMessage("Invalid time. Please enter a valid time.");
             return;
         }
 
@@ -234,12 +229,11 @@ public class AppointmentSchedulerController {
                     DateTimeFormatter.ofPattern("hh:mm a"));
             String appointmentTime = time.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
 
-            // Generating PatientID
             int patientID = generatePatientID();
-
-            insertAppointment(patientID, patientFirstName, patientLastName, doctorId, doctorFirstName, doctorLastName, appointmentDate, appointmentTime);
+            insertAppointment(patientID, patientFirstName, patientLastName, appointmentType, doctorFirstName, doctorLastName, appointmentDate, appointmentTime);
+            alertMessages.successMessage("Appointment scheduled successfully.");
         } catch (Exception e) {
-            System.out.println("Error scheduling appointment. Please try again.");
+            alertMessages.errorMessage("Error scheduling appointment. Please try again.");
             e.printStackTrace();
         }
     }
