@@ -67,10 +67,10 @@
             </HBox>
             <Label style="-fx-text-fill: white;" text="GENERATE PATIENT RECORD REPORT:">
                <font>
-                  <Font name="Inter Semi Bold Italic" size="36.0" />
+                  <Font name="Inter Semi Bold Italic" size="28.0" />
                </font>
                <VBox.margin>
-                  <Insets left="300.0" top="35.0" />
+                  <Insets left="310.0" top="35.0" />
                </VBox.margin>
             </Label>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -88,10 +88,10 @@
             </HBox>
             <Label style="-fx-text-fill: white;" text="GENERATE STAFF RECORD REPORT:">
                <font>
-                  <Font name="Inter Semi Bold Italic" size="36.0" />
+                  <Font name="Inter Semi Bold Italic" size="28.0" />
                </font>
                <VBox.margin>
-                  <Insets left="300.0" top="15.0" />
+                  <Insets left="330.0" top="15.0" />
                </VBox.margin>
             </Label>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -106,10 +106,10 @@
             </HBox>
             <Label style="-fx-text-fill: white;" text="GENERATE BILLING REPORT:">
                <font>
-                  <Font name="Inter Semi Bold Italic" size="36.0" />
+                  <Font name="Inter Semi Bold Italic" size="28.0" />
                </font>
                <VBox.margin>
-                  <Insets left="350.0" top="15.0" />
+                  <Insets left="375.0" top="15.0" />
                </VBox.margin>
             </Label>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
