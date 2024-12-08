@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="980.0" prefWidth="1592.0" style="-fx-background-color: #AFD8DA;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.education.hospitalmanagementapp.controllers.AppointmentSchedulerController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="980.0" prefWidth="1592.0" style="-fx-background-color: #AFD8DA;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.education.hospitalmanagementapp.controllers.AppointmentSchedulerController">
    <top>
       <HBox alignment="CENTER_LEFT" BorderPane.alignment="CENTER">
          <children>
@@ -18,7 +26,7 @@
                   <Insets bottom="45.0" left="80.0" right="45.0" top="80.0" />
                </HBox.margin>
             </ImageView>
-            <ImageView fx:id="menu" fitHeight="87.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+            <ImageView fitHeight="87.0" fitWidth="66.0" onMouseClicked="#goToMainFromImage" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                <image>
                   <Image url="@../images/menu.png" />
                </image>
@@ -41,7 +49,7 @@
                         <Image url="@../images/notification.png" />
                      </image>
                      <StackPane.margin>
-                        <Insets bottom="40.0" left="65.0" />
+                        <Insets bottom="30.0" left="65.0" />
                      </StackPane.margin>
                   </ImageView>
                   <Label fx:id="num_of_noti" style="-fx-text-fill: white;" text="0">
@@ -49,7 +57,7 @@
                         <Font name="Inter Semi Bold Italic" size="13.0" />
                      </font>
                      <StackPane.margin>
-                        <Insets bottom="42.0" left="65.0" />
+                        <Insets bottom="30.0" left="65.0" />
                      </StackPane.margin>
                   </Label>
                </children>
@@ -175,7 +183,7 @@
                         </DatePicker>
                         <HBox alignment="BOTTOM_RIGHT" prefHeight="71.0" prefWidth="392.0">
                            <children>
-                              <Label fx:id="dateCancel" text="Cancel">
+                              <Label fx:id="dateCancel" onMouseClicked="#resetDatePicker" text="Cancel">
                                  <HBox.margin>
                                     <Insets right="20.0" />
                                  </HBox.margin>
@@ -183,7 +191,7 @@
                                     <Font size="20.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="date_Ok" text="Ok">
+                              <Label onMouseClicked="#saveSelectedDate" text="Ok">
                                  <HBox.margin>
                                     <Insets right="20.0" />
                                  </HBox.margin>
@@ -257,7 +265,7 @@
                               </VBox>
                               <VBox prefHeight="90.0" prefWidth="89.0">
                                  <children>
-                                    <ToggleButton fx:id="amtoggle" mnemonicParsing="false" prefHeight="37.0" prefWidth="70.0" selected="true" style="-fx-background-radius: 30;" styleClass="am-pm-toggle" stylesheets="@../css/styles.css" text="AM" VBox.vgrow="ALWAYS">
+                                    <ToggleButton fx:id="amtoggle" mnemonicParsing="false" onAction="#toggleAMPM" prefHeight="37.0" prefWidth="70.0" selected="true" style="-fx-background-radius: 30;" styleClass="am-pm-toggle" stylesheets="@../css/styles.css" text="AM" VBox.vgrow="ALWAYS">
                                        <font>
                                           <Font name="Inter Semi Bold" size="73.0" />
                                        </font>
@@ -265,7 +273,7 @@
                                           <Insets bottom="5.0" top="10.0" />
                                        </VBox.margin>
                                     </ToggleButton>
-                                    <ToggleButton fx:id="pmtoggle" mnemonicParsing="false" prefHeight="37.0" prefWidth="70.0" style="-fx-background-radius: 30;" styleClass="am-pm-toggle" stylesheets="@../css/styles.css" text="PM" VBox.vgrow="ALWAYS" />
+                                    <ToggleButton fx:id="pmtoggle" mnemonicParsing="false" onAction="#toggleAMPM" prefHeight="37.0" prefWidth="70.0" style="-fx-background-radius: 30;" styleClass="am-pm-toggle" stylesheets="@../css/styles.css" text="PM" VBox.vgrow="ALWAYS" />
                                  </children>
                               </VBox>
                            </children>
@@ -280,7 +288,7 @@
                                     <Insets bottom="30.0" left="25.0" />
                                  </HBox.margin>
                               </ImageView>
-                              <Label fx:id="time_Cancel" text="Cancel">
+                              <Label onMouseClicked="#resetTimeFields" text="Cancel">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
@@ -288,7 +296,7 @@
                                     <Insets bottom="38.0" left="150.0" right="20.0" />
                                  </HBox.margin>
                               </Label>
-                              <Label fx:id="time_Ok" text="Ok">
+                              <Label onMouseClicked="#saveSelectedTime" text="Ok">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
@@ -305,7 +313,7 @@
                      </HBox.margin></VBox>
                </children>
             </HBox>
-            <Button fx:id="confirmAppoitmeentButtn" mnemonicParsing="false" prefHeight="67.0" prefWidth="237.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="Confirm Appointment">
+            <Button mnemonicParsing="false" onAction="#confirmAppoitnment" prefHeight="67.0" prefWidth="237.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="Confirm Appointment">
                <font>
                   <Font name="Inter Semi Bold" size="18.0" />
                </font>
