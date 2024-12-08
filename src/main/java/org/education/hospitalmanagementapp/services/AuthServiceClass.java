@@ -80,4 +80,77 @@ public class AuthServiceClass {
         }
     }
 
+    public boolean validateUser(String username, String email, String password) {
+        boolean isValidUser = false;
+
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+
+            String sql = "SELECT COUNT(*) FROM users WHERE username = ? AND email = ? AND password = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, email);
+            preparedStatement.setString(3, password);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                isValidUser = count > 0;
+            }
+
+            resultSet.close();
+            preparedStatement.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return isValidUser;
+    }
+
+    public boolean usernameExists(String username) {
+        boolean exists = false;
+
+        String query = "SELECT COUNT(*) FROM users WHERE username = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                exists = rs.getInt(1) > 0; // If count > 0, the username exists
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return exists;
+    }
+
+    public void updateUser(String email, String newUsername, String newPassword) {
+        String updateQuery = "UPDATE users SET username = ?, password = ? WHERE email = ?";
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(updateQuery)) {
+
+            stmt.setString(1, newUsername);
+            stmt.setString(2, newPassword);
+            stmt.setString(3, email);
+
+            int rowsUpdated = stmt.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                System.out.println("User information updated successfully.");
+            } else {
+                System.out.println("Failed to update user information.");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

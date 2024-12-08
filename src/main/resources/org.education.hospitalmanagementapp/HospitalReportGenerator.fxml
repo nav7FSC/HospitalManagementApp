@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="982.0" prefWidth="1512.0" style="-fx-background-color: #AFD8DA;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.education.hospitalmanagementapp.controllers.ReportGeneratorController">
+   <right>
+      <ImageView fitHeight="982.0" fitWidth="409.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+         <image>
+            <Image url="@../images/MainMenuLeftPage.png" />
+         </image>
+      </ImageView>
+   </right>
+   <left>
+      <VBox prefHeight="982.0" prefWidth="1154.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label style="-fx-text-fill: white;" text="HOSPITAL REPORT GENERATOR">
+                     <font>
+                        <Font name="Calibri Bold Italic" size="55.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="40.0" />
+                     </HBox.margin>
+                  </Label>
+                  <ImageView fx:id="menu" fitHeight="87.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/menu.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="15.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <StackPane prefHeight="76.0" prefWidth="74.0">
+                     <children>
+                        <ImageView fx:id="profile_Image" fitHeight="76.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Generic_avatar.png" />
+                           </image>
+                           <StackPane.margin>
+                              <Insets right="40.0" />
+                           </StackPane.margin>
+                        </ImageView>
+                        <ImageView fx:id="noti_image" fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/notification.png" />
+                           </image>
+                           <StackPane.margin>
+                              <Insets bottom="50.0" left="15.0" />
+                           </StackPane.margin>
+                        </ImageView>
+                        <Label fx:id="num_of_noti" style="-fx-text-fill: white;" text="0">
+                           <StackPane.margin>
+                              <Insets bottom="50.0" left="15.0" />
+                           </StackPane.margin>
+                        </Label>
+                     </children>
+                  </StackPane>
+               </children>
+               <VBox.margin>
+                  <Insets top="35.0" />
+               </VBox.margin>
+            </HBox>
+            <Label style="-fx-text-fill: white;" text="GENERATE PATIENT RECORD REPORT:">
+               <font>
+                  <Font name="Calibri Bold Italic" size="36.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="300.0" top="35.0" />
+               </VBox.margin>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="patntRecPdfBttn" mnemonicParsing="false" onAction="#generatePtntPdf" prefHeight="68.0" prefWidth="199.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="GENERATE PDF REPORT" />
+                  <Button fx:id="ptntCsvBttn" mnemonicParsing="false" onAction="#generatePtntCsv" prefHeight="68.0" prefWidth="199.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="GENERATE CSV FILE REPORT" textAlignment="CENTER" wrapText="true">
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
+            </HBox>
+            <Label style="-fx-text-fill: white;" text="GENERATE STAFF RECORD REPORT:">
+               <font>
+                  <Font name="Calibri Bold Italic" size="36.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="300.0" top="15.0" />
+               </VBox.margin>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="staffPdfBttn" mnemonicParsing="false" onAction="#generateStaffPdf" prefHeight="68.0" prefWidth="199.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="GENERATE PDF REPORT">
+                     <HBox.margin>
+                        <Insets right="40.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="staffCsvBttn" mnemonicParsing="false" onAction="#generateStaffCsv" prefHeight="68.0" prefWidth="199.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="GENERATE CSV FILE REPORT" textAlignment="CENTER" wrapText="true" />
+               </children>
+            </HBox>
+            <Label style="-fx-text-fill: white;" text="GENERATE BILLING REPORT:">
+               <font>
+                  <Font name="Calibri Bold Italic" size="36.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="350.0" top="15.0" />
+               </VBox.margin>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="billingPdfBttn" mnemonicParsing="false" onAction="#generateBillingPdf" prefHeight="68.0" prefWidth="199.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="GENERATE PDF REPORT" />
+                  <Button fx:id="billingCsvBttn" mnemonicParsing="false" onAction="#genrateBillingCsv" prefHeight="68.0" prefWidth="199.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="GENERATE CSV FILE REPORT" textAlignment="CENTER" wrapText="true">
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="signOutBttn" mnemonicParsing="false" onAction="#signOut" prefHeight="83.0" prefWidth="270.0" styleClass="nav-button" stylesheets="@../css/styles.css" text="Sign Out">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="goToMainBttn" mnemonicParsing="false" onAction="#goToMain" prefHeight="83.0" prefWidth="270.0" styleClass="nav-button" stylesheets="@../css/styles.css" text="Go To Main Menu">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets top="60.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </left>
+</BorderPane>

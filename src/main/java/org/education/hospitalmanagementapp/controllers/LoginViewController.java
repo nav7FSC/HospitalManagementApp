@@ -2,50 +2,64 @@ package org.education.hospitalmanagementapp.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
-import org.education.hospitalmanagementapp.SceneManager;
+import javafx.stage.Stage;
+import org.education.hospitalmanagementapp.AlertMessages;
+import org.education.hospitalmanagementapp.services.AuthServiceClass;
 
 public class LoginViewController {
+    private AlertMessages alert = new AlertMessages();
+    private static AuthServiceClass asc = new AuthServiceClass();
 
     @FXML
-    private ImageView calendar_image;
-
-    @FXML
-    private TextField emailField;
-
-    @FXML
-    private Button login_Button;
-
-    @FXML
-    private ImageView menu;
-
-    @FXML
-    private ImageView noti_image;
-
-    @FXML
-    private Label num_of_noti;
-
-    @FXML
-    private TextField passField;
-
-    @FXML
-    private Button regiter_Button;
-
-    @FXML
-    private TextField userField;
+    private TextField userField, passField, emailField;
 
     @FXML
     void loginUser(ActionEvent event) {
-        // Add any login logic here if needed
-        // For now, we'll just navigate to the MainMenu.fxml
-        SceneManager.loadScene("MainMenu.fxml");
+        String username = userField.getText();
+        String email = emailField.getText();
+        String password = passField.getText();
+
+        if (username.isEmpty() || email.isEmpty() || password.isEmpty()) {
+            alert.errorMessage("Please fill in all fields.");
+            return;
+        }
+
+        boolean isValidUser = asc.validateUser(username, email, password);
+
+        if (isValidUser) {
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+                Scene scene = new Scene(root);
+                scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(scene);
+                window.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            alert.errorMessage("Invalid login credentials. Please try again.");
+        }
     }
+
 
     @FXML
     void registerUser(ActionEvent event) {
-        // Add registration logic here if needed
+        try{
+            Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/RegistrationView.fxml"));
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

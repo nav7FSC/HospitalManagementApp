@@ -1,10 +1,14 @@
 package org.education.hospitalmanagementapp.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import org.education.hospitalmanagementapp.AlertMessages;
+import org.education.hospitalmanagementapp.services.AuthServiceClass;
 
 public class UserManagementController  {
 
@@ -58,5 +62,39 @@ public class UserManagementController  {
 
     @FXML
     private Button signOutBttn;
+
+    private AuthServiceClass asc = new AuthServiceClass();
+    private AlertMessages alert = new AlertMessages();
+
+    @FXML
+    void confirmChanges(ActionEvent event) {
+        String email = edit_emailField.getText();
+        String currentUsername = edit_UserNameField.getText();
+        String currentPassword = currPassField.getText();
+        String newUsername = newUserField.getText();
+        String newPassword = newPassField.getText();
+
+        if (email.isEmpty() || currentUsername.isEmpty() || currentPassword.isEmpty()) {
+            alert.warningMessage("Fill in any blank field.");
+            return;
+        }
+
+        if (asc.validateUser(currentUsername, email, currentPassword)) {
+            if (newUsername.isEmpty() || newPassword.isEmpty()) {
+                alert.warningMessage("New username or password cannot be empty");
+                return;
+            }
+
+            try {
+                asc.updateUser(email, newUsername, newPassword);
+                alert.successMessage("Successfully updated username and password!");
+            } catch (Exception e) {
+                alert.errorMessage("Failed to update user.");
+                e.printStackTrace();
+            }
+        } else {
+            alert.errorMessage("Invalid email, username, or password.");
+        }
+    }
 
 }
