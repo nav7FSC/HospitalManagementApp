@@ -2,11 +2,16 @@ package org.education.hospitalmanagementapp.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import org.education.hospitalmanagementapp.AlertMessages;
 import org.education.hospitalmanagementapp.services.AuthServiceClass;
 
@@ -25,9 +30,6 @@ public class UserManagementController  {
     private ImageView clear_editUserNameField;
 
     @FXML
-    private Button confirmButton;
-
-    @FXML
     private TextField currPassField;
 
     @FXML
@@ -38,9 +40,6 @@ public class UserManagementController  {
 
     @FXML
     private TextField edit_emailField;
-
-    @FXML
-    private Button mainMenuBttn;
 
     @FXML
     private ImageView menu;
@@ -60,11 +59,35 @@ public class UserManagementController  {
     @FXML
     private ImageView profile_Image;
 
-    @FXML
-    private Button signOutBttn;
-
     private AuthServiceClass asc = new AuthServiceClass();
     private AlertMessages alert = new AlertMessages();
+
+    @FXML
+    void goToMainMenu(ActionEvent event){
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    void signOut(ActionEvent event){
+        try{
+            Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/LoginView.fxml"));
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     void confirmChanges(ActionEvent event) {
