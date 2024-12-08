@@ -15,13 +15,21 @@ import org.education.hospitalmanagementapp.services.AuthServiceClass;
 public class LoginViewController {
     private AlertMessages alert = new AlertMessages();
     private static AuthServiceClass asc = new AuthServiceClass();
+    public static String username;
+
+
 
     @FXML
     private TextField userField, passField, emailField;
 
+    public String getuser()
+    {
+        return username;
+    }
+
     @FXML
     void loginUser(ActionEvent event) {
-        String username = userField.getText();
+        this.username = userField.getText();
         String email = emailField.getText();
         String password = passField.getText();
 

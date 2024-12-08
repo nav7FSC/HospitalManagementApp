@@ -23,6 +23,7 @@ import javafx.geometry.Insets;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import org.education.hospitalmanagementapp.services.AuthServiceClass;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -31,6 +32,15 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 public class DashBoardController implements Initializable {
+
+    String username = LoginViewController.username;
+   // LoginViewController user;
+
+/*    public DashBoardController(LoginViewController user)
+    {
+        this.user = user;
+    }*/
+
     @FXML
     private Button dashSignOut;
     @FXML
@@ -54,13 +64,32 @@ public class DashBoardController implements Initializable {
 
     private final Map<LocalDate, String> sampleAppointments = new HashMap<>();
     private LocalDate currentDate = LocalDate.now();
+    AuthServiceClass asc = new AuthServiceClass();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initializeSampleAppointments();
         createCalendarInContainer();
         initializeCharts();
+        updateUserNameLabel();
+
+
     }
+
+
+    private void updateUserNameLabel() {
+
+        if (asc.usernameExists(username)) {
+            // Set the username label to the username
+            //userNameLabel.setText(user.getUsername());
+            userNameLabel.setText(username);
+        } else {
+            // Optionally handle cases where the username doesn't exist
+            userNameLabel.setText("User not found");
+        }
+    }
+
+
 
     private void initializeSampleAppointments() {
         LocalDate today = LocalDate.now();
@@ -241,12 +270,7 @@ public class DashBoardController implements Initializable {
         });
     }
 
-    public void updateUserProfile(String userName, String imagePath) {
-        userNameLabel.setText(userName);
-        if (imagePath != null && !imagePath.isEmpty()) {
-            userProfileImage.setImage(new javafx.scene.image.Image(imagePath));
-        }
-    }
+
 
     @FXML
     private void signOut(ActionEvent event) {
