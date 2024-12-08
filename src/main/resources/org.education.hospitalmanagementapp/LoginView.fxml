@@ -52,7 +52,7 @@
                                 </ImageView>
                                 <Label fx:id="num_of_noti" style="-fx-text-fill: white;" text="0" textFill="#030101" StackPane.alignment="TOP_RIGHT">
                                     <font>
-                                        <Font name="Helvetica" size="14.0" />
+                                        <Font name="Inter Semi Bold Italic" size="14.0" />
                                     </font>
                                     <StackPane.margin>
                                         <Insets right="13.0" top="7.0" />
@@ -77,7 +77,7 @@
                     <children>
                         <Label prefHeight="25.0" prefWidth="342.0" style="-fx-text-fill: white;" text="LOGIN WITH YOUR CREDENTIALS">
                             <font>
-                                <Font name="Inter Semi Bold" size="20.0" />
+                                <Font name="Inter Semi Bold Italic" size="20.0" />
                             </font>
                         </Label>
                         <TextField fx:id="userField" alignment="TOP_LEFT" maxHeight="70.0" maxWidth="399.0" prefHeight="70.0" prefWidth="399.0" promptText="Username" styleClass="text-fields" stylesheets="@../css/styles.css">

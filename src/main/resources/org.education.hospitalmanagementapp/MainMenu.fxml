@@ -69,7 +69,7 @@
                     <children>
                         <Button mnemonicParsing="false" onAction="#goToUsrManagement" prefHeight="122.0" prefWidth="312.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="User Management">
                             <font>
-                                <Font name="Avenir Light" size="17.0" />
+                                <Font name="Inter Semi Bold Italic" size="17.0" />
                             </font>
                             <HBox.margin>
                                 <Insets right="40.0" />

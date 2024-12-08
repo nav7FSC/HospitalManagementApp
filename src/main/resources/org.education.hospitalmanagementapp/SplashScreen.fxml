@@ -30,7 +30,7 @@
                 <ProgressIndicator style="-fx-progress-color: white;" />
                 <Label style="-fx-text-fill: white;" text="Loading">
                     <font>
-                        <Font name="Avenir Light" size="30.0" />
+                        <Font name="Inter Semi Bold Italic" size="30.0" />
                     </font>
                 </Label>
             </children>

@@ -52,7 +52,7 @@
                                 </ImageView>
                                 <Label fx:id="num_of_noti" style="-fx-text-fill: white;" text="0" textFill="#030101" StackPane.alignment="TOP_RIGHT">
                                     <font>
-                                        <Font name="Helvetica" size="14.0" />
+                                        <Font name="Inter Semi Bold" size="14.0" />
                                     </font>
                                     <StackPane.margin>
                                         <Insets right="13.0" top="9.0" />
@@ -93,7 +93,7 @@
                                 <TextField fx:id="passwordField" alignment="TOP_LEFT" prefHeight="70.0" prefWidth="399.0" promptText="Password" styleClass="text-fields" stylesheets="@../css/styles.css" />
                                 <Label prefHeight="46.0" prefWidth="400.0" text="Password must be 8-20 characters, with one uppercase, lowercase, number, and special character." wrapText="true">
                            <font>
-                              <Font name="Inter Italic" size="13.0" />
+                              <Font name="Inter Semi Bold" size="13.0" />
                            </font></Label>
                             </children>
                         </VBox>

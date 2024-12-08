@@ -90,7 +90,7 @@
                                 </ImageView>
                                 <Label fx:id="userNameLabel" text="Name">
                                     <font>
-                                        <Font size="32.0" />
+                                        <Font name="Inter Semi Bold" size="32.0" />
                                     </font>
                                 </Label>
                             </children>
@@ -141,7 +141,7 @@
                         </VBox>
                   <Button fx:id="signOutBttn" mnemonicParsing="false" onAction="#signOut" prefHeight="83.0" prefWidth="200.0" styleClass="nav-button" stylesheets="@../css/styles.css" text="SIgn Out">
                      <font>
-                        <Font size="19.0" />
+                        <Font name="Inter Semi Bold" size="19.0" />
                      </font>
                      <VBox.margin>
                         <Insets left="200.0" />
@@ -196,7 +196,7 @@
                         <Insets left="50.0" />
                      </VBox.margin>
                      <font>
-                        <Font size="17.0" />
+                        <Font name="Inter Semi Bold" size="17.0" />
                      </font>
                   </Button>
                     </children>
