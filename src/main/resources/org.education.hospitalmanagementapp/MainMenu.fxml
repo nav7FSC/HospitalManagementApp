@@ -72,14 +72,14 @@
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                     <children>
-                        <Button fx:id="goToUsrManagementBttn" mnemonicParsing="false" onAction="#GoToUsrManagement" prefHeight="122.0" prefWidth="312.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="User Management">
+                        <Button mnemonicParsing="false" onAction="#goToUsrManagement" prefHeight="122.0" prefWidth="312.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="User Management">
                             <font>
                                 <Font name="Avenir Light" size="17.0" />
                             </font>
                             <HBox.margin>
                                 <Insets right="40.0" />
                             </HBox.margin></Button>
-                        <Button fx:id="ApptmntBttn" mnemonicParsing="false" onAction="#goToApptManagement" prefHeight="122.0" prefWidth="312.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="Appointment Management">
+                        <Button mnemonicParsing="false" onAction="#goToApptManagement" prefHeight="122.0" prefWidth="312.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="Appointment Management">
                             <font>
                                 <Font size="17.0" />
                             </font></Button>
@@ -90,14 +90,14 @@
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                     <children>
-                        <Button fx:id="patientBttn" mnemonicParsing="false" prefHeight="122.0" prefWidth="312.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="Patient Management">
+                        <Button mnemonicParsing="false" prefHeight="122.0" prefWidth="312.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="Patient Management">
                             <font>
                                 <Font size="17.0" />
                             </font>
                             <HBox.margin>
                                 <Insets right="40.0" />
                             </HBox.margin></Button>
-                        <Button fx:id="billingBttn" mnemonicParsing="false" prefHeight="122.0" prefWidth="312.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="Billing/Invoices">
+                        <Button mnemonicParsing="false" prefHeight="122.0" prefWidth="312.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="Billing/Invoices">
                             <font>
                                 <Font size="17.0" />
                             </font></Button>
@@ -108,14 +108,14 @@
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                     <children>
-                        <Button fx:id="reportBttn" mnemonicParsing="false" prefHeight="122.0" prefWidth="312.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="Report Generation">
+                        <Button mnemonicParsing="false" prefHeight="122.0" prefWidth="312.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="Report Generation">
                             <font>
                                 <Font size="17.0" />
                             </font>
                             <HBox.margin>
                                 <Insets right="40.0" />
                             </HBox.margin></Button>
-                        <Button fx:id="inventoryBttn" mnemonicParsing="false" prefHeight="122.0" prefWidth="312.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="Inventory Management">
+                        <Button mnemonicParsing="false" prefHeight="122.0" prefWidth="312.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="Inventory Management">
                             <font>
                                 <Font size="17.0" />
                             </font></Button>
@@ -126,14 +126,14 @@
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                     <children>
-                        <Button fx:id="mainMenuSignOutBttn" mnemonicParsing="false" onAction="#signOut" prefHeight="83.0" prefWidth="270.0" styleClass="nav-button" stylesheets="@../css/styles.css" text="Sign Out">
+                        <Button mnemonicParsing="false" onAction="#signOut" prefHeight="83.0" prefWidth="270.0" styleClass="nav-button" stylesheets="@../css/styles.css" text="Sign Out">
                             <font>
                                 <Font size="15.0" />
                             </font>
                             <HBox.margin>
                                 <Insets right="40.0" />
                             </HBox.margin></Button>
-                        <Button fx:id="goToDashBttn" mnemonicParsing="false" onAction="#goToDash" prefHeight="83.0" prefWidth="270.0" styleClass="nav-button" stylesheets="@../css/styles.css" text="Go to DashBoard ">
+                        <Button mnemonicParsing="false" onAction="#goToDash" prefHeight="83.0" prefWidth="270.0" styleClass="nav-button" stylesheets="@../css/styles.css" text="Go to DashBoard ">
                             <font>
                                 <Font size="15.0" />
                             </font></Button>

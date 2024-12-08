@@ -13,23 +13,6 @@ import javafx.stage.Stage;
 
 public class MainMenuController {
 
-    @FXML
-    private Button ApptmntBttn;
-
-    @FXML
-    private Button billingBttn;
-
-    @FXML
-    private Button goToDashBttn;
-
-    @FXML
-    private Button goToUsrManagementBttn;
-
-    @FXML
-    private Button inventoryBttn;
-
-    @FXML
-    private Button mainMenuSignOutBttn;
 
     @FXML
     private ImageView menu;
@@ -40,67 +23,63 @@ public class MainMenuController {
     @FXML
     private Label num_of_noti;
 
-    @FXML
-    private Button patientBttn;
 
     @FXML
     private ImageView profile_Image;
 
-    @FXML
-    private Button reportBttn;
 
     @FXML
-    void GoToUsrManagement(ActionEvent event){
-        try{
+    void goToUsrManagement(ActionEvent event) {
+        try {
             Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/UserManagement.fxml"));
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
             window.setScene(scene);
             window.show();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @FXML
-    void goToDash(ActionEvent event){
-        try{
+    void goToDash(ActionEvent event) {
+        try {
             Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/HospitalDashBoard.fxml"));
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
             window.setScene(scene);
             window.show();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @FXML
-    void goToApptManagement(ActionEvent event){
-        try{
+    void goToApptManagement(ActionEvent event) {
+        try {
             Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/ScheduleAppointment.fxml"));
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
             window.setScene(scene);
             window.show();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @FXML
-    void signOut(ActionEvent event){
-        try{
+    void signOut(ActionEvent event) {
+        try {
             Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/LoginView.fxml"));
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
             window.setScene(scene);
             window.show();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
