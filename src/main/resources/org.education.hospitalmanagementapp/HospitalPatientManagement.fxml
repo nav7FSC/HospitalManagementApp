@@ -33,7 +33,7 @@
                         <Insets right="50.0" />
                      </HBox.margin>
                   </Label>
-                  <ImageView fx:id="menu" fitHeight="87.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="87.0" fitWidth="72.0" onMouseClicked="#goToTheMain" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/menu.png" />
                      </image>

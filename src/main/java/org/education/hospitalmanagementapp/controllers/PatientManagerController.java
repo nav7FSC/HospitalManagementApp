@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.education.hospitalmanagementapp.AlertMessages;
 import org.education.hospitalmanagementapp.services.AuthServiceClass;
@@ -17,6 +18,7 @@ import org.education.hospitalmanagementapp.services.AuthServiceClass;
  */
 public class PatientManagerController {
 
+    private final AlertMessages alertMessages = new AlertMessages();
     @FXML
     private TextField firstNameField, lastNameField, dobField, phoneNumberField, addressField;
     @FXML
@@ -94,6 +96,24 @@ public class PatientManagerController {
             window.show();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+    /**
+     * Navigates the user back to the main menu.
+     * @param event the mouse click event triggered by clicking the navigation button
+     */
+    @FXML
+    void goToTheMain(MouseEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            alertMessages.errorMessage("Failed to load the Main Menu.");
         }
     }
 

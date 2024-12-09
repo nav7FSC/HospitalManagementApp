@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -23,6 +24,7 @@ import javafx.geometry.Insets;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import org.education.hospitalmanagementapp.AlertMessages;
 import org.education.hospitalmanagementapp.services.AuthServiceClass;
 
 import java.net.URL;
@@ -36,6 +38,8 @@ import java.util.ResourceBundle;
  * Manages the calendar view, charts, and user interactions on the dashboard.
  */
 public class DashBoardController implements Initializable {
+
+    private final AlertMessages alertMessages = new AlertMessages();
 
     String username = LoginViewController.username;
    // LoginViewController user;
@@ -287,6 +291,25 @@ public class DashBoardController implements Initializable {
         series.getData().forEach(data -> {
             data.getNode().setStyle("-fx-bar-fill: " + color + ";");
         });
+    }
+
+    /**
+     * Navigates the user back to the main menu.
+     * @param event the mouse click event triggered by clicking the navigation button
+     */
+    @FXML
+    void goToTheMain(MouseEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            alertMessages.errorMessage("Failed to load the Main Menu.");
+        }
     }
 
     /**

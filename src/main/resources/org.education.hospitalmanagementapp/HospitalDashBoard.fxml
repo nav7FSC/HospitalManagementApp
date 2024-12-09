@@ -25,7 +25,7 @@
                                 <Font name="Inter Semi Bold Italic" size="63.0" />
                             </font>
                         </Label>
-                        <ImageView fitHeight="87.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="87.0" fitWidth="72.0" onMouseClicked="#goToTheMain" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../images/menu.png" />
                             </image>
