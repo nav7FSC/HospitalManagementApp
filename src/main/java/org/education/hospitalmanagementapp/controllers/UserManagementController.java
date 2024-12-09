@@ -6,16 +6,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import java.util.regex.Pattern;
 import org.education.hospitalmanagementapp.AlertMessages;
 import org.education.hospitalmanagementapp.services.AuthServiceClass;
 
-public class UserManagementController  {
+/**
+ * Controller class for user management functionalities, including user authentication,
+ * navigation to main menu, sign-out, and updating user credentials with validation.
+ */
+public class UserManagementController {
 
     @FXML
     private ImageView clearCurrPassField;
@@ -30,7 +34,7 @@ public class UserManagementController  {
     private ImageView clear_editUserNameField;
 
     @FXML
-    private TextField currPassField;
+    private PasswordField currPassField;
 
     @FXML
     private TextField edit_UserNameField;
@@ -45,7 +49,7 @@ public class UserManagementController  {
     private ImageView menu;
 
     @FXML
-    private TextField newPassField;
+    private PasswordField newPassField;
 
     @FXML
     private TextField newUserField;
@@ -62,8 +66,17 @@ public class UserManagementController  {
     private AuthServiceClass asc = new AuthServiceClass();
     private AlertMessages alert = new AlertMessages();
 
+    // Regex patterns for username and password validation
+    private static final Pattern USERNAME_PATTERN = Pattern.compile("^[a-zA-Z0-9_-]{5,20}$");
+    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%?&])[A-Za-z\\d@$!%?&]{8,20}$");
+
+    /**
+     * Navigates to the main menu view.
+     *
+     * @param event ActionEvent triggered by the user.
+     */
     @FXML
-    void goToMainMenu(ActionEvent event){
+    void goToMainMenu(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
             Scene scene = new Scene(root);
@@ -75,20 +88,31 @@ public class UserManagementController  {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Signs the user out and navigates to the login view.
+     *
+     * @param event ActionEvent triggered by the user.
+     */
     @FXML
-    void signOut(ActionEvent event){
-        try{
+    void signOut(ActionEvent event) {
+        try {
             Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/LoginView.fxml"));
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
             window.setScene(scene);
             window.show();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Handles user updates such as username and password changes with validation checks.
+     *
+     * @param event ActionEvent triggered by the user.
+     */
     @FXML
     void confirmChanges(ActionEvent event) {
         String email = edit_emailField.getText();
@@ -102,6 +126,19 @@ public class UserManagementController  {
             return;
         }
 
+        // Validate new username
+        if (!USERNAME_PATTERN.matcher(newUsername).matches()) {
+            alert.errorMessage("Invalid username. It must be 5-20 characters long and include only letters, numbers, hyphens, or underscores.");
+            return;
+        }
+
+        // Validate new password
+        if (!PASSWORD_PATTERN.matcher(newPassword).matches()) {
+            alert.errorMessage("Invalid password. It must have 8 characters, including 1 uppercase, 1 lowercase, 1 digit, and 1 special character.");
+            return;
+        }
+
+        // Authenticate user and attempt to update credentials
         if (asc.validateUser(currentUsername, email, currentPassword)) {
             if (newUsername.isEmpty() || newPassword.isEmpty()) {
                 alert.warningMessage("New username or password cannot be empty");
@@ -119,5 +156,4 @@ public class UserManagementController  {
             alert.errorMessage("Invalid email, username, or password.");
         }
     }
-
 }

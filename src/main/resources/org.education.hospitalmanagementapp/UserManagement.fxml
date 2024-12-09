@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.PasswordField?>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="982.0" prefWidth="1512.0" style="-fx-background-color: #AFD8DA;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.education.hospitalmanagementapp.controllers.UserManagementController">
     <right>
         <ImageView fitHeight="982.0" fitWidth="502.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
@@ -123,11 +124,11 @@
                 </StackPane>
                 <StackPane prefHeight="68.0" prefWidth="235.0">
                     <children>
-                        <TextField fx:id="currPassField" prefHeight="68.0" prefWidth="235.0" promptText="Enter Current Password" styleClass="text-fields" stylesheets="@../css/styles.css">
+                        <PasswordField fx:id="currPassField" prefHeight="68.0" prefWidth="235.0" promptText="Enter Current Password" styleClass="text-fields" stylesheets="@../css/styles.css">
                             <StackPane.margin>
                                 <Insets left="350.0" right="375.0" />
                             </StackPane.margin>
-                        </TextField>
+                        </PasswordField>
                         <ImageView fx:id="clearCurrPassField" fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../images/Trailingicon.png" />
@@ -163,11 +164,11 @@
                 </StackPane>
                 <StackPane prefHeight="68.0" prefWidth="235.0">
                     <children>
-                        <TextField fx:id="newPassField" prefHeight="68.0" prefWidth="235.0" promptText="Enter New Password" styleClass="text-fields" stylesheets="@../css/styles.css">
+                        <PasswordField fx:id="newPassField" prefHeight="68.0" prefWidth="235.0" promptText="Enter New Password" styleClass="text-fields" stylesheets="@../css/styles.css">
                             <StackPane.margin>
                                 <Insets left="350.0" right="375.0" />
                             </StackPane.margin>
-                        </TextField>
+                        </PasswordField>
                         <ImageView fx:id="clearNewPassField" fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../images/Trailingicon.png" />
