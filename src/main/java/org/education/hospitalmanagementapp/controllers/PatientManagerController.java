@@ -27,56 +27,137 @@ public class PatientManagerController {
     private AlertMessages alert = new AlertMessages();
 
     /**
-     * Handles adding a new patient's information to the database.
+     * Initializes the controller by setting up listeners for real-time input validation.
+     */
+    public void initialize() {
+        // Add listeners for real-time validation
+        addValidationListeners();
+    }
+
+    /**
+     * Adds listeners to text fields for real-time validation using regular expressions.
+     * Highlights the fields in green if valid, red if invalid.
+     */
+    private void addValidationListeners() {
+        // First Name & Last Name Validation
+        firstNameField.textProperty().addListener((observable, oldValue, newValue) -> validateTextField(firstNameField, "^[a-zA-Z]+$"));
+        lastNameField.textProperty().addListener((observable, oldValue, newValue) -> validateTextField(lastNameField, "^[a-zA-Z]+$"));
+
+        // Date of Birth Validation
+        dobField.textProperty().addListener((observable, oldValue, newValue) -> validateTextField(dobField, "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$"));
+
+        // Phone Number Validation
+        phoneNumberField.textProperty().addListener((observable, oldValue, newValue) -> validateTextField(phoneNumberField, "^\\d{10}$"));
+
+        // Address Validation
+        addressField.textProperty().addListener((observable, oldValue, newValue) -> validateTextField(addressField, "^[a-zA-Z0-9\\s]+$"));
+
+        // Confirm First & Last Name Validation
+        confirmFirstNameField.textProperty().addListener((observable, oldValue, newValue) -> validateTextField(confirmFirstNameField, "^[a-zA-Z]+$"));
+        confirmLastNameField.textProperty().addListener((observable, oldValue, newValue) -> validateTextField(confirmLastNameField, "^[a-zA-Z]+$"));
+
+        changePhoneNumberField.textProperty().addListener((observable, oldValue, newValue) -> validateTextField(changePhoneNumberField, "^\\d{10}$"));
+        changeAddressField.textProperty().addListener((observable, oldValue, newValue) -> validateTextField(changeAddressField, "^[a-zA-Z0-9\\s]+$"));
+    }
+
+    /**
+     * Validates a text field's input against a provided regular expression.
+     * Highlights the field's border green if valid or red if invalid.
      *
-     * @param event the action event triggered by the user
+     * @param field The text field to validate.
+     * @param regex The regular expression to validate the text against.
+     */
+    private void validateTextField(TextField field, String regex) {
+        if (field.getText().matches(regex)) {
+            field.setStyle("-fx-border-color: green;"); // Valid input
+        } else {
+            field.setStyle("-fx-border-color: red;"); // Invalid input
+        }
+    }
+
+    /**
+     * Handles the submission of patient information for insertion into the database.
+     * Ensures all fields are filled and validates their inputs before proceeding.
+     * Displays appropriate success or warning messages based on validation results.
+     *
+     * @param event The action event triggered by the user clicking the add button.
      */
     @FXML
-    void addPatientInfo(ActionEvent event){
-        String firstName = firstNameField.getText();
-        String lastName = lastNameField.getText();
-        String dob = dobField.getText();
-        String phoneNumber = phoneNumberField.getText();
-        String address = addressField.getText();
-
-        if(firstName.isEmpty() || lastName.isEmpty() || dob.isEmpty() || phoneNumber.isEmpty() || address.isEmpty()){
-            alert.warningMessage("Fill in any blank field.");
+    void addPatientInfo(ActionEvent event) {
+        // Ensure no blank fields are left
+        if (firstNameField.getText().isEmpty() || lastNameField.getText().isEmpty()
+                || dobField.getText().isEmpty() || phoneNumberField.getText().isEmpty()
+                || addressField.getText().isEmpty()) {
+            alert.warningMessage("All fields must be filled!");
             return;
         }
 
-        asc.insertPatient(firstName,lastName,dob,phoneNumber,address);
+        // Call service after validation
+        if (firstNameField.getStyle().contains("red") ||
+                lastNameField.getStyle().contains("red") ||
+                dobField.getStyle().contains("red") ||
+                phoneNumberField.getStyle().contains("red") ||
+                addressField.getStyle().contains("red")) {
+            alert.warningMessage("Please fix invalid input fields before proceeding.");
+            return;
+        }
+
+        asc.insertPatient(
+                firstNameField.getText(),
+                lastNameField.getText(),
+                dobField.getText(),
+                phoneNumberField.getText(),
+                addressField.getText()
+        );
+
         alert.successMessage("Successfully inserted new patient into the database!");
     }
 
     /**
-     * Handles updating an existing patient's phone number and/or address in the database.
+     * Handles the submission of updates to patient information, such as address and phone number changes.
+     * Validates the fields and determines whether to update only the address, only the phone number, or both.
+     * Displays appropriate success or warning messages based on the input validation and results of the operation.
      *
-     * @param event the action event triggered by the user
+     * @param event The action event triggered by the user clicking the change button.
      */
     @FXML
-    void changePatientInfo(ActionEvent event){
-        String firstName = confirmFirstNameField.getText();
-        String lastName = confirmLastNameField.getText();
-        String phoneNumber = changePhoneNumberField.getText();
-        String address = changeAddressField.getText();
-
-        if(firstName.isEmpty() || lastName.isEmpty()){
-            alert.warningMessage("First and last name must be filled in.");
+    void changePatientInfo(ActionEvent event) {
+        if (confirmFirstNameField.getText().isEmpty() || confirmLastNameField.getText().isEmpty()) {
+            alert.warningMessage("First and Last Name must be filled!");
             return;
         }
 
-        if(phoneNumber.isEmpty()){
-            asc.updatePatientAddress(firstName,lastName,address);
-            alert.successMessage("Successfully updated patients address!");
+        if (changePhoneNumberField.getStyle().contains("red") || changeAddressField.getStyle().contains("red")) {
+            alert.warningMessage("Invalid phone number or address.");
+            return;
         }
-        if(address.isEmpty()){
-            asc.updatePatientNumber(firstName,lastName,phoneNumber);
-            alert.successMessage("Successfully updated patients phone number!");
-        }
-        if(!address.isEmpty() && !phoneNumber.isEmpty()){
-            asc.updatePatientAddress(firstName,lastName,address);
-            asc.updatePatientNumber(firstName,lastName,phoneNumber);
-            alert.successMessage("Successfully updated patients phone number and address!");
+
+        if (changePhoneNumberField.getText().isEmpty()) {
+            asc.updatePatientAddress(
+                    confirmFirstNameField.getText(),
+                    confirmLastNameField.getText(),
+                    changeAddressField.getText()
+            );
+            alert.successMessage("Successfully updated patient's address!");
+        } else if (changeAddressField.getText().isEmpty()) {
+            asc.updatePatientNumber(
+                    confirmFirstNameField.getText(),
+                    confirmLastNameField.getText(),
+                    changePhoneNumberField.getText()
+            );
+            alert.successMessage("Successfully updated patient's phone number!");
+        } else {
+            asc.updatePatientAddress(
+                    confirmFirstNameField.getText(),
+                    confirmLastNameField.getText(),
+                    changeAddressField.getText()
+            );
+            asc.updatePatientNumber(
+                    confirmFirstNameField.getText(),
+                    confirmLastNameField.getText(),
+                    changePhoneNumberField.getText()
+            );
+            alert.successMessage("Successfully updated both information.");
         }
     }
 

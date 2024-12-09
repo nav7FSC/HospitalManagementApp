@@ -23,7 +23,6 @@ public class AuthServiceClass {
 
     private final ObservableList<User> data = FXCollections.observableArrayList();
 
-
     /**
      * Establishes connection to the database and ensures the "users" table exists.
      * Checks if any registered users exist in the database.
@@ -32,7 +31,6 @@ public class AuthServiceClass {
      */
     public  boolean connectToDatabase() {
         boolean hasRegistredUsers = false;
-
 
         try {
             //First, connect to MYSQL server and create the database if not created
@@ -93,7 +91,6 @@ public class AuthServiceClass {
      */
     public  void insertUser(String username, String email, String password) {
 
-
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
             String sql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
@@ -114,8 +111,6 @@ public class AuthServiceClass {
             e.printStackTrace();
         }
     }
-
-
 
     public ObservableList<User> getData(String user) {
         connectToDatabase();
@@ -334,5 +329,4 @@ public class AuthServiceClass {
             e.printStackTrace();
         }
     }
-
 }
