@@ -42,7 +42,29 @@ public class PatientManagerController {
 
     @FXML
     void changePatientInfo(ActionEvent event){
+        String firstName = confirmFirstNameField.getText();
+        String lastName = confirmLastNameField.getText();
+        String phoneNumber = changePhoneNumberField.getText();
+        String address = changeAddressField.getText();
 
+        if(firstName.isEmpty() || lastName.isEmpty()){
+            alert.warningMessage("First and last name must be filled in.");
+            return;
+        }
+
+        if(phoneNumber.isEmpty()){
+            asc.updatePatientAddress(firstName,lastName,address);
+            alert.successMessage("Successfully updated patients address!");
+        }
+        if(address.isEmpty()){
+            asc.updatePatientNumber(firstName,lastName,phoneNumber);
+            alert.successMessage("Successfully updated patients phone number!");
+        }
+        if(!address.isEmpty() && !phoneNumber.isEmpty()){
+            asc.updatePatientAddress(firstName,lastName,address);
+            asc.updatePatientNumber(firstName,lastName,phoneNumber);
+            alert.successMessage("Successfully updated patients phone number and address!");
+        }
     }
 
     @FXML

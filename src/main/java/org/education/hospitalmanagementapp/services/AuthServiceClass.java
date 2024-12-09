@@ -178,4 +178,50 @@ public class AuthServiceClass {
         }
     }
 
+    public void updatePatientNumber(String fname, String lname, String newNumber) {
+        String updateQuery = "UPDATE patients SET ContactNumber = ? WHERE FirstName = ? AND LastName = ?";
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(updateQuery)) {
+
+            stmt.setString(1, newNumber);
+            stmt.setString(2, fname);
+            stmt.setString(3, lname);
+
+            int rowsUpdated = stmt.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                System.out.println("Patient phone number updated successfully.");
+            } else {
+                System.out.println("Failed to update patient phone number information.");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updatePatientAddress(String fname, String lname, String newAddress) {
+        String updateQuery = "UPDATE patients SET Address = ? WHERE FirstName = ? AND LastName = ?";
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(updateQuery)) {
+
+            stmt.setString(1, newAddress);
+            stmt.setString(2, fname);
+            stmt.setString(3, lname);
+
+            int rowsUpdated = stmt.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                System.out.println("Patient address updated successfully.");
+            } else {
+                System.out.println("Failed to update patient address information.");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
