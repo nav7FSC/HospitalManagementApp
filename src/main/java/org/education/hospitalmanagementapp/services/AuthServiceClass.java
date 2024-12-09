@@ -6,12 +6,23 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+/**
+ * AuthServiceClass provides database-related authentication and user/patient management services.
+ * It handles database connections, user registration, validation, and update operations.
+ */
 public class AuthServiceClass {
     final String MYSQL_SERVER_URL = "jdbc:mysql://hospitalmanagement.mysql.database.azure.com/";
     final String DB_URL = "jdbc:mysql://hospitalmanagement.mysql.database.azure.com/hospital-management";
     final String USERNAME = "hospitaladmin";
     final String PASSWORD = "Manager1!";
 
+    /**
+     * Establishes connection to the database and ensures the "users" table exists.
+     * Checks if any registered users exist in the database.
+     *
+     * @return true if there are registered users; false otherwise.
+     */
     public  boolean connectToDatabase() {
         boolean hasRegistredUsers = false;
 
@@ -56,10 +67,23 @@ public class AuthServiceClass {
         return hasRegistredUsers;
     }
 
+    /**
+     * Establishes a connection to the database.
+     *
+     * @return Connection object for database interaction.
+     * @throws SQLException if the connection fails.
+     */
     public Connection getConnection() throws SQLException {
         return DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
     }
 
+    /**
+     * Inserts a new user into the "users" table.
+     *
+     * @param username the username of the new user.
+     * @param email    the email of the new user.
+     * @param password the password of the new user.
+     */
     public  void insertUser(String username, String email, String password) {
 
 
@@ -84,6 +108,15 @@ public class AuthServiceClass {
         }
     }
 
+    /**
+     * Inserts a new patient into the "patients" table.
+     *
+     * @param fname        patient's first name.
+     * @param lname       patient's last name.
+     * @param dob         patient's date of birth.
+     * @param phoneNumber patient's contact number.
+     * @param address     patient's address.
+     */
     public  void insertPatient(String fname, String lname, String dob, String phoneNumber, String address) {
 
         try {
@@ -109,6 +142,14 @@ public class AuthServiceClass {
         }
     }
 
+    /**
+     * Validates user credentials against the database records.
+     *
+     * @param username the username to validate.
+     * @param email    the email to validate.
+     * @param password the password to validate.
+     * @return true if the user is valid; false otherwise.
+     */
     public boolean validateUser(String username, String email, String password) {
         boolean isValidUser = false;
 
@@ -138,6 +179,12 @@ public class AuthServiceClass {
         return isValidUser;
     }
 
+    /**
+     * Checks if a username already exists in the "users" table.
+     *
+     * @param username the username to check.
+     * @return true if the username exists; false otherwise.
+     */
     public boolean usernameExists(String username) {
         boolean exists = false;
 
@@ -159,6 +206,13 @@ public class AuthServiceClass {
         return exists;
     }
 
+    /**
+     * Updates a user's username and password in the "users" table.
+     *
+     * @param email       the user's email.
+     * @param newUsername the new username.
+     * @param newPassword the new password.
+     */
     public void updateUser(String email, String newUsername, String newPassword) {
         String updateQuery = "UPDATE users SET username = ?, password = ? WHERE email = ?";
 
@@ -182,6 +236,12 @@ public class AuthServiceClass {
         }
     }
 
+    /**
+     * Updates the contact number of a patient based on their first and last name.
+     * @param fname The first name of the patient.
+     * @param lname The last name of the patient.
+     * @param newNumber The new contact number to be set.
+     */
     public void updatePatientNumber(String fname, String lname, String newNumber) {
         String updateQuery = "UPDATE patients SET ContactNumber = ? WHERE FirstName = ? AND LastName = ?";
 
@@ -205,6 +265,12 @@ public class AuthServiceClass {
         }
     }
 
+    /**
+     * Updates the address of a patient based on their first and last name.
+     * @param fname The first name of the patient.
+     * @param lname The last name of the patient.
+     * @param newAddress The new address to be set.
+     */
     public void updatePatientAddress(String fname, String lname, String newAddress) {
         String updateQuery = "UPDATE patients SET Address = ? WHERE FirstName = ? AND LastName = ?";
 

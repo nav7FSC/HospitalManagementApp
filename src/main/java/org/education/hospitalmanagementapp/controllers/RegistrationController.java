@@ -14,6 +14,10 @@ import org.education.hospitalmanagementapp.services.AuthServiceClass;
 
 import java.util.regex.Pattern;
 
+/**
+ * Controller class for handling user registration logic and navigation in the Hospital Management App.
+ * Manages user input validation, account creation, and navigation back to the login page.
+ */
 public class RegistrationController {
 
     private static final Pattern FIRSTNAME_PATTERN = Pattern.compile("^[A-Z][a-zA-Z]+$");
@@ -33,6 +37,11 @@ public class RegistrationController {
     @FXML
     private PasswordField passwordField, confirmPassField;
 
+    /**
+     * Handles the user registration process. Validates input, checks for existing usernames,
+     * creates a new user, and navigates to the main menu upon successful registration.
+     * @param event the action event triggered by clicking the register button
+     */
     @FXML
     void loginUser(ActionEvent event) {
         String username = usernameField.getText();
@@ -75,6 +84,10 @@ public class RegistrationController {
         }
     }
 
+    /**
+     * Navigates back to the login page from the registration view.
+     * @param event the action event triggered by clicking the "Go back to login" button
+     */
     @FXML
     private void goBackToLogInPage(ActionEvent event) {
         try {
@@ -89,6 +102,14 @@ public class RegistrationController {
         }
     }
 
+    /**
+     * Validates user input for username, email, and password against predefined regex patterns.
+     * Displays error messages if any input fails validation.
+     * @param username the username entered by the user
+     * @param email the email entered by the user
+     * @param password the password entered by the user
+     * @return true if all inputs are valid, false otherwise
+     */
     private boolean validateInput(String username, String email, String password) {
         if (!USERNAME_PATTERN.matcher(username).matches()) {
             alert.errorMessage("Invalid username format.");

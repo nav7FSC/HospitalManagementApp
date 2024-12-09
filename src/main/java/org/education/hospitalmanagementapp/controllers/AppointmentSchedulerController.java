@@ -28,15 +28,16 @@ import java.security.SecureRandom;
 import java.sql.ResultSet;
 import java.util.Random;
 
+/**
+ * Controller class for handling appointment scheduling functionality.
+ */
 public class AppointmentSchedulerController {
 
     @FXML
     private ToggleButton amtoggle;
 
-
     @FXML
     private DatePicker datePicker;
-
 
     @FXML
     private TextField doctorFirstName;
@@ -78,6 +79,9 @@ public class AppointmentSchedulerController {
     final String USERNAME = "hospitaladmin";
     final String PASSWORD = "Manager1!";
 
+    /**
+     * Initializes the controller, adding validation to input fields.
+     */
     @FXML
     private void initialize() {
         addTimeFieldValidation(hourField);
@@ -89,13 +93,22 @@ public class AppointmentSchedulerController {
         addNameFieldValidation(appointmentType);
     }
 
-    // Method to reset the date picker when dateCancel is clicked
+    /**
+     * Resets the DatePicker field.
+     *
+     * @param event the mouse event triggering the reset
+     */
     @FXML
     void resetDatePicker(MouseEvent event) {
         datePicker.setValue(null);
         alertMessages.successMessage("Date picker reset.");
     }
 
+    /**
+     * Saves the selected date and validates if it is in the future.
+     *
+     * @param event the mouse event triggering the save action
+     */
     @FXML
     void saveSelectedDate(MouseEvent event) {
         LocalDate selectedDate = datePicker.getValue();
@@ -113,6 +126,11 @@ public class AppointmentSchedulerController {
         }
     }
 
+    /**
+     * Validates time field input to allow only numeric values.
+     *
+     * @param field the TextField to validate
+     */
     private void addTimeFieldValidation(TextField field) {
         field.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d{0,2}")) {
@@ -120,6 +138,12 @@ public class AppointmentSchedulerController {
             }
         });
     }
+
+    /**
+     * Validates name field input to allow only alphabetic characters.
+     *
+     * @param field the TextField to validate
+     */
     private void addNameFieldValidation(TextField field) {
         field.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("[a-zA-Z\\s]*")) {
@@ -128,7 +152,11 @@ public class AppointmentSchedulerController {
         });
     }
 
-
+    /**
+     * Toggles AM/PM buttons to ensure mutual exclusivity.
+     *
+     * @param event the action event triggering the toggle
+     */
     @FXML
     void toggleAMPM(ActionEvent event) {
         if (event.getSource() == amtoggle) {
@@ -138,6 +166,11 @@ public class AppointmentSchedulerController {
         }
     }
 
+    /**
+     * Resets the time fields.
+     *
+     * @param event the mouse event triggering the reset
+     */
     @FXML
     void resetTimeFields(MouseEvent event) {
         hourField.clear();
@@ -145,6 +178,11 @@ public class AppointmentSchedulerController {
         alertMessages.successMessage("Time fields reset.");
     }
 
+    /**
+     * Saves the selected time, validating input for completeness.
+     *
+     * @param event the mouse event triggering the save action
+     */
     @FXML
     void saveSelectedTime(MouseEvent event) {
         String hour = hourField.getText();
@@ -158,7 +196,18 @@ public class AppointmentSchedulerController {
         }
     }
 
-
+    /**
+     * Inserts an appointment into the database.
+     *
+     * @param patientID        unique identifier for the patient
+     * @param patientFirstName patient's first name
+     * @param patientLastName  patient's last name
+     * @param appointmentType  type of appointment
+     * @param doctorFirstName  doctor's first name
+     * @param doctorLastName   doctor's last name
+     * @param appointmentDate  date of the appointment
+     * @param appointmentTime  time of the appointment
+     */
     private void insertAppointment(int patientID, String patientFirstName, String patientLastName, String appointmentType, String doctorFirstName, String doctorLastName, String appointmentDate, String appointmentTime) {
         String sql = "INSERT INTO appointments (PatientID, patient_first_name, patient_last_name, appointment_type, doctor_first_name, doctor_last_name, appointment_date, appointment_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -186,6 +235,11 @@ public class AppointmentSchedulerController {
         }
     }
 
+    /**
+     * Handles the confirmation of an appointment by collecting user input, validating it,
+     * and inserting the appointment details into the database.
+     * @param event The action event triggered by clicking the confirm appointment button.
+     */
     @FXML
     void confirmAppoitnment(ActionEvent event) {
         String patientFirstName = this.patientFirstName.getText();
@@ -235,6 +289,11 @@ public class AppointmentSchedulerController {
         }
     }
 
+    /**
+     * Generates a unique patient ID by attempting up to 10 times to ensure no collision with the database.
+     * @return A unique patient ID.
+     * @throws RuntimeException if a unique ID could not be generated after the maximum number of attempts.
+     */
     private int generatePatientID() {
         final int MAX_ATTEMPTS = 10;
         final int ID_RANGE = 1000000; // Increased the range to reduce collision probability
@@ -252,6 +311,11 @@ public class AppointmentSchedulerController {
         throw new RuntimeException("Failed to generate a unique PatientID after " + MAX_ATTEMPTS + " attempts");
     }
 
+    /**
+     * Checks if the provided patient ID already exists in the database.
+     * @param patientID The patient ID to check.
+     * @return true if the ID exists, false otherwise.
+     */
     private boolean patientIDExists(int patientID) {
         String sql = "SELECT COUNT(*) FROM patients WHERE PatientID = ?";
 
@@ -271,6 +335,10 @@ public class AppointmentSchedulerController {
         return false;
     }
 
+    /**
+     * Navigates the user to the main menu scene.
+     * @param event The action event triggered by clicking the navigation button.
+     */
     @FXML
     void goToMain(ActionEvent event) {
         try {
@@ -285,6 +353,10 @@ public class AppointmentSchedulerController {
         }
     }
 
+    /**
+     * Navigates the user to the main menu scene when clicking an image.
+     * @param event The mouse event triggered by clicking the image.
+     */
     @FXML
     void goToMainFromImage(MouseEvent event) {
         try {
@@ -299,6 +371,10 @@ public class AppointmentSchedulerController {
         }
     }
 
+    /**
+     * Handles the sign-out process by navigating the user back to the login view.
+     * @param event The action event triggered by clicking the sign-out button.
+     */
     @FXML
     void signOut(ActionEvent event) {
         try {

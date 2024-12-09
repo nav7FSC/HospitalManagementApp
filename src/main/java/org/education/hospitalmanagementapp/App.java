@@ -14,13 +14,24 @@ import javafx.stage.Screen;
 import org.education.hospitalmanagementapp.controllers.SplashController;
 import org.education.hospitalmanagementapp.services.AuthServiceClass;
 
+/**
+ * Main application class for the Hospital Management System.
+ * Handles initialization, showing the splash screen, managing the login screen transition,
+ * and setting up the primary stage with properties like full-screen handling.
+ */
 public class App extends Application {
-//comment to see if my commits are working
+
     private static AuthServiceClass asc;
     private Stage primaryStage;
     private BorderPane root;
     private boolean allowFullScreenExit = false;
 
+    /**
+     * Entry point for initializing the JavaFX application.
+     * Sets up the initial stage, splash screen, and transitions to the login screen.
+     * @param primaryStage the main application stage
+     * @throws Exception if an error occurs during initialization
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
@@ -63,6 +74,11 @@ public class App extends Application {
         });
     }
 
+    /**
+     * Displays the splash screen at the application startup.
+     * Sets a callback to transition to the login screen after the splash screen finishes.
+     * @throws Exception if there is an error loading the splash screen
+     */
     private void showSplashScreen() throws Exception {
         FXMLLoader splashLoader = new FXMLLoader(getClass().getResource("/org.education.hospitalmanagementapp/SplashScreen.fxml"));
         Parent splashRoot = splashLoader.load();
@@ -72,6 +88,10 @@ public class App extends Application {
         splashController.setOnSplashFinished(this::showLoginScreen);
     }
 
+    /**
+     * Handles the transition from the splash screen to the login screen with a fade-in/out effect.
+     * This ensures a smooth visual experience for the user.
+     */
     private void showLoginScreen() {
         Platform.runLater(() -> {
             try {
@@ -93,7 +113,6 @@ public class App extends Application {
                     primaryStage.toFront();
                 });
 
-
                 fadeOut.play();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -101,6 +120,10 @@ public class App extends Application {
         });
     }
 
+    /**
+     * Main method to initialize the application and connect to the database.
+     * @param args command-line arguments
+     */
     public static void main(String[] args) {
         asc = new AuthServiceClass();
         asc.connectToDatabase();

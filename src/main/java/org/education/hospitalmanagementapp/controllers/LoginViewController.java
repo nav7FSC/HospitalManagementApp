@@ -13,6 +13,10 @@ import javafx.stage.Stage;
 import org.education.hospitalmanagementapp.AlertMessages;
 import org.education.hospitalmanagementapp.services.AuthServiceClass;
 
+/**
+ * Controller class for handling the login view in the Hospital Management App.
+ * Manages user login and registration navigation.
+ */
 public class LoginViewController {
     private AlertMessages alert = new AlertMessages();
     private static AuthServiceClass asc = new AuthServiceClass();
@@ -23,11 +27,20 @@ public class LoginViewController {
     @FXML
     private PasswordField passField;
 
+    /**
+     * Getter method to retrieve the currently logged-in username.
+     * @return the username
+     */
     public String getuser()
     {
         return username;
     }
 
+    /**
+     * Handles user login action. Validates user credentials and navigates to the main menu on success.
+     * Displays error messages if fields are empty or credentials are invalid.
+     * @param event the action event triggered by clicking the login button
+     */
     @FXML
     void loginUser(ActionEvent event) {
         this.username = userField.getText();
@@ -57,7 +70,11 @@ public class LoginViewController {
         }
     }
 
-
+    /**
+     * Handles user registration navigation. Navigates to the registration view on clicking the register button.
+     * Displays an error message if navigation fails.
+     * @param event the action event triggered by clicking the register button
+     */
     @FXML
     void registerUser(ActionEvent event) {
         try{

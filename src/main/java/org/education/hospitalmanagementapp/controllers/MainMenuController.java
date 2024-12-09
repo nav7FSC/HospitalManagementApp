@@ -13,8 +13,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Controller for the Main Menu of the Hospital Management App.
+ * Handles navigation to various modules within the application.
+ */
 public class MainMenuController {
-
 
     @FXML
     private ImageView menu;
@@ -25,10 +28,14 @@ public class MainMenuController {
     @FXML
     private Label num_of_noti;
 
-
     @FXML
     private ImageView profile_Image;
 
+    /**
+     * Navigates to the Billing and Invoices module.
+     *
+     * @param event the action event triggered by the user
+     */
     @FXML
     void goToBilling(ActionEvent event) {
         try {
@@ -43,7 +50,11 @@ public class MainMenuController {
         }
     }
 
-
+    /**
+     * Navigates to the Hospital Report Generator module.
+     *
+     * @param event the action event triggered by the user
+     */
     @FXML
     void goToReport(ActionEvent event) {
         try {
@@ -58,6 +69,11 @@ public class MainMenuController {
         }
     }
 
+    /**
+     * Navigates to the User Management module.
+     *
+     * @param event the action event triggered by the user
+     */
     @FXML
     void goToUsrManagement(ActionEvent event) {
         try {
@@ -72,6 +88,11 @@ public class MainMenuController {
         }
     }
 
+    /**
+     * Navigates to the Hospital Dashboard module.
+     *
+     * @param event the action event triggered by the user
+     */
     @FXML
     void goToDash(ActionEvent event) {
         try {
@@ -87,6 +108,11 @@ public class MainMenuController {
         }
     }
 
+    /**
+     * Navigates to the Appointment Management module.
+     *
+     * @param event the action event triggered by the user
+     */
     @FXML
     void goToApptManagement(ActionEvent event) {
         try {
@@ -101,6 +127,11 @@ public class MainMenuController {
         }
     }
 
+    /**
+     * Logs out the user and navigates to the Login View.
+     *
+     * @param event the action event triggered by the user
+     */
     @FXML
     void signOut(ActionEvent event) {
         try {
@@ -114,6 +145,12 @@ public class MainMenuController {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Navigates to the Patient Management module.
+     *
+     * @param event the action event triggered by the user
+     */
     @FXML
     void goToPatient(ActionEvent event) {
         try {
