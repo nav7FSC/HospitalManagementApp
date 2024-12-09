@@ -51,19 +51,6 @@
                               <Insets right="50.0" />
                            </StackPane.margin>
                         </ImageView>
-                        <ImageView fx:id="noti_image" fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/notification.png" />
-                           </image>
-                           <StackPane.margin>
-                              <Insets bottom="55.0" />
-                           </StackPane.margin>
-                        </ImageView>
-                        <Label fx:id="num_of_noti" style="-fx-text-fill: white;" text="0">
-                           <StackPane.margin>
-                              <Insets bottom="55.0" />
-                           </StackPane.margin>
-                        </Label>
                      </children>
                   </StackPane>
                </children>
@@ -99,7 +86,7 @@
                   <StackPane prefHeight="56.0" prefWidth="210.0">
                      <children>
                         <TextField fx:id="lastNameField" prefHeight="56.0" prefWidth="210.0" promptText="Enter Last Name" styleClass="text-fields" stylesheets="@../css/styles.css" />
-                        <ImageView fx:id="clearLastNameField" fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="clearLastName" fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/Trailingicon.png" />
                            </image>
@@ -166,7 +153,7 @@
                   <Insets top="20.0" />
                </VBox.margin>
             </HBox>
-            <Button fx:id="addPatientInfoButton" mnemonicParsing="false" onAction="#addPatientInfo" prefHeight="68.0" prefWidth="199.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="Add Patient Info">
+            <Button fx:id="confirmPatienBttn" mnemonicParsing="false" onAction="#addPatientInfo" prefHeight="68.0" prefWidth="199.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="Add Patient Info">
                <font>
                   <Font name="Inter Semi Bold" size="15.0" />
                </font>
@@ -254,7 +241,7 @@
                   <Insets top="20.0" />
                </VBox.margin>
             </HBox>
-            <Button fx:id="changePatientInfoBttn" mnemonicParsing="false" onAction="#changePatientInfo" prefHeight="68.0" prefWidth="199.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="Change Patient Info">
+            <Button fx:id="changePatientBttn" mnemonicParsing="false" onAction="#changePatientInfo" prefHeight="68.0" prefWidth="199.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="Change Patient Info">
                <font>
                   <Font name="Inter Semi Bold" size="15.0" />
                </font>
