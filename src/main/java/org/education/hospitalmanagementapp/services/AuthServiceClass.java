@@ -1,5 +1,9 @@
 package org.education.hospitalmanagementapp.services;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import org.education.hospitalmanagementapp.User;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -16,6 +20,9 @@ public class AuthServiceClass {
     final String DB_URL = "jdbc:mysql://hospitalmanagement.mysql.database.azure.com/hospital-management";
     final String USERNAME = "hospitaladmin";
     final String PASSWORD = "Manager1!";
+
+    private final ObservableList<User> data = FXCollections.observableArrayList();
+
 
     /**
      * Establishes connection to the database and ensures the "users" table exists.
@@ -107,6 +114,40 @@ public class AuthServiceClass {
             e.printStackTrace();
         }
     }
+
+
+
+    public ObservableList<User> getData(String user) {
+        connectToDatabase();
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            String sql = "SELECT * FROM users ";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+
+            while (resultSet.next()) {
+                if(resultSet.getString("username").equals(user)) {
+                    int id = resultSet.getInt("id");
+                    String first_name = resultSet.getString("username");
+                    String last_name = resultSet.getString("username");
+                    String username = resultSet.getString("username");
+                    String email = resultSet.getString("email");
+                    String password = resultSet.getString("password");
+                    data.add(new User(first_name, last_name, username, email, password));
+
+                }
+
+            }
+
+            preparedStatement.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+
 
     /**
      * Inserts a new patient into the "patients" table.
