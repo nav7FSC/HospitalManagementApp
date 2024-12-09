@@ -14,6 +14,10 @@ import javafx.stage.Stage;
 import org.education.hospitalmanagementapp.AlertMessages;
 import org.education.hospitalmanagementapp.services.AuthServiceClass;
 
+/**
+ * Controller class for managing patient information in the Hospital Management App.
+ * Provides functionality for adding, updating, and navigating between views.
+ */
 public class PatientManagerController {
 
     @FXML
@@ -23,6 +27,11 @@ public class PatientManagerController {
     private AuthServiceClass asc = new AuthServiceClass();
     private AlertMessages alert = new AlertMessages();
 
+    /**
+     * Handles adding a new patient's information to the database.
+     *
+     * @param event the action event triggered by the user
+     */
     @FXML
     void addPatientInfo(ActionEvent event){
         String firstName = firstNameField.getText();
@@ -40,6 +49,11 @@ public class PatientManagerController {
         alert.successMessage("Successfully inserted new patient into the database!");
     }
 
+    /**
+     * Handles updating an existing patient's phone number and/or address in the database.
+     *
+     * @param event the action event triggered by the user
+     */
     @FXML
     void changePatientInfo(ActionEvent event){
         String firstName = confirmFirstNameField.getText();
@@ -67,6 +81,11 @@ public class PatientManagerController {
         }
     }
 
+    /**
+     * Navigates to the main menu view.
+     *
+     * @param event the action event triggered by the user
+     */
     @FXML
     void goToMain(ActionEvent event){
         try {
@@ -81,6 +100,11 @@ public class PatientManagerController {
         }
     }
 
+    /**
+     * Logs out the current user and navigates to the login view.
+     *
+     * @param event the action event triggered by the user
+     */
     @FXML
     void signOut(ActionEvent event) {
         try {

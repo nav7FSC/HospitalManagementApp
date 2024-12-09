@@ -24,6 +24,10 @@ import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
+/**
+ * Controller class for handling billing and invoice-related operations in the Hospital Management App.
+ * Manages service selection, price calculations, and navigation between scenes.
+ */
 public class BillingAndInvoiceController implements Initializable {
 
     @FXML
@@ -54,6 +58,12 @@ public class BillingAndInvoiceController implements Initializable {
 
     private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-Z]{2,30}$");
 
+    /**
+     * Initializes the controller by setting up services, price listeners, and clear button functionalities.
+     * Called automatically upon scene initialization.
+     * @param url the location used to resolve relative paths
+     * @param resourceBundle the resources used to localize the controller
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setupServiceTypes();
@@ -62,6 +72,9 @@ public class BillingAndInvoiceController implements Initializable {
         setupNameValidation();
     }
 
+    /**
+     * Populates the service type combo box with predefined services and their corresponding prices.
+     */
     private void setupServiceTypes() {
         servicePrices = new HashMap<>();
         servicePrices.put("General Consultation", 100.0);
@@ -83,6 +96,9 @@ public class BillingAndInvoiceController implements Initializable {
         typeOfService.getItems().addAll(servicePrices.keySet());
     }
 
+    /**
+     * Sets up a listener to dynamically update the price field when a service type is selected.
+     */
     private void setupPriceChangeListener() {
         typeOfService.setOnAction(event -> {
             String selectedService = typeOfService.getValue();
@@ -93,6 +109,9 @@ public class BillingAndInvoiceController implements Initializable {
         });
     }
 
+    /**
+     * Sets up the clear button functionality for clearing first name and last name fields.
+     */
     private void setupClearButtons() {
         clear_FirstName.setOnMouseClicked(event -> firstNameField.clear());
         clearLastName.setOnMouseClicked(event -> lastNameField.clear());
@@ -116,6 +135,11 @@ public class BillingAndInvoiceController implements Initializable {
         });
     }
 
+    /**
+     * Handles patient charge calculation based on service selection and user input.
+     * Displays success or error alerts as appropriate.
+     * @param event the action event triggered by clicking the calculate button
+     */
     @FXML
     void calculatePatientCharge(ActionEvent event) {
         String firstName = firstNameField.getText().trim();
@@ -169,6 +193,10 @@ public class BillingAndInvoiceController implements Initializable {
         }
     }
 
+    /**
+     * Navigates the user back to the main menu.
+     * @param event the mouse click event triggered by clicking the navigation button
+     */
     @FXML
     void goToMain(MouseEvent event) {
         try {
@@ -184,6 +212,10 @@ public class BillingAndInvoiceController implements Initializable {
         }
     }
 
+    /**
+     * Signs out the current user and navigates back to the login view.
+     * @param event the action event triggered by clicking the sign-out button
+     */
     @FXML
     void signOut(ActionEvent event) {
         try {

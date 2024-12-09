@@ -11,6 +11,10 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
+/**
+ * Controller for the Report Generator module in the Hospital Management App.
+ * Provides functionality to generate reports in various formats.
+ */
 public class ReportGeneratorController {
 
     @FXML
@@ -43,36 +47,71 @@ public class ReportGeneratorController {
     @FXML
     private Button staffPdfBttn;
 
+    /**
+     * Generates a PDF report for billing records.
+     *
+     * @param event the action event triggered by the user
+     */
     @FXML
     void generateBillingPdf(ActionEvent event) {
 
     }
 
+    /**
+     * Generates a CSV report for patient records.
+     *
+     * @param event the action event triggered by the user
+     */
     @FXML
     void generatePtntCsv(ActionEvent event) {
 
     }
 
+    /**
+     * Generates a PDF report for patient records.
+     *
+     * @param event the action event triggered by the user
+     */
     @FXML
     void generatePtntPdf(ActionEvent event) {
 
     }
 
+    /**
+     * Generates a CSV report for staff records.
+     *
+     * @param event the action event triggered by the user
+     */
     @FXML
     void generateStaffCsv(ActionEvent event) {
 
     }
 
+    /**
+     * Generates a PDF report for staff records.
+     *
+     * @param event the action event triggered by the user
+     */
     @FXML
     void generateStaffPdf(ActionEvent event) {
 
     }
 
+    /**
+     * Generates a CSV report for billing records.
+     *
+     * @param event the action event triggered by the user
+     */
     @FXML
     void genrateBillingCsv(ActionEvent event) {
 
     }
 
+    /**
+     * Navigates back to the Main Menu.
+     *
+     * @param event the action event triggered by the user
+     */
     @FXML
     void goToMain(ActionEvent event){
         try {
@@ -87,6 +126,11 @@ public class ReportGeneratorController {
         }
     }
 
+    /**
+     * Logs out the user and navigates to the Login View.
+     *
+     * @param event the action event triggered by the user
+     */
     @FXML
     void signOut(ActionEvent event) {
         try {

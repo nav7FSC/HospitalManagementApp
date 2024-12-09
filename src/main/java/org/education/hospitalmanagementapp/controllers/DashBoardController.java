@@ -31,6 +31,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for the Dashboard view.
+ * Manages the calendar view, charts, and user interactions on the dashboard.
+ */
 public class DashBoardController implements Initializable {
 
     String username = LoginViewController.username;
@@ -66,6 +70,11 @@ public class DashBoardController implements Initializable {
     private LocalDate currentDate = LocalDate.now();
     AuthServiceClass asc = new AuthServiceClass();
 
+    /**
+     * Initializes the dashboard by setting up charts, calendar, and user label.
+     * @param location URL location for controller
+     * @param resources ResourceBundle
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initializeSampleAppointments();
@@ -73,10 +82,11 @@ public class DashBoardController implements Initializable {
         initializeCharts();
         updateUserNameLabel();
 
-
     }
 
-
+    /**
+     * Updates the user name label if the username exists in the authentication service.
+     */
     private void updateUserNameLabel() {
 
         if (asc.usernameExists(username)) {
@@ -89,8 +99,9 @@ public class DashBoardController implements Initializable {
         }
     }
 
-
-
+    /**
+     * Initializes a sample list of appointments for calendar demonstration.
+     */
     private void initializeSampleAppointments() {
         LocalDate today = LocalDate.now();
         sampleAppointments.put(today.plusDays(2), "Doctor's Appointment");
@@ -98,6 +109,9 @@ public class DashBoardController implements Initializable {
         sampleAppointments.put(today.plusDays(10), "Specialist Consultation");
     }
 
+    /**
+     * Creates the calendar interface in the calendar container view.
+     */
     private void createCalendarInContainer() {
         calendarContainer.getChildren().clear();
         calendarContainer.setSpacing(20);
@@ -224,11 +238,18 @@ public class DashBoardController implements Initializable {
         return sampleAppointments.containsKey(date);
     }
 
+    /**
+     * Navigates the calendar by changing the displayed month.
+     * @param months Number of months to navigate
+     */
     private void navigateMonth(int months) {
         currentDate = currentDate.plusMonths(months);
         createCalendarInContainer();
     }
 
+    /**
+     * Initializes the four charts on the dashboard.
+     */
     private void initializeCharts() {
         setupChart(salesChart, "#6750A4");
         setupChart(patientChart, "#4B9B9B");
@@ -236,6 +257,11 @@ public class DashBoardController implements Initializable {
         setupChart(inventoryChart, "#FF69B4");
     }
 
+    /**
+     * Sets up a bar chart with the given color and data.
+     * @param chart BarChart to configure
+     * @param color Color string for the bars
+     */
     private void setupChart(BarChart<String, Number> chart, String color) {
         chart.setAnimated(false);
         chart.setLegendVisible(false);
@@ -270,8 +296,10 @@ public class DashBoardController implements Initializable {
         });
     }
 
-
-
+    /**
+     * Handles sign-out action and redirects to the login screen.
+     * @param event ActionEvent triggered by button press
+     */
     @FXML
     void signOut(ActionEvent event) {
         try {
@@ -286,6 +314,10 @@ public class DashBoardController implements Initializable {
         }
     }
 
+    /**
+     * Navigates to the main menu.
+     * @param event ActionEvent triggered by button press
+     */
     @FXML
     private void goToMain(ActionEvent event) {
         try {
