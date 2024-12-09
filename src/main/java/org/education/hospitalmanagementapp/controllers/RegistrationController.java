@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.education.hospitalmanagementapp.AlertMessages;
@@ -15,8 +16,8 @@ import java.util.regex.Pattern;
 
 public class RegistrationController {
 
-    private static final Pattern FIRSTNAME_PATTERN = Pattern.compile("^[A-Z][a-zA-Z]$");
-    private static final Pattern LAST_NAME_PATTERN = Pattern.compile("^[A-Z][a-zA-Z](-[A-Z][a-zA-Z]*)?$");
+    private static final Pattern FIRSTNAME_PATTERN = Pattern.compile("^[A-Z][a-zA-Z]+$");
+    private static final Pattern LAST_NAME_PATTERN = Pattern.compile("^[A-Z][a-zA-Z]*(-[A-Z][a-zA-Z]*)?$");
     private static final Pattern USERNAME_PATTERN = Pattern.compile("^[a-zA-Z0-9.-]{5,20}$");
     private static final Pattern EMAILPATTERN = Pattern.compile(
             "^[A-Za-z0-9.%+-]+@(gmail|yahoo|hotmail|outlook|aol|icloud|protonmail|zoho|yandex|mail)\\.(com|edu|gov|org|net|io|co)$",
@@ -27,26 +28,36 @@ public class RegistrationController {
     AuthServiceClass asc = new AuthServiceClass();
 
     @FXML
-    private TextField usernameField, emailField, passwordField;
+    private TextField usernameField, emailField;
+
+    @FXML
+    private PasswordField passwordField, confirmPassField;
 
     @FXML
     void loginUser(ActionEvent event) {
         String username = usernameField.getText();
         String email = emailField.getText();
         String password = passwordField.getText();
+        String confirmPassword = confirmPassField.getText();
 
-        if (username.isEmpty() || email.isEmpty() || password.isEmpty()){
-            alert.errorMessage("Fill in any blank field.");
+        if (username.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+            alert.errorMessage("Fill in all fields.");
             return;
         }
+
+        if (!password.equals(confirmPassword)) {
+            alert.errorMessage("Passwords do not match.");
+            return;
+        }
+
         if (!validateInput(username, email, password)) {
             return;
         }
+
         if (asc.usernameExists(username)) {
             alert.errorMessage("The username already exists. Please choose a different username.");
             return;
         }
-
 
         asc.insertUser(username, email, password);
 
@@ -63,6 +74,7 @@ public class RegistrationController {
             e.printStackTrace();
         }
     }
+
     @FXML
     private void goBackToLogInPage(ActionEvent event) {
         try {
@@ -78,20 +90,16 @@ public class RegistrationController {
     }
 
     private boolean validateInput(String username, String email, String password) {
-        if (!USERNAME_PATTERN.matcher(username).matches() && !EMAILPATTERN.matcher(email).matches() && !PASSWORD_PATTERN.matcher(password).matches()) {
-            alert.errorMessage("Wrong login credentials");
-            return false;
-        }
         if (!USERNAME_PATTERN.matcher(username).matches()) {
-            alert.errorMessage("Wrong username format.");
+            alert.errorMessage("Invalid username format.");
             return false;
         }
         if (!EMAILPATTERN.matcher(email).matches()) {
-            alert.errorMessage("Wrong email format.");
+            alert.errorMessage("Invalid email format.");
             return false;
         }
         if (!PASSWORD_PATTERN.matcher(password).matches()) {
-            alert.errorMessage("Wrong password pattern.");
+            alert.errorMessage("Invalid password format. Must include uppercase, lowercase, number, and special character.");
             return false;
         }
         return true;

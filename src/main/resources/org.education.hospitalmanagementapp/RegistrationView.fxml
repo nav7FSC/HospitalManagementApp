@@ -93,14 +93,14 @@
                         <TextField fx:id="emailField" alignment="TOP_LEFT" prefHeight="70.0" prefWidth="399.0" promptText="Email Address " styleClass="text-fields" stylesheets="@../css/styles.css" />
                         <VBox prefHeight="109.0" prefWidth="400.0">
                             <children>
-                                <TextField fx:id="passwordField" alignment="TOP_LEFT" prefHeight="70.0" prefWidth="399.0" promptText="Password" styleClass="text-fields" stylesheets="@../css/styles.css" />
+                                <PasswordField fx:id="passwordField" alignment="TOP_LEFT" prefHeight="70.0" prefWidth="399.0" promptText="Password" styleClass="text-fields" stylesheets="@../css/styles.css" />
                                 <Label prefHeight="46.0" prefWidth="400.0" text="Password must be 8-20 characters, with one uppercase, lowercase, number, and special character." wrapText="true">
                            <font>
                               <Font name="Inter Semi Bold" size="13.0" />
                            </font></Label>
                             </children>
                         </VBox>
-                        <TextField fx:id="confirmPassField" alignment="TOP_LEFT" prefHeight="70.0" prefWidth="399.0" promptText="Confirm Password" styleClass="text-fields" stylesheets="@../css/styles.css" />
+                        <PasswordField fx:id="confirmPassField" alignment="TOP_LEFT" prefHeight="70.0" prefWidth="399.0" promptText="Confirm Password" styleClass="text-fields" stylesheets="@../css/styles.css" />
                         <HBox alignment="CENTER" prefHeight="45.0" prefWidth="395.0">
                             <children>
                                 <Label style="-fx-text-fill: white;" text="Agree to the terms of services ">
