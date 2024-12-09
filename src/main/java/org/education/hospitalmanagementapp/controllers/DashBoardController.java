@@ -1,5 +1,6 @@
 package org.education.hospitalmanagementapp.controllers;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +26,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import org.education.hospitalmanagementapp.AlertMessages;
+import org.education.hospitalmanagementapp.User;
 import org.education.hospitalmanagementapp.services.AuthServiceClass;
 
 import java.net.URL;
@@ -41,13 +43,12 @@ public class DashBoardController implements Initializable {
 
     private final AlertMessages alertMessages = new AlertMessages();
 
-    String username = LoginViewController.username;
-   // LoginViewController user;
+    String temp_username = LoginViewController.username;
+    LoginViewController user = new LoginViewController();
 
-/*    public DashBoardController(LoginViewController user)
-    {
-        this.user = user;
-    }*/
+
+    private final AuthServiceClass cnUtil = new AuthServiceClass();
+
 
     @FXML
     private VBox calendarContainer;
@@ -66,36 +67,37 @@ public class DashBoardController implements Initializable {
 
     private final Map<LocalDate, String> sampleAppointments = new HashMap<>();
     private LocalDate currentDate = LocalDate.now();
-    AuthServiceClass asc = new AuthServiceClass();
+    @FXML
+    private String current_userName;
 
-    /**
-     * Initializes the dashboard by setting up charts, calendar, and user label.
-     * @param location URL location for controller
-     * @param resources ResourceBundle
-     */
+    AuthServiceClass asc = new AuthServiceClass();
+    private final ObservableList<User> currentuser_Info = cnUtil.getData(temp_username);
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initializeSampleAppointments();
         createCalendarInContainer();
         initializeCharts();
+
+        this.current_userName = currentuser_Info.get(0).getUserName();
         updateUserNameLabel();
 
+
+
     }
 
-    /**
-     * Updates the user name label if the username exists in the authentication service.
-     */
+
+
+
+
     private void updateUserNameLabel() {
 
-        if (asc.usernameExists(username)) {
-            // Set the username label to the username
-            //userNameLabel.setText(user.getUsername());
-            userNameLabel.setText(username);
-        } else {
-            // Optionally handle cases where the username doesn't exist
-            userNameLabel.setText("User not found");
-        }
+
+        userNameLabel.setText(current_userName);
+
     }
+
 
     /**
      * Initializes a sample list of appointments for calendar demonstration.
