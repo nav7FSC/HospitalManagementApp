@@ -43,20 +43,6 @@ public class MainMenuController {
         }
     }
 
-    @FXML
-    void goToInventory(ActionEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/Hospital_Inventory.fxml"));
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(scene);
-            window.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
 
     @FXML
     void goToReport(ActionEvent event) {
