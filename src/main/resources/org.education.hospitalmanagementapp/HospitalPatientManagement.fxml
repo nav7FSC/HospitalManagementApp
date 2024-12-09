@@ -83,8 +83,8 @@
                <children>
                   <StackPane prefHeight="56.0" prefWidth="210.0">
                      <children>
-                        <TextField fx:id="patienIDField" prefHeight="56.0" prefWidth="210.0" promptText="Enter First Name" styleClass="text-fields" stylesheets="@../css/styles.css" />
-                        <ImageView fx:id="claerID" fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                        <TextField fx:id="firstNameField" prefHeight="56.0" prefWidth="210.0" promptText="Enter First Name" styleClass="text-fields" stylesheets="@../css/styles.css" />
+                        <ImageView fx:id="clearFirstName" fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/Trailingicon.png" />
                            </image>
@@ -98,8 +98,8 @@
                   </StackPane>
                   <StackPane prefHeight="56.0" prefWidth="210.0">
                      <children>
-                        <TextField fx:id="firstNameField" prefHeight="56.0" prefWidth="210.0" promptText="Enter Last Name" styleClass="text-fields" stylesheets="@../css/styles.css" />
-                        <ImageView fx:id="clearFirstNameField" fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                        <TextField fx:id="lastNameField" prefHeight="56.0" prefWidth="210.0" promptText="Enter Last Name" styleClass="text-fields" stylesheets="@../css/styles.css" />
+                        <ImageView fx:id="clearLastNameField" fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/Trailingicon.png" />
                            </image>
@@ -110,8 +110,8 @@
                   </StackPane>
                   <StackPane prefHeight="56.0" prefWidth="210.0">
                      <children>
-                        <TextField fx:id="lastNameField" prefHeight="56.0" prefWidth="210.0" promptText="Enter Date Of Birth" styleClass="text-fields" stylesheets="@../css/styles.css" />
-                        <ImageView fx:id="clearLastNameField" fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                        <TextField fx:id="dobField" prefHeight="56.0" prefWidth="210.0" promptText="Enter Date Of Birth" styleClass="text-fields" stylesheets="@../css/styles.css" />
+                        <ImageView fx:id="clearDOB" fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/Trailingicon.png" />
                            </image>
@@ -126,12 +126,12 @@
                   </StackPane>
                   <StackPane layoutX="713.0" layoutY="10.0" prefHeight="56.0" prefWidth="210.0">
                      <children>
-                        <TextField fx:id="lastNameField1" prefHeight="56.0" prefWidth="210.0" promptText="Enter Phone Number" styleClass="text-fields" stylesheets="@../css/styles.css">
+                        <TextField fx:id="phoneNumberField" prefHeight="56.0" prefWidth="210.0" promptText="Enter Phone Number" styleClass="text-fields" stylesheets="@../css/styles.css">
                            <StackPane.margin>
                               <Insets left="15.0" />
                            </StackPane.margin>
                         </TextField>
-                        <ImageView fx:id="clearLastNameField1" fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="clearPhoneNumber" fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/Trailingicon.png" />
                            </image>
@@ -143,12 +143,12 @@
                   </StackPane>
                   <StackPane layoutX="818.0" layoutY="10.0" prefHeight="56.0" prefWidth="210.0">
                      <children>
-                        <TextField fx:id="lastNameField11" prefHeight="56.0" prefWidth="210.0" promptText="Enter Address" styleClass="text-fields" stylesheets="@../css/styles.css">
+                        <TextField fx:id="addressField" prefHeight="56.0" prefWidth="210.0" promptText="Enter Address" styleClass="text-fields" stylesheets="@../css/styles.css">
                            <StackPane.margin>
                               <Insets left="10.0" />
                            </StackPane.margin>
                         </TextField>
-                        <ImageView fx:id="clearLastNameField11" fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="clearAddress" fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/Trailingicon.png" />
                            </image>
@@ -166,7 +166,7 @@
                   <Insets top="20.0" />
                </VBox.margin>
             </HBox>
-            <Button fx:id="confirmPatienBttn" mnemonicParsing="false" onAction="#confirm" prefHeight="68.0" prefWidth="199.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="Add Patient Info">
+            <Button fx:id="addPatientInfoButton" mnemonicParsing="false" onAction="#addPatientInfo" prefHeight="68.0" prefWidth="199.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="Add Patient Info">
                <font>
                   <Font name="Inter Semi Bold" size="15.0" />
                </font>
@@ -189,8 +189,8 @@
                <children>
                   <StackPane prefHeight="150.0" prefWidth="200.0">
                      <children>
-                        <TextField fx:id="adressField" prefHeight="56.0" prefWidth="210.0" promptText="Confirm First Name" styleClass="text-fields" stylesheets="@../css/styles.css" />
-                        <ImageView fx:id="clearAddressField" fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                        <TextField fx:id="confirmFirstNameField" prefHeight="56.0" prefWidth="210.0" promptText="Confirm First Name" styleClass="text-fields" stylesheets="@../css/styles.css" />
+                        <ImageView fx:id="clearConfirmFirstName" fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/Trailingicon.png" />
                            </image>
@@ -202,12 +202,12 @@
                   </StackPane>
                   <StackPane prefHeight="150.0" prefWidth="200.0">
                      <children>
-                        <TextField fx:id="phoneNumField" prefHeight="56.0" prefWidth="210.0" promptText="Confirm Last Name" styleClass="text-fields" stylesheets="@../css/styles.css">
+                        <TextField fx:id="confirmLastNameField" prefHeight="56.0" prefWidth="210.0" promptText="Confirm Last Name" styleClass="text-fields" stylesheets="@../css/styles.css">
                            <StackPane.margin>
                               <Insets />
                            </StackPane.margin>
                         </TextField>
-                        <ImageView fx:id="clearPhoneNum" fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="clearConfirmLastName" fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/Trailingicon.png" />
                            </image>
@@ -222,8 +222,8 @@
                   </StackPane>
                   <StackPane prefHeight="150.0" prefWidth="200.0">
                      <children>
-                        <TextField fx:id="emailField" prefHeight="56.0" prefWidth="210.0" promptText="Change Phone Number" styleClass="text-fields" stylesheets="@../css/styles.css" />
-                        <ImageView fx:id="clearEmailField" fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                        <TextField fx:id="changePhoneNumberField" prefHeight="56.0" prefWidth="210.0" promptText="Change Phone Number" styleClass="text-fields" stylesheets="@../css/styles.css" />
+                        <ImageView fx:id="clearChangePhoneNumber" fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/Trailingicon.png" />
                            </image>
@@ -235,8 +235,8 @@
                   </StackPane>
                   <StackPane layoutX="259.0" layoutY="10.0" prefHeight="150.0" prefWidth="200.0">
                      <children>
-                        <TextField fx:id="adressField1" prefHeight="56.0" prefWidth="210.0" promptText="Change Address" styleClass="text-fields" stylesheets="@../css/styles.css" />
-                        <ImageView fx:id="clearAddressField1" fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                        <TextField fx:id="changeAddressField" prefHeight="56.0" prefWidth="210.0" promptText="Change Address" styleClass="text-fields" stylesheets="@../css/styles.css" />
+                        <ImageView fx:id="clearChangeAddress" fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/Trailingicon.png" />
                            </image>
@@ -254,7 +254,7 @@
                   <Insets top="20.0" />
                </VBox.margin>
             </HBox>
-            <Button fx:id="changePatientBttn" mnemonicParsing="false" onAction="#changePatient" prefHeight="68.0" prefWidth="199.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="Change Patient Info">
+            <Button fx:id="changePatientInfoBttn" mnemonicParsing="false" onAction="#changePatientInfo" prefHeight="68.0" prefWidth="199.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="Change Patient Info">
                <font>
                   <Font name="Inter Semi Bold" size="15.0" />
                </font>

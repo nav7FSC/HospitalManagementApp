@@ -80,6 +80,31 @@ public class AuthServiceClass {
         }
     }
 
+    public  void insertPatient(String fname, String lname, String dob, String phoneNumber, String address) {
+
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            String sql = "INSERT INTO patients (FirstName, LastName, DateOfBirth, ContactNumber, Address) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, fname);
+            preparedStatement.setString(2, lname);
+            preparedStatement.setString(3, dob);
+            preparedStatement.setString(4, phoneNumber);
+            preparedStatement.setString(5, address);
+
+            int row = preparedStatement.executeUpdate();
+
+            if (row > 0) {
+                System.out.println("A new patient was inserted successfully.");
+            }
+
+            preparedStatement.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public boolean validateUser(String username, String email, String password) {
         boolean isValidUser = false;
 
