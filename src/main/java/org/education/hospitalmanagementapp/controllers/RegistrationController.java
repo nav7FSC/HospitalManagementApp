@@ -6,11 +6,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import org.education.hospitalmanagementapp.AlertMessages;
 import org.education.hospitalmanagementapp.services.AuthServiceClass;
+import javafx.stage.FileChooser;
+import javafx.scene.image.Image;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 
 import java.util.regex.Pattern;
 
@@ -35,21 +44,84 @@ public class RegistrationController {
     private TextField usernameField, emailField;
 
     @FXML
+    private TextField firstNameField, lastNameField;
+
+    @FXML
     private PasswordField passwordField, confirmPassField;
+
+    @FXML
+    private ImageView profileImageView;
+
+    private ContextMenu profileMenu;
+
+    private byte[] profileImageData;
+
+    @FXML
+    public void initialize() {
+        setupProfilePictureMenu();
+        profileImageView.setOnMouseClicked(event -> {
+            profileMenu.show(profileImageView, event.getScreenX(), event.getScreenY());
+        });
+    }
+
+    private void selectProfileImage() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Profile Picture");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif")
+        );
+        File selectedFile = fileChooser.showOpenDialog(null);
+        if (selectedFile != null) {
+            try {
+                profileImageData = Files.readAllBytes(selectedFile.toPath());
+                Image image = new Image(selectedFile.toURI().toString());
+                profileImageView.setImage(image);
+            } catch (IOException e) {
+                alert.errorMessage("Error reading image file: " + e.getMessage());
+            }
+        }
+    }
+
+    private void setupProfilePictureMenu() {
+        profileMenu = new ContextMenu();
+        MenuItem addPictureItem = new MenuItem("Add profile picture");
+        MenuItem removePictureItem = new MenuItem("Remove Profile Picture");
+
+        addPictureItem.setOnAction(event -> selectProfileImage());
+        removePictureItem.setOnAction(event -> removeProfilePicture());
+
+        profileMenu.getItems().addAll(addPictureItem, removePictureItem);
+
+        profileMenu.setStyle(
+                "-fx-background-color: #F8F7FA; " +
+                        "-fx-background-radius: 8px; " +
+                        "-fx-border-radius: 8px;"
+        );
+    }
+
+    private void removeProfilePicture() {
+        profileImageView.setImage(null);
+        profileImageData = null;
+    }
+
 
     /**
      * Handles the user registration process. Validates input, checks for existing usernames,
      * creates a new user, and navigates to the main menu upon successful registration.
+     *
      * @param event the action event triggered by clicking the register button
      */
     @FXML
     void loginUser(ActionEvent event) {
+        String firstName = firstNameField.getText();
+        String lastName = lastNameField.getText();
         String username = usernameField.getText();
         String email = emailField.getText();
         String password = passwordField.getText();
         String confirmPassword = confirmPassField.getText();
 
-        if (username.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+        if (firstName.isEmpty() || lastName.isEmpty() || username.isEmpty() ||
+                email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             alert.errorMessage("Fill in all fields.");
             return;
         }
@@ -68,12 +140,17 @@ public class RegistrationController {
             return;
         }
 
-        asc.insertUser(username, email, password);
+        asc.insertUser(username, email, password, profileImageData);
 
         alert.successMessage("Successfully created your account!");
 
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+            Parent root = loader.load();
+
+            MainMenuController mainMenuController = loader.getController();
+            mainMenuController.setCurrentUsername(username);
+
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -86,6 +163,7 @@ public class RegistrationController {
 
     /**
      * Navigates back to the login page from the registration view.
+     *
      * @param event the action event triggered by clicking the "Go back to login" button
      */
     @FXML
@@ -105,12 +183,21 @@ public class RegistrationController {
     /**
      * Validates user input for username, email, and password against predefined regex patterns.
      * Displays error messages if any input fails validation.
+     *
      * @param username the username entered by the user
-     * @param email the email entered by the user
+     * @param email    the email entered by the user
      * @param password the password entered by the user
      * @return true if all inputs are valid, false otherwise
      */
     private boolean validateInput(String username, String email, String password) {
+        if (!FIRSTNAME_PATTERN.matcher(firstNameField.getText()).matches()) {
+            alert.errorMessage("Invalid first name format. Must start with uppercase letter.");
+            return false;
+        }
+        if (!LAST_NAME_PATTERN.matcher(lastNameField.getText()).matches()) {
+            alert.errorMessage("Invalid last name format. Must start with uppercase letter.");
+            return false;
+        }
         if (!USERNAME_PATTERN.matcher(username).matches()) {
             alert.errorMessage("Invalid username format.");
             return false;

@@ -15,6 +15,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -27,6 +28,8 @@ import javafx.stage.Stage;
 import org.education.hospitalmanagementapp.AlertMessages;
 import org.education.hospitalmanagementapp.services.AuthServiceClass;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -67,6 +70,28 @@ public class DashBoardController implements Initializable {
     private final Map<LocalDate, String> sampleAppointments = new HashMap<>();
     private LocalDate currentDate = LocalDate.now();
     AuthServiceClass asc = new AuthServiceClass();
+
+    private String currentUsername;
+
+    public void setCurrentUsername(String username) {
+        this.currentUsername = username;
+        loadProfilePicture();
+    }
+
+    private void loadProfilePicture() {
+        try {
+            byte[] imageData = asc.getProfilePicture(currentUsername);
+            if (imageData != null && imageData.length > 0) {
+                ByteArrayInputStream bis = new ByteArrayInputStream(imageData);
+                Image image = new Image(bis);
+                userProfileImage.setImage(image);
+                bis.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * Initializes the dashboard by setting up charts, calendar, and user label.
@@ -300,7 +325,12 @@ public class DashBoardController implements Initializable {
     @FXML
     void goToTheMain(MouseEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+            Parent root = loader.load();
+
+            MainMenuController mainMenuController = loader.getController();
+            mainMenuController.setCurrentUsername(currentUsername);
+
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -311,7 +341,6 @@ public class DashBoardController implements Initializable {
             alertMessages.errorMessage("Failed to load the Main Menu.");
         }
     }
-
     /**
      * Handles sign-out action and redirects to the login screen.
      * @param event ActionEvent triggered by button press
@@ -337,7 +366,12 @@ public class DashBoardController implements Initializable {
     @FXML
     private void goToMain(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+            Parent root = loader.load();
+
+            MainMenuController mainMenuController = loader.getController();
+            mainMenuController.setCurrentUsername(currentUsername);
+
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();

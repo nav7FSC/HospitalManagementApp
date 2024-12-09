@@ -8,12 +8,15 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.education.hospitalmanagementapp.AlertMessages;
 import org.education.hospitalmanagementapp.services.AuthServiceClass;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -57,6 +60,29 @@ public class BillingAndInvoiceController implements Initializable {
     private final AuthServiceClass authService = new AuthServiceClass();
 
     private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-Z]{2,30}$");
+
+    private String currentUsername;
+    private AuthServiceClass asc = new AuthServiceClass();
+
+    public void setCurrentUsername(String username) {
+        this.currentUsername = username;
+        loadProfilePicture();
+    }
+
+    private void loadProfilePicture() {
+        try {
+            byte[] imageData = asc.getProfilePicture(currentUsername);
+            if (imageData != null && imageData.length > 0) {
+                ByteArrayInputStream bis = new ByteArrayInputStream(imageData);
+                Image image = new Image(bis);
+                profile_Image.setImage(image);
+                bis.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * Initializes the controller by setting up services, price listeners, and clear button functionalities.
@@ -200,25 +226,12 @@ public class BillingAndInvoiceController implements Initializable {
     @FXML
     void goToMain(MouseEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(scene);
-            window.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-            alertMessages.errorMessage("Failed to load the Main Menu.");
-        }
-    }
-    /**
-     * Navigates the user back to the main menu.
-     * @param event the Action event
-     */
-    @FXML
-    void goToTheMainMenu(ActionEvent event){
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+            Parent root = loader.load();
+
+            MainMenuController mainMenuController = loader.getController();
+            mainMenuController.setCurrentUsername(currentUsername);
+
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -230,6 +243,29 @@ public class BillingAndInvoiceController implements Initializable {
         }
     }
 
+    /**
+     * Navigates the user back to the main menu.
+     * @param event the Action event
+     */
+    @FXML
+    void goToTheMainMenu(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+            Parent root = loader.load();
+
+            MainMenuController mainMenuController = loader.getController();
+            mainMenuController.setCurrentUsername(currentUsername);
+
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            alertMessages.errorMessage("Failed to load the Main Menu.");
+        }
+    }
     /**
      * Signs out the current user and navigates back to the login view.
      * @param event the action event triggered by clicking the sign-out button

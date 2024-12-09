@@ -10,6 +10,13 @@
     -fx-text-fill: black;
     -fx-min-height: 40px;
 }
+.profile-image-view {
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+    -fx-border-width: 2px;
+    -fx-border-color: #6750A4;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 4, 0, 0, 0);
+}
 
 .text-field:hover {
     -fx-background-color: #F0EEF5;
@@ -435,4 +442,28 @@
 .combo-box-popup .list-view .scroll-bar:vertical .decrement-arrow {
     -fx-background-color: #6750A4;
     -fx-shape: "M 0 0 L 4 4 L 8 0 Z";
+}
+.context-menu {
+    -fx-background-color: #F8F7FA;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+}
+
+.menu-item {
+    -fx-padding: 8 16;
+    -fx-text-fill: #333333;
+    -fx-font-size: 14px;
+}
+
+.menu-item:hover {
+    -fx-background-color: #F0EEF5;
+}
+
+.menu-item:focused {
+    -fx-background-color: #6750A4;
+    -fx-text-fill: white;
+}
+
+.context-menu .separator {
+    -fx-padding: 2 0;
 }

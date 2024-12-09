@@ -28,7 +28,6 @@ public class AuthServiceClass {
 
 
         try {
-            //First, connect to MYSQL server and create the database if not created
             Connection conn = DriverManager.getConnection(MYSQL_SERVER_URL, USERNAME, PASSWORD);
             Statement statement = conn.createStatement();
             statement.executeUpdate("CREATE DATABASE IF NOT EXISTS DBname");
@@ -38,12 +37,13 @@ public class AuthServiceClass {
             //Second, connect to the database and create the table "users" if cot created
             conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
             statement = conn.createStatement();
-            String sql = "CREATE TABLE IF NOT EXISTS users ("
-                    + "id INT( 10 ) NOT NULL PRIMARY KEY AUTO_INCREMENT,"
-                    + "username VARCHAR(200) NOT NULL,"
-                    + "email VARCHAR(200) NOT NULL UNIQUE,"
-                    + "password VARCHAR(200) NOT NULL"
-                    + ")";
+            String sql = "CREATE TABLE IF NOT EXISTS users (" +
+                    "id INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT," +
+                    "username VARCHAR(200) NOT NULL," +
+                    "email VARCHAR(200) NOT NULL UNIQUE," +
+                    "password VARCHAR(200) NOT NULL," +
+                    "profile_picture LONGBLOB" +
+                    ")";
             statement.executeUpdate(sql);
 
             //check if we have users in the table users
@@ -78,35 +78,92 @@ public class AuthServiceClass {
     }
 
     /**
-     * Inserts a new user into the "users" table.
-     *
-     * @param username the username of the new user.
-     * @param email    the email of the new user.
-     * @param password the password of the new user.
+     * Inserts a new user into the "users" table with profile picture support.
+     * @param username the username of the new user
+     * @param email the email of the new user
+     * @param password the password of the new user
+     * @param profilePicture the profile picture as byte array
+     * @return true if insertion was successful, false otherwise
      */
-    public  void insertUser(String username, String email, String password) {
-
-
+    public boolean insertUser(String username, String email, String password, byte[] profilePicture) {
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            String sql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO users (username, email, password, profile_picture) VALUES (?, ?, ?, ?)";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, email);
             preparedStatement.setString(3, password);
 
-            int row = preparedStatement.executeUpdate();
+            if (profilePicture != null) {
+                preparedStatement.setBytes(4, profilePicture);
+            } else {
+                preparedStatement.setNull(4, java.sql.Types.BLOB);
+            }
 
-            if (row > 0) {
-                System.out.println("A new user was inserted successfully.");
+            int row = preparedStatement.executeUpdate();
+            preparedStatement.close();
+            conn.close();
+            return row > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    /**
+     * Updates the profile picture for a specific user.
+     * @param username the username of the user
+     * @param profilePicture the new profile picture as byte array
+     * @return true if update was successful, false otherwise
+     */
+    public boolean updateProfilePicture(String username, byte[] profilePicture) {
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            String sql = "UPDATE users SET profile_picture = ? WHERE username = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+
+            if (profilePicture != null) {
+                preparedStatement.setBytes(1, profilePicture);
+            } else {
+                preparedStatement.setNull(1, java.sql.Types.BLOB);
+            }
+            preparedStatement.setString(2, username);
+
+            int row = preparedStatement.executeUpdate();
+            preparedStatement.close();
+            conn.close();
+            return row > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    /**
+     * Retrieves the profile picture for a specific user.
+     * @param username the username of the user
+     * @return byte array containing the profile picture, or null if not found
+     */
+    public byte[] getProfilePicture(String username) {
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            String sql = "SELECT profile_picture FROM users WHERE username = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, username);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            byte[] profilePicture = null;
+            if (resultSet.next()) {
+                profilePicture = resultSet.getBytes("profile_picture");
             }
 
             preparedStatement.close();
             conn.close();
+            return profilePicture;
         } catch (SQLException e) {
             e.printStackTrace();
+            return null;
         }
     }
+
 
     /**
      * Inserts a new patient into the "patients" table.
