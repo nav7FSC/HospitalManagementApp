@@ -70,7 +70,7 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                         </Label>
-                        <TextField fx:id="FirstNameField" alignment="TOP_LEFT" prefHeight="70.0" prefWidth="399.0" promptText="First Name" styleClass="text-fields" stylesheets="@../css/styles.css">
+                        <TextField fx:id="firstNameField" alignment="TOP_LEFT" prefHeight="70.0" prefWidth="399.0" promptText="First Name" styleClass="text-fields" stylesheets="@../css/styles.css">
                             <font>
                                 <Font size="14.0" />
                             </font>
