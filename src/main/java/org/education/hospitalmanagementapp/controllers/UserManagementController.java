@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import java.util.regex.Pattern;
 import org.education.hospitalmanagementapp.AlertMessages;
@@ -19,31 +20,32 @@ import org.education.hospitalmanagementapp.services.AuthServiceClass;
  * Controller class for user management functionalities, including user authentication,
  * navigation to main menu, sign-out, and updating user credentials with validation.
  */
-public class UserManagementController {
+public class UserManagementController  {
+
+    @FXML
+    private ImageView clearEmail;
+
+    @FXML
+    private ImageView clearUserName;
 
     @FXML
     private ImageView clearCurrPassField;
 
     @FXML
-    private ImageView clearNewPassField;
-
-    @FXML
     private ImageView clearNewUserField;
 
     @FXML
-    private ImageView clear_editUserNameField;
+    private ImageView clearNewPassField;
 
     @FXML
     private PasswordField currPassField;
 
-    @FXML
-    private TextField edit_UserNameField;
 
     @FXML
-    private ImageView edit_clearEmailfield;
+    private TextField emailField;
 
     @FXML
-    private TextField edit_emailField;
+    private TextField currUserField;
 
     @FXML
     private ImageView menu;
@@ -55,12 +57,6 @@ public class UserManagementController {
     private TextField newUserField;
 
     @FXML
-    private ImageView noti_image;
-
-    @FXML
-    private Label num_of_noti;
-
-    @FXML
     private ImageView profile_Image;
 
     private AuthServiceClass asc = new AuthServiceClass();
@@ -70,6 +66,10 @@ public class UserManagementController {
     private static final Pattern USERNAME_PATTERN = Pattern.compile("^[a-zA-Z0-9_-]{5,20}$");
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%?&])[A-Za-z\\d@$!%?&]{8,20}$");
 
+    @FXML
+    public void initialize() {
+        setupClearButtons();
+    }
     /**
      * Navigates to the main menu view.
      *
@@ -87,6 +87,14 @@ public class UserManagementController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void setupClearButtons() {
+        clearEmail.setOnMouseClicked(event -> emailField.clear());
+        clearUserName.setOnMouseClicked(event -> currUserField.clear());
+        clearCurrPassField.setOnMouseClicked(event -> currPassField.clear());
+        clearNewUserField.setOnMouseClicked(event -> newUserField.clear());
+        clearNewPassField.setOnMouseClicked(event -> newPassField.clear());
     }
 
     /**
@@ -107,6 +115,19 @@ public class UserManagementController {
             e.printStackTrace();
         }
     }
+    @FXML
+    void goToMain(MouseEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Handles user updates such as username and password changes with validation checks.
@@ -115,8 +136,8 @@ public class UserManagementController {
      */
     @FXML
     void confirmChanges(ActionEvent event) {
-        String email = edit_emailField.getText();
-        String currentUsername = edit_UserNameField.getText();
+        String email = emailField.getText();
+        String currentUsername = currUserField.getText();
         String currentPassword = currPassField.getText();
         String newUsername = newUserField.getText();
         String newPassword = newPassField.getText();
