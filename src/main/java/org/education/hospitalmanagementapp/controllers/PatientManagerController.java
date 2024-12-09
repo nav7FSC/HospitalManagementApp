@@ -11,70 +11,37 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import org.education.hospitalmanagementapp.AlertMessages;
+import org.education.hospitalmanagementapp.services.AuthServiceClass;
 
 public class PatientManagerController {
 
     @FXML
-    private TextField adressField;
+    private TextField firstNameField, lastNameField, dobField, phoneNumberField, addressField;
+    @FXML
+    private TextField confirmFirstNameField, confirmLastNameField, changePhoneNumberField, changeAddressField;
+    private AuthServiceClass asc = new AuthServiceClass();
+    private AlertMessages alert = new AlertMessages();
 
     @FXML
-    private Button changePatientBttn;
+    void addPatientInfo(ActionEvent event){
+        String firstName = firstNameField.getText();
+        String lastName = lastNameField.getText();
+        String dob = dobField.getText();
+        String phoneNumber = phoneNumberField.getText();
+        String address = addressField.getText();
 
-    @FXML
-    private ImageView claerID;
+        if(firstName.isEmpty() || lastName.isEmpty() || dob.isEmpty() || phoneNumber.isEmpty() || address.isEmpty()){
+            alert.warningMessage("Fill in any blank field.");
+            return;
+        }
 
-    @FXML
-    private ImageView clearAddressField;
-
-    @FXML
-    private ImageView clearEmailField;
-
-    @FXML
-    private ImageView clearFirstNameField;
-
-    @FXML
-    private ImageView clearLastNameField;
-
-    @FXML
-    private ImageView clearPhoneNum;
-
-    @FXML
-    private Button confirmPatienBttn;
-
-    @FXML
-    private TextField emailField;
-
-    @FXML
-    private TextField firstNameField;
-
-    @FXML
-    private TextField lastNameField;
-
-    @FXML
-    private ImageView menu;
-
-    @FXML
-    private ImageView noti_image;
-
-    @FXML
-    private Label num_of_noti;
-
-    @FXML
-    private TextField patienIDField;
-
-    @FXML
-    private TextField phoneNumField;
-
-    @FXML
-    private ImageView profile_Image;
-
-    @FXML
-    void changePatient(ActionEvent event) {
-
+        asc.insertPatient(firstName,lastName,dob,phoneNumber,address);
+        alert.successMessage("Successfully inserted new patient into the database!");
     }
 
     @FXML
-    void confirm(ActionEvent event) {
+    void changePatientInfo(ActionEvent event){
 
     }
 
