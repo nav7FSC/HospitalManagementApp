@@ -111,10 +111,10 @@
                                 <Label styleClass="chart-subtitle" text="TOTAL REVENUE GENERATED FOR TODAY" />
                                 <BarChart fx:id="salesChart" styleClass="custom-chart">
                                     <xAxis>
-                                        <CategoryAxis side="BOTTOM" />
+                                        <CategoryAxis label="Category" fx:id="xAxis" />
                                     </xAxis>
                                     <yAxis>
-                                        <NumberAxis side="LEFT" />
+                                        <NumberAxis fx:id="yAxis" label="Amount ($)" />
                                     </yAxis>
                                 </BarChart>
                             </children>
@@ -127,8 +127,8 @@
                         </VBox>
                         <VBox fx:id="staffChartContainer" prefHeight="290.0" prefWidth="464.0" styleClass="category-card, staff-card" stylesheets="@../css/styles.css">
                             <children>
-                                <Label styleClass="chart-title" text="ACTIVE STAFF" />
-                                <Label styleClass="chart-subtitle" text="TOTAL STAFF CURRENTLY WORKING" />
+                                <Label styleClass="chart-title" text="TOTAL STAFF" />
+                                <Label styleClass="chart-subtitle" text="TOTAL STAFF CURRENTLY EMPLOYED" />
                                 <BarChart fx:id="staffChart" styleClass="custom-chart">
                                     <xAxis>
                                         <CategoryAxis side="BOTTOM" />

@@ -149,6 +149,9 @@ public class AuthServiceClass {
     }
 
 
+
+
+
     /**
      * Inserts a new patient into the "patients" table.
      *
