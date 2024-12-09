@@ -110,10 +110,6 @@
                             <HBox.margin>
                                 <Insets right="40.0" />
                             </HBox.margin></Button>
-                        <Button mnemonicParsing="false" onAction="#goToInventory" prefHeight="122.0" prefWidth="312.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="Inventory Management">
-                            <font>
-                                <Font size="17.0" />
-                            </font></Button>
                     </children>
                     <VBox.margin>
                         <Insets bottom="70.0" />
