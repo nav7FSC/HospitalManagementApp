@@ -45,19 +45,6 @@
                                         <Insets left="10.0" right="10.0" />
                                     </StackPane.margin>
                                 </ImageView>
-                                <ImageView fx:id="noti_image" fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_RIGHT">
-                                    <image>
-                                        <Image url="@../images/notification.png" />
-                                    </image>
-                                </ImageView>
-                                <Label fx:id="num_of_noti" style="-fx-text-fill: white;" text="0" textFill="#030101" StackPane.alignment="TOP_RIGHT">
-                                    <font>
-                                        <Font name="Inter Semi Bold" size="14.0" />
-                                    </font>
-                                    <StackPane.margin>
-                                        <Insets right="13.0" top="9.0" />
-                                    </StackPane.margin>
-                                </Label>
                             </children>
                         </StackPane>
                         <ImageView fx:id="menu" fitHeight="69.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true" styleClass="image">

@@ -45,19 +45,6 @@
                               <Insets right="40.0" />
                            </StackPane.margin>
                         </ImageView>
-                        <ImageView fx:id="noti_image" fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/notification.png" />
-                           </image>
-                           <StackPane.margin>
-                              <Insets bottom="50.0" left="15.0" />
-                           </StackPane.margin>
-                        </ImageView>
-                        <Label fx:id="num_of_noti" style="-fx-text-fill: white;" text="0">
-                           <StackPane.margin>
-                              <Insets bottom="50.0" left="15.0" />
-                           </StackPane.margin>
-                        </Label>
                      </children>
                   </StackPane>
                </children>
