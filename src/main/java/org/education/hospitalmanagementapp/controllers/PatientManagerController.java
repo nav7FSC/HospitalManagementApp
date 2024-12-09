@@ -69,9 +69,9 @@ public class PatientManagerController {
      */
     private void validateTextField(TextField field, String regex) {
         if (field.getText().matches(regex)) {
-            field.setStyle("-fx-border-color: green;"); // Valid input
+            field.setStyle("-fx-background-color: #d4edda; -fx-border-color: #28a745; -fx-border-width: 2px;"); // Valid input
         } else {
-            field.setStyle("-fx-border-color: red;"); // Invalid input
+            field.setStyle("-fx-background-color: #f8d7da; -fx-border-color: #dc3545; -fx-border-width: 2px;"); // Invalid input
         }
     }
 
