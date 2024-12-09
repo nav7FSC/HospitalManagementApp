@@ -20,12 +20,6 @@ public class MainMenuController {
     private ImageView menu;
 
     @FXML
-    private ImageView noti_image;
-
-    @FXML
-    private Label num_of_noti;
-
-    @FXML
     private ImageView profile_Image;
 
     /**

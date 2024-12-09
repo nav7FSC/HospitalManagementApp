@@ -36,22 +36,6 @@
                         <Insets left="20.0" top="20.0" />
                      </StackPane.margin>
                   </ImageView>
-                  <ImageView fx:id="noti_image" fitHeight="33.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/notification.png" />
-                     </image>
-                     <StackPane.margin>
-                        <Insets bottom="30.0" left="65.0" />
-                     </StackPane.margin>
-                  </ImageView>
-                  <Label fx:id="num_of_noti" style="-fx-text-fill: white;" text="0">
-                     <font>
-                        <Font name="Inter Semi Bold Italic" size="13.0" />
-                     </font>
-                     <StackPane.margin>
-                        <Insets bottom="30.0" left="65.0" />
-                     </StackPane.margin>
-                  </Label>
                </children>
             </StackPane>
          </children>

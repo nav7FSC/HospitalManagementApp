@@ -55,12 +55,6 @@ public class AppointmentSchedulerController {
     private TextField minuteField;
 
     @FXML
-    private ImageView noti_image;
-
-    @FXML
-    private Label num_of_noti;
-
-    @FXML
     private TextField patientFirstName;
 
     @FXML
