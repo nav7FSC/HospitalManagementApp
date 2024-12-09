@@ -9,7 +9,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -28,8 +27,6 @@ import java.time.LocalDate;
 import java.security.SecureRandom;
 import java.sql.ResultSet;
 import java.util.Random;
-
-import static com.mysql.cj.conf.PropertyKey.PASSWORD;
 
 public class AppointmentSchedulerController {
 
