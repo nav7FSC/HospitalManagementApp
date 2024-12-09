@@ -88,10 +88,11 @@
                             <font>
                                 <Font size="11.0" />
                             </font></TextField>
-                        <TextField fx:id="passField" alignment="TOP_LEFT" maxHeight="70.0" maxWidth="399.0" prefHeight="70.0" prefWidth="399.0" promptText="Password" styleClass="text-fields" stylesheets="@../css/styles.css">
+                        <PasswordField fx:id="passField" alignment="TOP_LEFT" maxHeight="70.0" maxWidth="399.0" prefHeight="70.0" prefWidth="399.0" promptText="Password" styleClass="text-fields" stylesheets="@../css/styles.css">
                             <font>
                                 <Font size="11.0" />
-                            </font></TextField>
+                            </font>
+                        </PasswordField>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="403.0" spacing="30.0">
                             <children>
                                 <Button fx:id="login_Button" mnemonicParsing="false" onAction="#loginUser" prefHeight="40.0" prefWidth="84.0" style="-fx-background-color: #E8DEF8; -fx-background-radius: 20px; -fx-text-fill: black;" text="Login">
