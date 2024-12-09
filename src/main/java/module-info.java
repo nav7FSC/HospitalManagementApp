@@ -3,6 +3,7 @@ module org.education.hospitalmanagementapp {
     requires javafx.fxml;
     requires java.sql;
     requires mysql.connector.j;
+    requires com.google.protobuf;
 
 
     opens org.education.hospitalmanagementapp to javafx.fxml;
