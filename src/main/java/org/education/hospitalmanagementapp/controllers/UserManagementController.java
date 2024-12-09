@@ -19,7 +19,7 @@ import org.education.hospitalmanagementapp.services.AuthServiceClass;
  * Controller class for user management functionalities, including user authentication,
  * navigation to main menu, sign-out, and updating user credentials with validation.
  */
-public class UserManagementController  {
+public class UserManagementController {
 
     @FXML
     private ImageView clearEmail;
@@ -38,7 +38,6 @@ public class UserManagementController  {
 
     @FXML
     private PasswordField currPassField;
-
 
     @FXML
     private TextField emailField;
@@ -64,11 +63,70 @@ public class UserManagementController  {
     // Regex patterns for username and password validation
     private static final Pattern USERNAME_PATTERN = Pattern.compile("^[a-zA-Z0-9_-]{5,20}$");
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%?&])[A-Za-z\\d@$!%?&]{8,20}$");
+    private static final Pattern EMAIL_PATTERN = Pattern.compile(
+            "^[A-Za-z0-9.%+-]+@(gmail|yahoo|hotmail|outlook|aol|icloud|protonmail|zoho|yandex|mail)\\.(com|edu|gov|org|net|io|co)$",
+            Pattern.CASE_INSENSITIVE
+    );
 
+    /**
+     * Initializes the controller by setting up clear buttons and adding validation listeners to input fields.
+     */
     @FXML
     public void initialize() {
         setupClearButtons();
+        // Add validation listeners
+        addValidationListener(emailField, EMAIL_PATTERN);
+        addValidationListener(currUserField, USERNAME_PATTERN);
+        addValidationListener(currPassField, PASSWORD_PATTERN);
+        addValidationListener(newUserField, USERNAME_PATTERN);
+        addValidationListener(newPassField, PASSWORD_PATTERN);
     }
+
+    /**
+     * Adds a validation listener to a TextField to validate its input against a regex pattern
+     * and apply corresponding styles based on validity.
+     *
+     * @param field   the TextField to which the listener is added
+     * @param pattern the regex pattern used for validation
+     */
+    private void addValidationListener(TextField field, Pattern pattern) {
+        field.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (pattern.matcher(newValue).matches()) {
+                field.setStyle("-fx-background-color: #d4edda; -fx-border-color: #28a745; -fx-border-width: 2px;");
+            } else {
+                field.setStyle("-fx-background-color: #f8d7da; -fx-border-color: #dc3545; -fx-border-width: 2px;");
+            }
+        });
+    }
+
+    /**
+     * Adds a validation listener to a PasswordField to validate its input against a regex pattern
+     * and apply corresponding styles based on validity.
+     *
+     * @param field   the PasswordField to which the listener is added
+     * @param pattern the regex pattern used for validation
+     */
+    private void addValidationListener(PasswordField field, Pattern pattern) {
+        field.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (pattern.matcher(newValue).matches()) {
+                field.setStyle("-fx-background-color: #d4edda; -fx-border-color: #28a745; -fx-border-width: 2px;");
+            } else {
+                field.setStyle("-fx-background-color: #f8d7da; -fx-border-color: #dc3545; -fx-border-width: 2px;");
+            }
+        });
+    }
+
+    /**
+     * Sets up clear buttons to clear the corresponding input fields when clicked.
+     */
+    public void setupClearButtons() {
+        clearEmail.setOnMouseClicked(event -> emailField.clear());
+        clearUserName.setOnMouseClicked(event -> currUserField.clear());
+        clearCurrPassField.setOnMouseClicked(event -> currPassField.clear());
+        clearNewUserField.setOnMouseClicked(event -> newUserField.clear());
+        clearNewPassField.setOnMouseClicked(event -> newPassField.clear());
+    }
+
     /**
      * Navigates to the main menu view.
      *
@@ -86,14 +144,6 @@ public class UserManagementController  {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public void setupClearButtons() {
-        clearEmail.setOnMouseClicked(event -> emailField.clear());
-        clearUserName.setOnMouseClicked(event -> currUserField.clear());
-        clearCurrPassField.setOnMouseClicked(event -> currPassField.clear());
-        clearNewUserField.setOnMouseClicked(event -> newUserField.clear());
-        clearNewPassField.setOnMouseClicked(event -> newPassField.clear());
     }
 
     /**
@@ -114,6 +164,12 @@ public class UserManagementController  {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Navigates to the main menu view when triggered by a mouse event.
+     *
+     * @param event the MouseEvent triggered by the user
+     */
     @FXML
     void goToMain(MouseEvent event) {
         try {
