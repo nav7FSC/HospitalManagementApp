@@ -43,19 +43,6 @@
                                         <Insets left="20.0" right="50.0" />
                                     </StackPane.margin>
                                 </ImageView>
-                                <ImageView fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../images/notification.png" />
-                                    </image>
-                                    <StackPane.margin>
-                                        <Insets bottom="60.0" left="20.0" />
-                                    </StackPane.margin>
-                                </ImageView>
-                                <Label style="-fx-text-fill: white;" text="0">
-                                    <StackPane.margin>
-                                        <Insets bottom="60.0" left="20.0" />
-                                    </StackPane.margin>
-                                </Label>
                             </children>
                      <HBox.margin>
                         <Insets right="50.0" />

@@ -39,12 +39,6 @@ public class BillingAndInvoiceController implements Initializable {
     private ImageView clearLastName;
 
     @FXML
-    private ImageView noti_image;
-
-    @FXML
-    private Label num_of_noti;
-
-    @FXML
     private TextField priceField;
 
     @FXML
