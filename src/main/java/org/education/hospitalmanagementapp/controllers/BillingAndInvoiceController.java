@@ -12,11 +12,17 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.education.hospitalmanagementapp.AlertMessages;
+import org.education.hospitalmanagementapp.services.AuthServiceClass;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 public class BillingAndInvoiceController implements Initializable {
 
@@ -49,14 +55,17 @@ public class BillingAndInvoiceController implements Initializable {
 
     private Map<String, Double> servicePrices;
 
-    // Instance of AlertMessages to handle alerts
     private final AlertMessages alertMessages = new AlertMessages();
+    private final AuthServiceClass authService = new AuthServiceClass();
+
+    private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-Z]{2,30}$");
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setupServiceTypes();
         setupPriceChangeListener();
         setupClearButtons();
+        setupNameValidation();
     }
 
     private void setupServiceTypes() {
@@ -95,6 +104,24 @@ public class BillingAndInvoiceController implements Initializable {
         clearLastName.setOnMouseClicked(event -> lastNameField.clear());
     }
 
+    private void setupNameValidation() {
+        firstNameField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!NAME_PATTERN.matcher(newValue).matches()) {
+                firstNameField.setStyle("-fx-border-color: red;");
+            } else {
+                firstNameField.setStyle("");
+            }
+        });
+
+        lastNameField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!NAME_PATTERN.matcher(newValue).matches()) {
+                lastNameField.setStyle("-fx-border-color: red;");
+            } else {
+                lastNameField.setStyle("");
+            }
+        });
+    }
+
     @FXML
     void calculatePatientCharge(ActionEvent event) {
         String firstName = firstNameField.getText().trim();
@@ -106,13 +133,46 @@ public class BillingAndInvoiceController implements Initializable {
             return;
         }
 
-        Double price = servicePrices.get(selectedService);
-        String message = String.format(
-                "Patient: %s %s\nService: %s\nCharge: $%.2f",
-                firstName, lastName, selectedService, price
-        );
+        if (!NAME_PATTERN.matcher(firstName).matches() || !NAME_PATTERN.matcher(lastName).matches()) {
+            alertMessages.errorMessage("Please enter valid names (2-30 letters only).");
+            return;
+        }
 
-        alertMessages.successMessage(message);
+        Double price = servicePrices.get(selectedService);
+        int patientId = generateRandomPatientId();
+
+        if (insertPatientData(patientId, firstName, lastName, selectedService, price)) {
+            String message = String.format(
+                    "Patient ID: %d\nPatient: %s %s\nService: %s\nCharge: $%.2f",
+                    patientId, firstName, lastName, selectedService, price
+            );
+            alertMessages.successMessage(message);
+        } else {
+            alertMessages.errorMessage("Failed to save patient data.");
+        }
+    }
+
+    private int generateRandomPatientId() {
+        Random random = new Random();
+        return 100000 + random.nextInt(900000);
+    }
+
+    private boolean insertPatientData(int patientId, String firstName, String lastName, String service, Double cost) {
+        String sql = "INSERT INTO patients (PatientID, FirstName, LastName, Services, Cost) VALUES (?, ?, ?, ?, ?)";
+
+        try (Connection conn = authService.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, patientId);
+            pstmt.setString(2, firstName);
+            pstmt.setString(3, lastName);
+            pstmt.setString(4, service);
+            pstmt.setDouble(5, cost);
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @FXML

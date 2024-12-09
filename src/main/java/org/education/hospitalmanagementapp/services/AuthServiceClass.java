@@ -56,6 +56,10 @@ public class AuthServiceClass {
         return hasRegistredUsers;
     }
 
+    public Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+    }
+
     public  void insertUser(String username, String email, String password) {
 
 
