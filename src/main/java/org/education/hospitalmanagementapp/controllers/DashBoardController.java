@@ -46,10 +46,6 @@ public class DashBoardController implements Initializable {
     }*/
 
     @FXML
-    private Button dashSignOut;
-    @FXML
-    private Button dashGotoMain;
-    @FXML
     private VBox calendarContainer;
     @FXML
     private ImageView userProfileImage;
@@ -63,8 +59,6 @@ public class DashBoardController implements Initializable {
     private BarChart<String, Number> patientChart;
     @FXML
     private BarChart<String, Number> staffChart;
-    @FXML
-    private BarChart<String, Number> inventoryChart;
 
     private final Map<LocalDate, String> sampleAppointments = new HashMap<>();
     private LocalDate currentDate = LocalDate.now();
@@ -254,7 +248,6 @@ public class DashBoardController implements Initializable {
         setupChart(salesChart, "#6750A4");
         setupChart(patientChart, "#4B9B9B");
         setupChart(staffChart, "#FF8C42");
-        setupChart(inventoryChart, "#FF69B4");
     }
 
     /**

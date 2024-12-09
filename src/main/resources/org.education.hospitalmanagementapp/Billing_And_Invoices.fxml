@@ -152,7 +152,7 @@
                         <Font name="Inter Semi Bold" size="17.0" />
                      </font>
                   </Button>
-                  <Button fx:id="mainmenuBttn" mnemonicParsing="false" onAction="#goToMain" prefHeight="83.0" prefWidth="270.0" styleClass="nav-button" stylesheets="@../css/styles.css" text="Go To Main Menu">
+                  <Button mnemonicParsing="false" onAction="#goToTheMainMenu" prefHeight="83.0" prefWidth="270.0" styleClass="nav-button" stylesheets="@../css/styles.css" text="Go To Main Menu">
                      <font>
                         <Font name="Inter Semi Bold" size="17.0" />
                      </font>
