@@ -83,12 +83,12 @@
                         </VBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="signOutBttn" mnemonicParsing="false" onAction="#signOut" prefHeight="83.0" prefWidth="200.0" styleClass="nav-button" stylesheets="@../css/styles.css" text="SIgn Out">
+                        <Button mnemonicParsing="false" onAction="#signOut" prefHeight="83.0" prefWidth="200.0" styleClass="nav-button" stylesheets="@../css/styles.css" text="SIgn Out">
                            <font>
                               <Font name="Inter Semi Bold" size="19.0" />
                            </font>
                         </Button>
-                        <Button fx:id="mainBttn" mnemonicParsing="false" onAction="#goToMain" prefHeight="83.0" prefWidth="200.0" styleClass="nav-button" stylesheets="@../css/styles.css" text="Go To main">
+                        <Button mnemonicParsing="false" onAction="#goToMain" prefHeight="83.0" prefWidth="200.0" styleClass="nav-button" stylesheets="@../css/styles.css" text="Go To main">
                            <font>
                               <Font name="Inter Semi Bold" size="17.0" />
                            </font>

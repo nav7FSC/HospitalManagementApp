@@ -211,6 +211,24 @@ public class BillingAndInvoiceController implements Initializable {
             alertMessages.errorMessage("Failed to load the Main Menu.");
         }
     }
+    /**
+     * Navigates the user back to the main menu.
+     * @param event the Action event
+     */
+    @FXML
+    void goToTheMainMenu(ActionEvent event){
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            alertMessages.errorMessage("Failed to load the Main Menu.");
+        }
+    }
 
     /**
      * Signs out the current user and navigates back to the login view.
