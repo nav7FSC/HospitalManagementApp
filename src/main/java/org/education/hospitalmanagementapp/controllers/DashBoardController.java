@@ -273,11 +273,14 @@ public class DashBoardController implements Initializable {
 
 
     @FXML
-    private void signOut(ActionEvent event) {
+    void signOut(ActionEvent event) {
         try {
-
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.close();
+            Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/LoginView.fxml"));
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
