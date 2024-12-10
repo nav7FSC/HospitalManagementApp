@@ -105,7 +105,7 @@
                                         <Insets right="40.0" />
                                     </opaqueInsets>
                                 </Label>
-                                <ImageView fx:id="tosButton" fitHeight="37.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" styleClass="image">
+                                <ImageView fx:id="tosDisagree" fitHeight="37.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" styleClass="image">
                                     <image>
                                         <Image url="@../images/Switch.png" />
                                     </image>
