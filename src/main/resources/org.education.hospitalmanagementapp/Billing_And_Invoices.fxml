@@ -58,7 +58,7 @@
                   <Insets top="40.0" />
                </VBox.margin>
             </HBox>
-            <Label style="-fx-text-fill: white;" text="ENTER PARTIENT INFORMATION TO CHARGE PATIENT:">
+            <Label style="-fx-text-fill: white;" text="ENTER PATIENT INFORMATION TO CHARGE PATIENT:">
                <font>
                   <Font name="Inter Semi Bold Italic" size="26.0" />
                </font>
