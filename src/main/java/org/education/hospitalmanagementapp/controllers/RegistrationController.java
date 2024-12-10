@@ -89,6 +89,7 @@ public class RegistrationController {
         addValidationListener(usernameField, USERNAME_PATTERN, "Invalid username format.");
         addValidationListener(emailField, EMAILPATTERN, "Invalid email format.");
         addValidationListener(passwordField, PASSWORD_PATTERN, "Invalid password format. Must include uppercase, lowercase, number, and special character.");
+        addConfirmPasswordValidation();
     }
 
     /**
@@ -104,6 +105,32 @@ public class RegistrationController {
                 textField.setStyle("-fx-background-color: #d4edda; -fx-border-color: #28a745; -fx-border-width: 2px;");
             } else {
                 textField.setStyle("-fx-background-color: #f8d7da; -fx-border-color: #dc3545; -fx-border-width: 2px;");
+            }
+        });
+    }
+
+    /**
+     * Validates the confirm password field in real-time, highlighting it green if it matches
+     * the password field or red if it does not.
+     */
+    private void addConfirmPasswordValidation() {
+        confirmPassField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isEmpty()) {
+                confirmPassField.setStyle(null);
+            } else if (newValue.equals(passwordField.getText())) {
+                confirmPassField.setStyle("-fx-background-color: #d4edda; -fx-border-color: #28a745; -fx-border-width: 2px;");
+            } else {
+                confirmPassField.setStyle("-fx-background-color: #f8d7da; -fx-border-color: #dc3545; -fx-border-width: 2px;");
+            }
+        });
+
+        passwordField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (confirmPassField.getText().isEmpty()) {
+                confirmPassField.setStyle(null);
+            } else if (confirmPassField.getText().equals(newValue)) {
+                confirmPassField.setStyle("-fx-background-color: #d4edda; -fx-border-color: #28a745; -fx-border-width: 2px;");
+            } else {
+                confirmPassField.setStyle("-fx-background-color: #f8d7da; -fx-border-color: #dc3545; -fx-border-width: 2px;");
             }
         });
     }
