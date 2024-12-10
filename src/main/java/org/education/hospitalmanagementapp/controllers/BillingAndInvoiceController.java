@@ -64,11 +64,18 @@ public class BillingAndInvoiceController implements Initializable {
     private String currentUsername;
     private AuthServiceClass asc = new AuthServiceClass();
 
+    /**
+     * Sets the current username and loads the user's profile picture.
+     * @param username the username to set
+     */
     public void setCurrentUsername(String username) {
         this.currentUsername = username;
         loadProfilePicture();
     }
 
+    /**
+     * Loads the user's profile picture from the database.
+     */
     private void loadProfilePicture() {
         try {
             byte[] imageData = asc.getProfilePicture(currentUsername);
@@ -143,20 +150,23 @@ public class BillingAndInvoiceController implements Initializable {
         clearLastName.setOnMouseClicked(event -> lastNameField.clear());
     }
 
+    /**
+     * Sets up text validation for the first and last name fields to ensure valid name input.
+     */
     private void setupNameValidation() {
         firstNameField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!NAME_PATTERN.matcher(newValue).matches()) {
-                firstNameField.setStyle("-fx-border-color: red;");
+                firstNameField.setStyle("-fx-background-color: #f8d7da; -fx-border-color: #dc3545; -fx-border-width: 2px;"); // Red background and border
             } else {
-                firstNameField.setStyle("");
+                firstNameField.setStyle("-fx-background-color: #d4edda; -fx-border-color: #28a745; -fx-border-width: 2px;"); // Green background and border
             }
         });
 
         lastNameField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!NAME_PATTERN.matcher(newValue).matches()) {
-                lastNameField.setStyle("-fx-border-color: red;");
+                lastNameField.setStyle("-fx-background-color: #f8d7da; -fx-border-color: #dc3545; -fx-border-width: 2px;"); // Red background and border
             } else {
-                lastNameField.setStyle("");
+                lastNameField.setStyle("-fx-background-color: #d4edda; -fx-border-color: #28a745; -fx-border-width: 2px;"); // Green background and border
             }
         });
     }
@@ -197,11 +207,24 @@ public class BillingAndInvoiceController implements Initializable {
         }
     }
 
+    /**
+     * Generates a random patient ID.
+     * @return a random patient ID
+     */
     private int generateRandomPatientId() {
         Random random = new Random();
         return 100000 + random.nextInt(900000);
     }
 
+    /**
+     * Inserts data for a new patient into the database.
+     * @param patientId the patient ID
+     * @param firstName the patient's first name
+     * @param lastName the patient's last name
+     * @param service the service provided
+     * @param cost the cost of the service
+     * @return true if the insertion was successful, false otherwise
+     */
     private boolean insertNewPatientData(int patientId, String firstName, String lastName, String service, Double cost) {
         String sql = "INSERT INTO patients (PatientID, FirstName, LastName, Services, Cost) VALUES (?, ?, ?, ?, ?)";
 
@@ -220,6 +243,14 @@ public class BillingAndInvoiceController implements Initializable {
         }
     }
 
+    /**
+     * Updates data for an existing patient in the database.
+     * @param firstName the patient's first name
+     * @param lastName the patient's last name
+     * @param service the service provided
+     * @param cost the cost of the service
+     * @return true if the update was successful, false otherwise
+     */
     private boolean insertExistingPatientData(String firstName, String lastName, String service, Double cost) {
         String sql = "UPDATE patients SET services = ?, cost = ? WHERE FirstName = ? AND LastName = ?";
 
@@ -284,6 +315,7 @@ public class BillingAndInvoiceController implements Initializable {
             alertMessages.errorMessage("Failed to load the Main Menu.");
         }
     }
+
     /**
      * Signs out the current user and navigates back to the login view.
      * @param event the action event triggered by clicking the sign-out button
