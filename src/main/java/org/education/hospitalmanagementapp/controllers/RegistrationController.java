@@ -6,10 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import org.education.hospitalmanagementapp.AlertMessages;
@@ -17,10 +14,20 @@ import org.education.hospitalmanagementapp.services.AuthServiceClass;
 import javafx.stage.FileChooser;
 import javafx.scene.image.Image;
 
+import javafx.scene.control.Dialog;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import javafx.geometry.Insets;
+import java.util.Optional;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 /**
@@ -51,6 +58,9 @@ public class RegistrationController {
 
     @FXML
     private ImageView profileImageView;
+
+    @FXML
+    private ImageView tosDisagree;
 
     private ContextMenu profileMenu;
 
@@ -162,8 +172,7 @@ public class RegistrationController {
         String password = passwordField.getText();
         String confirmPassword = confirmPassField.getText();
 
-        if (firstName.isEmpty() || lastName.isEmpty() || username.isEmpty() ||
-                email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+        if (firstName.isEmpty() || lastName.isEmpty() || username.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             alert.errorMessage("Fill in all fields.");
             return;
         }
@@ -182,27 +191,13 @@ public class RegistrationController {
             return;
         }
 
-        asc.insertUser(username, email, password, profileImageData);
-
-        alert.successMessage("Successfully created your account!");
-
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
-            Parent root = loader.load();
-
-            MainMenuController mainMenuController = loader.getController();
-            mainMenuController.setCurrentUsername(username);
-
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(scene);
-            window.show();
-        } catch (Exception e) {
-            e.printStackTrace();
+        // Show TOS dialog before creating account
+        if (showTOSDialog()) {
+            asc.insertUser(username, email, password, profileImageData);
+            alert.successMessage("Successfully created your account!");
+            navigateToMainMenu(event, username);
         }
     }
-
     /**
      * Navigates back to the login page from the registration view.
      *
@@ -215,6 +210,109 @@ public class RegistrationController {
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private boolean showTOSDialog() {
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("Terms of Service");
+        dialog.setHeaderText("Hospital Management System Terms of Service");
+
+        VBox content = new VBox(15);
+        content.setPadding(new Insets(20));
+
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setFitToWidth(true);
+        scrollPane.setPrefViewportHeight(400);
+
+        Label tosText = new Label(
+                "Hospital Staff Terms of Service\n\n" +
+                        "1. Patient Data Confidentiality\n" +
+                        "• Maintain strict HIPAA compliance\n" +
+                        "• Access patient data only when necessary\n" +
+                        "• Never share login credentials\n\n" +
+                        "2. Appointment Management\n" +
+                        "• Schedule appointments accurately\n" +
+                        "• Update patient records promptly\n" +
+                        "• Maintain scheduling integrity\n\n" +
+                        "3. System Usage\n" +
+                        "• Use system for authorized purposes only\n" +
+                        "• Report technical issues immediately\n" +
+                        "• Follow hospital data protocols\n\n" +
+                        "4. Professional Conduct\n" +
+                        "• Maintain professional communication\n" +
+                        "• Follow hospital policies\n" +
+                        "• Protect patient privacy"
+        );
+        tosText.setWrapText(true);
+
+        CheckBox agreeCheckBox = new CheckBox("I agree to the Terms of Service");
+        CheckBox disagreeCheckBox = new CheckBox("I do not agree");
+
+        // Make checkboxes mutually exclusive
+        agreeCheckBox.setOnAction(e -> {
+            if (agreeCheckBox.isSelected()) disagreeCheckBox.setSelected(false);
+        });
+        disagreeCheckBox.setOnAction(e -> {
+            if (disagreeCheckBox.isSelected()) agreeCheckBox.setSelected(false);
+        });
+
+        scrollPane.setContent(tosText);
+        content.getChildren().addAll(scrollPane, agreeCheckBox, disagreeCheckBox);
+
+        dialog.getDialogPane().setContent(content);
+        dialog.getDialogPane().getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+        dialog.getDialogPane().getStyleClass().add("custom-alert");
+
+        ButtonType confirmButton = new ButtonType("Continue", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().add(confirmButton);
+
+        Optional<ButtonType> result = dialog.showAndWait();
+
+        if (result.isPresent() && result.get() == confirmButton) {
+            if (agreeCheckBox.isSelected()) {
+                Image agreeImage = new Image(getClass().getResourceAsStream("/images/tosAgree.png"));
+                tosDisagree.setImage(agreeImage);
+                return true;
+            } else if (disagreeCheckBox.isSelected()) {
+                alert.errorMessage("You must accept the Terms of Service to create an account.");
+            } else {
+                alert.errorMessage("Please select whether you agree or disagree with the Terms of Service.");
+            }
+        }
+        return false;
+    }
+    private void navigateToMainMenu(ActionEvent event, String username) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+            Parent root = loader.load();
+            MainMenuController mainMenuController = loader.getController();
+            mainMenuController.setCurrentUsername(username);
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void proceedWithRegistration() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+            Parent root = loader.load();
+
+            MainMenuController mainMenuController = loader.getController();
+            mainMenuController.setCurrentUsername(usernameField.getText());
+
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+            Stage window = (Stage) usernameField.getScene().getWindow();
             window.setScene(scene);
             window.show();
         } catch (Exception e) {
