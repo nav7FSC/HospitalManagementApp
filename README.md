@@ -14,13 +14,11 @@ The project addresses several critical aspects of hospital management, including
 ## Features
 - **User Authentication**: The application includes a secure login system where users register and log in with unique credentials. This feature helps protect sensitive information and ensures that only authorized personnel access the system.
 
-- **Patient Management**: Users can add new patients, edit existing records, and maintain comprehensive medical histories, including allergies and treatments. This feature enables healthcare providers to quickly access vital patient information during visits.
+- **Patient Management**: Users can add new patients, edit existing records, and maintain comprehensive medical histories. This feature enables healthcare providers to quickly access vital patient information during visits.
 
-- **Appointment Scheduling**: Staff can easily schedule, modify, or cancel patient appointments. The system provides a calendar view for better visibility of appointments and sends automatic reminders to both patients and staff, reducing the likelihood of missed appointments.
+- **Appointment Scheduling**: Staff can easily schedule, modify, or cancel patient appointments. The system provides a calendar view for better visibility of appointments.
 
-- **Billing and Invoicing**: The application generates invoices for patient services automatically based on the treatment provided. It tracks payments and outstanding balances, streamlining the billing process and improving revenue management for the hospital.
-
-- **Inventory Management**: Users can manage and track medical supplies, equipment, and medications. The system notifies staff when stock levels are low, allowing for timely restocking and minimizing disruptions in patient care.
+- **Billing and Invoicing**: The application generates invoices for patient services automatically based on the treatment provided. Streamlining the billing process and improving revenue management for the hospital.
 
 - **Report Generation**: The application provides tools to create various reports, such as daily patient visits, treatment summaries, and financial performance. These reports help hospital management analyze trends, improve services, and make data-driven decisions.
 
@@ -38,7 +36,7 @@ The project addresses several critical aspects of hospital management, including
 
 ## Team Members
 
-- **Afaq Waris** (GitHub: [Afaq136](https://github.com/Afaq136))
 - **Philippe Jean** (GitHub: [Philippe-Je](https://github.com/Philippe-Je))
 - **Nav Singh** (GitHub: [nav7FSC](https://github.com/nav7FSC))
 - **Ashraf Sangi** (GitHub: [ashsangi](https://github.com/ashsangi))
+- **Afaq Waris** (GitHub: [Afaq136](https://github.com/Afaq136))
