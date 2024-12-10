@@ -34,7 +34,7 @@ public class BillingAndInvoiceController implements Initializable {
     private TextField firstNameField;
 
     @FXML
-    private ImageView clear_FirstName;
+    private ImageView clearFirstName;
 
     @FXML
     private TextField lastNameField;
@@ -113,7 +113,7 @@ public class BillingAndInvoiceController implements Initializable {
      * Sets up the clear button functionality for clearing first name and last name fields.
      */
     private void setupClearButtons() {
-        clear_FirstName.setOnMouseClicked(event -> firstNameField.clear());
+        clearFirstName.setOnMouseClicked(event -> firstNameField.clear());
         clearLastName.setOnMouseClicked(event -> lastNameField.clear());
     }
 

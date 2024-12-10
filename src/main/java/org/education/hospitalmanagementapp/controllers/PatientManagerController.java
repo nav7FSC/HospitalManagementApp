@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.education.hospitalmanagementapp.AlertMessages;
@@ -23,6 +24,8 @@ public class PatientManagerController {
     private TextField firstNameField, lastNameField, dobField, phoneNumberField, addressField;
     @FXML
     private TextField confirmFirstNameField, confirmLastNameField, changePhoneNumberField, changeAddressField;
+    @FXML
+    private ImageView clearFirstName, clearLastName, clearDOB, clearPhoneNumber, clearAddress, clearConfirmFirstName, clearConfirmLastName, clearChangePhoneNumber, clearChangeAddress;
     private AuthServiceClass asc = new AuthServiceClass();
     private AlertMessages alert = new AlertMessages();
 
@@ -32,6 +35,7 @@ public class PatientManagerController {
     public void initialize() {
         // Add listeners for real-time validation
         addValidationListeners();
+        setupClearButtons();
     }
 
     /**
@@ -58,6 +62,18 @@ public class PatientManagerController {
 
         changePhoneNumberField.textProperty().addListener((observable, oldValue, newValue) -> validateTextField(changePhoneNumberField, "^\\d{10}$"));
         changeAddressField.textProperty().addListener((observable, oldValue, newValue) -> validateTextField(changeAddressField, "^[a-zA-Z0-9\\s]+$"));
+    }
+
+    public void setupClearButtons() {
+        clearFirstName.setOnMouseClicked(event -> firstNameField.clear());
+        clearLastName.setOnMouseClicked(event -> lastNameField.clear());
+        clearDOB.setOnMouseClicked(event -> dobField.clear());
+        clearPhoneNumber.setOnMouseClicked(event -> phoneNumberField.clear());
+        clearAddress.setOnMouseClicked(event -> addressField.clear());
+        clearConfirmFirstName.setOnMouseClicked(event -> confirmFirstNameField.clear());
+        clearConfirmLastName.setOnMouseClicked(mouseEvent -> confirmLastNameField.clear());
+        clearChangePhoneNumber.setOnMouseClicked(mouseEvent -> changePhoneNumberField.clear());
+        clearChangeAddress.setOnMouseClicked(mouseEvent -> changeAddressField.clear());
     }
 
     /**

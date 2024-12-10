@@ -71,7 +71,7 @@
                   <StackPane prefHeight="68.0" prefWidth="250.0">
                      <children>
                         <TextField fx:id="firstNameField" prefHeight="68.0" prefWidth="210.0" promptText="Enter First Name" styleClass="text-fields" stylesheets="@../css/styles.css" />
-                        <ImageView fx:id="clear_FirstName" fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="clearFirstName" fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/Trailingicon.png" />
                            </image>
