@@ -1,5 +1,8 @@
+
 package org.education.hospitalmanagementapp.controllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -45,7 +48,7 @@ public class DashBoardController implements Initializable {
     private final AlertMessages alertMessages = new AlertMessages();
 
     String username = LoginViewController.username;
-   // LoginViewController user;
+    // LoginViewController user;
 
 /*    public DashBoardController(LoginViewController user)
     {
@@ -103,9 +106,30 @@ public class DashBoardController implements Initializable {
         initializeSampleAppointments();
         createCalendarInContainer();
         initializeCharts();
+
+        // Example data for patientChart
+        Map<String, Number> patientData = Map.of(
+                "General", 50,
+                "Surgery", 30,
+                "Pediatrics", 40
+        );
+        updatePatientChart(patientData);
+
+        // Example data for staffChart
+        Map<String, Number> staffData = Map.of(
+                "Doctors", 15,
+                "Nurses", 25,
+                "Technicians", 10
+        );
+        updateStaffChart(staffData);
+        updateSalesChart(); // Populate salesChart with specific data
+
         updateUserNameLabel();
 
+
+
     }
+
 
     /**
      * Updates the user name label if the username exists in the authentication service.
@@ -317,6 +341,70 @@ public class DashBoardController implements Initializable {
             data.getNode().setStyle("-fx-bar-fill: " + color + ";");
         });
     }
+    private ObservableList<XYChart.Data<String, Number>> getSalesData() {
+        // Example: Dynamic data
+        return FXCollections.observableArrayList(
+                new XYChart.Data<>("January", 200),
+                new XYChart.Data<>("February", 300),
+                new XYChart.Data<>("March", 150),
+                new XYChart.Data<>("April", 400)
+        );
+    }
+
+    private void updateSalesChart() {
+        salesChart.getData().clear(); // Clear existing data
+
+        XYChart.Series<String, Number> salesSeries = new XYChart.Series<>();
+        salesSeries.setName("Monthly Sales");
+        salesSeries.getData().addAll(getSalesData());
+
+        salesChart.getData().add(salesSeries);
+
+        // Optional: Style the bars
+        salesSeries.getData().forEach(data -> {
+            data.getNode().setStyle("-fx-bar-fill: #4CAF50;"); // Green bars
+        });
+    }
+
+
+
+    private void updatePatientChart(Map<String, Number> patientData) {
+        patientChart.getData().clear(); // Clear existing data
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+
+        patientData.forEach((category, value) -> {
+            XYChart.Data<String, Number> dataPoint = new XYChart.Data<>(category, value);
+            series.getData().add(dataPoint);
+        });
+
+        patientChart.getData().add(series);
+
+        // Optional: Style the bars
+        series.getData().forEach(data -> {
+            data.getNode().setStyle("-fx-bar-fill: #4B9B9B;"); // Match the patientChart color
+        });
+    }
+
+
+    private void updateStaffChart(Map<String, Number> staffData) {
+        staffChart.getData().clear(); // Clear existing data
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+
+        staffData.forEach((category, value) -> {
+            XYChart.Data<String, Number> dataPoint = new XYChart.Data<>(category, value);
+            series.getData().add(dataPoint);
+        });
+
+        staffChart.getData().add(series);
+
+        // Optional: Style the bars
+        series.getData().forEach(data -> {
+            data.getNode().setStyle("-fx-bar-fill: #FF8C42;"); // Match the staffChart color
+        });
+    }
+
+
+
 
     /**
      * Navigates the user back to the main menu.

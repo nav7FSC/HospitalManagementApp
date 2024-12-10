@@ -1,5 +1,9 @@
 package org.education.hospitalmanagementapp.services;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import org.education.hospitalmanagementapp.Patient;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -16,6 +20,9 @@ public class AuthServiceClass {
     final String DB_URL = "jdbc:mysql://hospitalmanagement.mysql.database.azure.com/hospital-management";
     final String USERNAME = "hospitaladmin";
     final String PASSWORD = "Manager1!";
+    private final ObservableList<Patient> data = FXCollections.observableArrayList();
+
+
 
     /**
      * Establishes connection to the database and ensures the "users" table exists.
@@ -76,6 +83,67 @@ public class AuthServiceClass {
      */
     public Connection getConnection() throws SQLException {
         return DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+    }
+
+
+    public String stringAllUsers() {
+        connectToDatabase();
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            String sql = "SELECT * FROM users ";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            String toReturn = "";
+            while (resultSet.next()) {
+                int id = resultSet.getInt("PatientID");
+                String first_name = resultSet.getString("FirstName");
+                String last_name = resultSet.getString("LastName");
+                String DateOfBirth = resultSet.getString("DateOfBirth");
+                String ContactNumber = resultSet.getString("ContactNumber");
+                String Address = resultSet.getString("Address");
+                int Cost = resultSet.getInt("cost");
+                String Services = resultSet.getString("services");
+
+                toReturn = toReturn + (id + "," + first_name + "," + last_name + "," + DateOfBirth + "," + ContactNumber + "," + Address + "," + Cost + "," + Services + "\n");
+            }
+
+            preparedStatement.close();
+            conn.close();
+            //toReturn = toReturn.substring(0, toReturn.lastIndexOf("\n"));
+            return toReturn;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    public ObservableList<Patient> getPatientInfo(){
+        connectToDatabase();
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            String sql = "SELECT * FROM patients ";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("PatientID");
+                String first_name = resultSet.getString("FirstName");
+                String last_name = resultSet.getString("LastName");
+                String DateOfBirth = resultSet.getString("DateOfBirth");
+                String ContactNumber = resultSet.getString("ContactNumber");
+                String Address = resultSet.getString("Address");
+                int Cost = resultSet.getInt("cost");
+                String Services = resultSet.getString("services");
+                data.add(new Patient(id, first_name, last_name, DateOfBirth, ContactNumber, Address, Cost, Services));
+            }
+            preparedStatement.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return data;
     }
 
     /**
