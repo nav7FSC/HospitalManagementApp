@@ -120,6 +120,35 @@ public class AuthServiceClass {
         return null;
     }
 
+    public String stringAllUsers() {
+        connectToDatabase();
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            String sql = "SELECT * FROM users ";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            String toReturn = "";
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String username = resultSet.getString("username");
+                String email = resultSet.getString("email");
+                String password = resultSet.getString("password");
+                //byte picture = resultSet.getByte("profile_picture");
+
+                toReturn = toReturn + (username + "," + email + "," + password + "\n");
+            }
+
+            preparedStatement.close();
+            conn.close();
+            //toReturn = toReturn.substring(0, toReturn.lastIndexOf("\n"));
+            return toReturn;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     public ObservableList<Patient> getPatientInfo(){
         connectToDatabase();

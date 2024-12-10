@@ -155,8 +155,23 @@ public class ReportGeneratorController {
      * @param event the action event triggered by the user
      */
     @FXML
-    void generateStaffCsv(ActionEvent event) {
+    void generateStaffCsv(ActionEvent event)
+    {
+        try {
+            System.out.println("export_userCsv");
+            FileWriter fw = new FileWriter("src/main/resources/export_userCsv.csv");
+            File file = new File("src/main/resources/export_userCsv.csv");
+            file.createNewFile();
 
+            fw.write("Username,email,password\n");
+            fw.write(asc.stringAllUsers());
+
+
+
+            fw.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
