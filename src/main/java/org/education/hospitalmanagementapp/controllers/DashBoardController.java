@@ -44,7 +44,6 @@ public class DashBoardController implements Initializable {
 
     private final AlertMessages alertMessages = new AlertMessages();
 
-    String username = LoginViewController.username;
    // LoginViewController user;
 
 /*    public DashBoardController(LoginViewController user)
@@ -60,15 +59,28 @@ public class DashBoardController implements Initializable {
     private Label userNameLabel;
 
 
+
     private final Map<LocalDate, String> sampleAppointments = new HashMap<>();
     private LocalDate currentDate = LocalDate.now();
     AuthServiceClass asc = new AuthServiceClass();
 
     private String currentUsername;
 
+    /**
+     * Initializes the dashboard by setting up charts, calendar, and user label.
+     * @param location URL location for controller
+     * @param resources ResourceBundle
+     */
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        initializeSampleAppointments();
+        createCalendarInContainer();
+    }
+
     public void setCurrentUsername(String username) {
         this.currentUsername = username;
         loadProfilePicture();
+        updateUserNameLabel();
     }
 
     private void loadProfilePicture() {
@@ -86,33 +98,20 @@ public class DashBoardController implements Initializable {
     }
 
 
-    /**
-     * Initializes the dashboard by setting up charts, calendar, and user label.
-     * @param location URL location for controller
-     * @param resources ResourceBundle
-     */
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        initializeSampleAppointments();
-        createCalendarInContainer();
-        updateUserNameLabel();
 
-    }
+
 
     /**
      * Updates the user name label if the username exists in the authentication service.
      */
     private void updateUserNameLabel() {
-
-        if (asc.usernameExists(username)) {
-            // Set the username label to the username
-            //userNameLabel.setText(user.getUsername());
-            userNameLabel.setText(username);
+        if (currentUsername != null && !currentUsername.isEmpty()) {
+            userNameLabel.setText(currentUsername);
         } else {
-            // Optionally handle cases where the username doesn't exist
             userNameLabel.setText("User not found");
         }
     }
+
 
     /**
      * Initializes a sample list of appointments for calendar demonstration.

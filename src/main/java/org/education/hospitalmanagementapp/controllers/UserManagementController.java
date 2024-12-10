@@ -205,13 +205,15 @@ public class UserManagementController  {
                 profileImageData = Files.readAllBytes(selectedFile.toPath());
                 Image image = new Image(selectedFile.toURI().toString());
                 profile_Image.setImage(image);
-                // Update the profile picture in the database
-                asc.updateProfilePicture(currentUsername, profileImageData);
+                if (currentUsername != null) {
+                    asc.updateProfilePicture(currentUsername, profileImageData);
+                }
             } catch (IOException e) {
                 alert.errorMessage("Error reading image file: " + e.getMessage());
             }
         }
     }
+
 
     /**
      * Removes the current profile picture and sets the default avatar.
@@ -319,19 +321,16 @@ public class UserManagementController  {
             return;
         }
 
-        // Validate new username
         if (!USERNAME_PATTERN.matcher(newUsername).matches()) {
             alert.errorMessage("Invalid username. It must be 5-20 characters long and include only letters, numbers, hyphens, or underscores.");
             return;
         }
 
-        // Validate new password
         if (!PASSWORD_PATTERN.matcher(newPassword).matches()) {
             alert.errorMessage("Invalid password. It must have 8 characters, including 1 uppercase, 1 lowercase, 1 digit, and 1 special character.");
             return;
         }
 
-        // Authenticate user and attempt to update credentials
         if (asc.validateUser(currentUsername, email, currentPassword)) {
             if (newUsername.isEmpty() || newPassword.isEmpty()) {
                 alert.warningMessage("New username or password cannot be empty");
@@ -340,7 +339,11 @@ public class UserManagementController  {
 
             try {
                 asc.updateUser(email, newUsername, newPassword);
-                alert.successMessage("Successfully updated username and password!");
+                if (profileImageData != null) {
+                    asc.updateProfilePicture(newUsername, profileImageData);
+                }
+                alert.successMessage("Successfully updated user information!");
+                this.currentUsername = newUsername;
             } catch (Exception e) {
                 alert.errorMessage("Failed to update user.");
                 e.printStackTrace();

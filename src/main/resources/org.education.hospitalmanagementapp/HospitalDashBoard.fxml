@@ -61,7 +61,7 @@
                                         <Insets bottom="20.0" />
                                     </VBox.margin>
                                 </ImageView>
-                                <Label fx:id="userNameLabel" text="Name">
+                                <Label fx:id="userNameLabel">
                                     <font>
                                         <Font name="Inter Semi Bold" size="32.0" />
                                     </font>
