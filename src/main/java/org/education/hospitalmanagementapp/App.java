@@ -21,6 +21,7 @@ import org.education.hospitalmanagementapp.services.AuthServiceClass;
  */
 public class App extends Application {
 
+
     private static AuthServiceClass asc;
     private Stage primaryStage;
     private BorderPane root;

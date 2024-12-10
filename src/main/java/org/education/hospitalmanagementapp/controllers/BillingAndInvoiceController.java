@@ -51,6 +51,7 @@ public class BillingAndInvoiceController implements Initializable {
     @FXML
     private ImageView profile_Image;
 
+
     @FXML
     private ComboBox<String> typeOfService;
 

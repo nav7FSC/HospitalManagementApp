@@ -10,6 +10,7 @@ public class Patient {
     private int cost;
     private String services;
 
+
     // Constructor
     public Patient(int patientID, String firstName, String lastName, String dateOfBirth,
                    String contactNumber, String address, int cost, String services) {

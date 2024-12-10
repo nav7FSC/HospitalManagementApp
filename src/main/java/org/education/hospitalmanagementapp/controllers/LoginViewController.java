@@ -19,7 +19,6 @@ import java.util.regex.Pattern;
  * Manages user login and registration navigation.
  */
 public class LoginViewController {
-
     /**
      * Regex pattern for validating a username.
      * The username must be between 5 and 20 characters long and can contain letters, numbers, dots, and hyphens.

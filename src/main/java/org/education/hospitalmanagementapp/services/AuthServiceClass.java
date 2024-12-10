@@ -27,6 +27,7 @@ public class AuthServiceClass {
         boolean hasRegistredUsers = false;
 
 
+
         try {
             Connection conn = DriverManager.getConnection(MYSQL_SERVER_URL, USERNAME, PASSWORD);
             Statement statement = conn.createStatement();

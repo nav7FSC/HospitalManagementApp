@@ -10,7 +10,6 @@ import javafx.stage.StageStyle;
  */
 public class AlertMessages {
     private Alert alert;
-
     /**
      * Displays an alert dialog with the specified title, content, and type.
      *

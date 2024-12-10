@@ -60,6 +60,7 @@ public class User {
         this.profilePicture = profilePicture;
     }
 
+
     /**
      * Sets the first name of the user.
      * @param firstName the first name to set

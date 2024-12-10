@@ -14,6 +14,7 @@ public class SceneManager {
 
     private static Stage stage;
 
+
     /**
      * Sets the primary stage for the application.
      *

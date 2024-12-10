@@ -369,6 +369,7 @@ public class DashBoardController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
             Parent root = loader.load();
 
+
             MainMenuController mainMenuController = loader.getController();
             mainMenuController.setCurrentUsername(currentUsername);
 

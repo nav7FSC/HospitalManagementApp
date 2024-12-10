@@ -147,6 +147,7 @@ public class PatientManagerController {
         alert.successMessage("Successfully inserted new patient into the database!");
     }
 
+
     /**
      * Handles the submission of updates to patient information, such as address and phone number changes.
      * Validates the fields and determines whether to update only the address, only the phone number, or both.

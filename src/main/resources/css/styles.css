@@ -438,6 +438,7 @@
     -fx-padding: 0 5 0 0;
 }
 
+
 .combo-box-popup .list-view .scroll-bar:vertical .increment-arrow,
 .combo-box-popup .list-view .scroll-bar:vertical .decrement-arrow {
     -fx-background-color: #6750A4;

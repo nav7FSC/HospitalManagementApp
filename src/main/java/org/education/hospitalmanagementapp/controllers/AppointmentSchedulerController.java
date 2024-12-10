@@ -32,6 +32,7 @@ import java.security.SecureRandom;
 import java.sql.ResultSet;
 import java.util.Random;
 
+
 /**
  * Controller class for handling appointment scheduling functionality.
  */

@@ -13,6 +13,7 @@ import javafx.util.Duration;
  */
 public class SplashController {
 
+
     @FXML
     private ImageView logoImage; // The ImageView for displaying the logo on the splash screen
 

@@ -119,6 +119,7 @@ public class MainMenuController {
         }
     }
 
+
     /**
      * Navigates to the Hospital Dashboard module.
      *
