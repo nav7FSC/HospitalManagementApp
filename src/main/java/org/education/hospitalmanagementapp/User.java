@@ -36,6 +36,13 @@ public class User {
         this.password = password;
     }
 
+
+    public String toString_custom() {
+        return "userName: " + userName +
+                ", email: " + email +
+                ", password: " + password;
+    }
+
     /**
      * Gets the first name of the user.
      * @return the user's first name

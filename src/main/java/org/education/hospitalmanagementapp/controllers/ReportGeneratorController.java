@@ -20,6 +20,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.education.hospitalmanagementapp.AlertMessages;
 import org.education.hospitalmanagementapp.Patient;
+import org.education.hospitalmanagementapp.User;
 import org.education.hospitalmanagementapp.services.AuthServiceClass;
 
 import javax.print.Doc;
@@ -61,6 +62,7 @@ public class ReportGeneratorController {
     private AuthServiceClass asc = new AuthServiceClass();
 
     private final ObservableList<Patient> data = asc.getPatientInfo();
+    private final ObservableList<User> user_data = asc.getUserInfo();
 
     public static String status = "";
 
@@ -110,7 +112,7 @@ public class ReportGeneratorController {
             file.createNewFile();
 
             fw.write("id,first_name,last_name,DateOfBirth,ContactNumber,Address,Cost,Services\n");
-            fw.write(asc.stringAllUsers());
+            fw.write(asc.stringAllPatients());
 
 
 
@@ -163,8 +165,25 @@ public class ReportGeneratorController {
      * @param event the action event triggered by the user
      */
     @FXML
-    void generateStaffPdf(ActionEvent event) {
+    void generateStaffPdf(ActionEvent event)
+    {
+        try
+        {
+            File file = new File("src/main/resources/user_export.pdf");
+            PdfWriter writer = new PdfWriter(file);
+            PdfDocument pdfDoc = new PdfDocument(writer);
+            Document document = new Document(pdfDoc);
 
+            for(User user: user_data){
+
+                document.add(new Paragraph(user.toString_custom()));
+                System.out.println(user);
+
+            }
+            document.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
