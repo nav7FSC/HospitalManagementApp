@@ -48,7 +48,6 @@ public class UserManagementController  {
     @FXML
     private PasswordField currPassField;
 
-
     @FXML
     private TextField emailField;
 
@@ -76,14 +75,23 @@ public class UserManagementController  {
     // Regex patterns for username and password validation
     private static final Pattern USERNAME_PATTERN = Pattern.compile("^[a-zA-Z0-9_-]{5,20}$");
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%?&])[A-Za-z\\d@$!%?&]{8,20}$");
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,}$");
 
     private String currentUsername;
 
+    /**
+     * Sets the current username and loads the associated profile picture.
+     *
+     * @param username the current username of the logged-in user.
+     */
     public void setCurrentUsername(String username) {
         this.currentUsername = username;
         loadProfilePicture();
     }
 
+    /**
+     * Loads the user's profile picture from the database.
+     */
     private void loadProfilePicture() {
         try {
             byte[] imageData = asc.getProfilePicture(currentUsername);
@@ -98,9 +106,14 @@ public class UserManagementController  {
         }
     }
 
+    /**
+     * Initializes the controller, sets up real-time validation, and configures the profile picture menu.
+     */
     @FXML
     public void initialize() {
         setupClearButtons();
+        setupRealTimeValidation();
+
         if (profile_Image != null) {
             setupProfilePictureMenu();
             profile_Image.setOnMouseClicked(event -> {
@@ -108,6 +121,58 @@ public class UserManagementController  {
             });
         }
     }
+
+    /**
+     * Sets up real-time validation listeners for user input fields.
+     */
+    private void setupRealTimeValidation() {
+        // Existing validations
+        addValidationListener(newUserField, USERNAME_PATTERN, "Invalid username format.");
+        addValidationListener(newPassField, PASSWORD_PATTERN, "Invalid password format.");
+        addValidationListener(emailField, EMAIL_PATTERN, "Invalid email format.");
+
+        // New validations for current username and password fields
+        addValidationListener(currUserField, USERNAME_PATTERN, "Invalid username format.");
+        addValidationListener(currPassField, PASSWORD_PATTERN, "Invalid password format.");
+    }
+
+    /**
+     * Adds a validation listener to a text field with the given pattern.
+     *
+     * @param textField     the text field to add validation to.
+     * @param pattern       the regex pattern for validation.
+     * @param errorMessage  the error message to show if validation fails.
+     */
+    private void addValidationListener(TextField textField, Pattern pattern, String errorMessage) {
+        textField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty() && pattern.matcher(newValue).matches()) {
+                textField.setStyle("-fx-background-color: #d4edda; -fx-border-color: #28a745; -fx-border-width: 2px;");
+            } else {
+                textField.setStyle("-fx-background-color: #f8d7da; -fx-border-color: #dc3545; -fx-border-width: 2px;");
+            }
+        });
+    }
+
+    /**
+     * Adds a validation listener to a password field with the given pattern.
+     *
+     * @param passwordField the password field to add validation to.
+     * @param pattern       the regex pattern for validation.
+     * @param errorMessage  the error message to show if validation fails.
+     */
+    private void addValidationListener(PasswordField passwordField, Pattern pattern, String errorMessage) {
+        passwordField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty() && pattern.matcher(newValue).matches()) {
+                passwordField.setStyle("-fx-background-color: #d4edda; -fx-border-color: #28a745; -fx-border-width: 2px;");
+            } else {
+                passwordField.setStyle("-fx-background-color: #f8d7da; -fx-border-color: #dc3545; -fx-border-width: 2px;");
+            }
+        });
+    }
+
+    /**
+     * Configures the profile picture menu with options to add or remove a profile picture.
+     */
     private void setupProfilePictureMenu() {
         profileMenu = new ContextMenu();
         MenuItem addPictureItem = new MenuItem("Add profile picture");
@@ -125,7 +190,9 @@ public class UserManagementController  {
         );
     }
 
-
+    /**
+     * Prompts the user to select a profile image from their file system and updates the profile picture.
+     */
     private void selectProfileImage() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Profile Picture");
@@ -145,12 +212,17 @@ public class UserManagementController  {
             }
         }
     }
+
+    /**
+     * Removes the current profile picture and sets the default avatar.
+     */
     private void removeProfilePicture() {
         Image defaultImage = new Image(getClass().getResourceAsStream("/images/Generic_avatar.png"));
         profile_Image.setImage(defaultImage);
         profileImageData = null;
         asc.updateProfilePicture(currentUsername, null);
     }
+
     /**
      * Navigates to the main menu view.
      *
@@ -175,6 +247,9 @@ public class UserManagementController  {
         }
     }
 
+    /**
+     * Sets up the clear buttons for user input fields.
+     */
     public void setupClearButtons() {
         clearEmail.setOnMouseClicked(event -> emailField.clear());
         clearUserName.setOnMouseClicked(event -> currUserField.clear());

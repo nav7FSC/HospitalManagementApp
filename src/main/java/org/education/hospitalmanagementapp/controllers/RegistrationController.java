@@ -56,14 +56,51 @@ public class RegistrationController {
 
     private byte[] profileImageData;
 
+    /**
+     * Initializes the controller, sets up the profile image context menu, and adds real-time input validation listeners.
+     */
     @FXML
     public void initialize() {
         setupProfilePictureMenu();
         profileImageView.setOnMouseClicked(event -> {
             profileMenu.show(profileImageView, event.getScreenX(), event.getScreenY());
         });
+
+        // Setup real-time validation
+        setupRealTimeValidation();
     }
 
+    /**
+     * Sets up real-time validation for user input fields.
+     */
+    private void setupRealTimeValidation() {
+        addValidationListener(firstNameField, FIRSTNAME_PATTERN, "Invalid first name format. Must start with uppercase.");
+        addValidationListener(lastNameField, LAST_NAME_PATTERN, "Invalid last name format. Must start with uppercase.");
+        addValidationListener(usernameField, USERNAME_PATTERN, "Invalid username format.");
+        addValidationListener(emailField, EMAILPATTERN, "Invalid email format.");
+        addValidationListener(passwordField, PASSWORD_PATTERN, "Invalid password format. Must include uppercase, lowercase, number, and special character.");
+    }
+
+    /**
+     * Adds a validation listener to a text field for real-time input validation.
+     *
+     * @param textField    the text field to validate
+     * @param pattern      the regex pattern to validate against
+     * @param errorMessage the error message to display if validation fails
+     */
+    private void addValidationListener(TextField textField, Pattern pattern, String errorMessage) {
+        textField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty() && pattern.matcher(newValue).matches()) {
+                textField.setStyle("-fx-background-color: #d4edda; -fx-border-color: #28a745; -fx-border-width: 2px;");
+            } else {
+                textField.setStyle("-fx-background-color: #f8d7da; -fx-border-color: #dc3545; -fx-border-width: 2px;");
+            }
+        });
+    }
+
+    /**
+     * Opens a file chooser to select a profile image and updates the profile image view.
+     */
     private void selectProfileImage() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Profile Picture");
@@ -82,6 +119,9 @@ public class RegistrationController {
         }
     }
 
+    /**
+     * Sets up the context menu for the profile image, allowing the user to add or remove a profile picture.
+     */
     private void setupProfilePictureMenu() {
         profileMenu = new ContextMenu();
         MenuItem addPictureItem = new MenuItem("Add profile picture");
@@ -99,11 +139,13 @@ public class RegistrationController {
         );
     }
 
+    /**
+     * Removes the profile picture from the view.
+     */
     private void removeProfilePicture() {
         profileImageView.setImage(null);
         profileImageData = null;
     }
-
 
     /**
      * Handles the user registration process. Validates input, checks for existing usernames,
