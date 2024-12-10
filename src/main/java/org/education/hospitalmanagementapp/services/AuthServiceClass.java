@@ -3,6 +3,7 @@ package org.education.hospitalmanagementapp.services;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.education.hospitalmanagementapp.Patient;
+import org.education.hospitalmanagementapp.User;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -21,6 +22,7 @@ public class AuthServiceClass {
     final String USERNAME = "hospitaladmin";
     final String PASSWORD = "Manager1!";
     private final ObservableList<Patient> data = FXCollections.observableArrayList();
+    private final ObservableList<User> data_user = FXCollections.observableArrayList();
 
 
 
@@ -86,11 +88,11 @@ public class AuthServiceClass {
     }
 
 
-    public String stringAllUsers() {
+    public String stringAllPatients() {
         connectToDatabase();
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            String sql = "SELECT * FROM users ";
+            String sql = "SELECT * FROM patients ";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -144,6 +146,34 @@ public class AuthServiceClass {
             e.printStackTrace();
         }
         return data;
+    }
+
+    public ObservableList<User> getUserInfo(){
+        connectToDatabase();
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            String sql = "SELECT * FROM users ";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String username = resultSet.getString("username");
+                String email = resultSet.getString("email");
+                String password = resultSet.getString("password");
+                //byte picture = resultSet.getByte("profile_picture");
+
+
+
+
+                data_user.add(new User("null", "null", username, email, password));
+            }
+            preparedStatement.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return data_user;
     }
 
     /**
