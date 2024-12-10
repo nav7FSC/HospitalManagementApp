@@ -103,7 +103,7 @@ public class ReportGeneratorController {
     @FXML
     void generatePtntCsv(ActionEvent event)
     {
-        /*try {
+        try {
             System.out.println("exportCsv");
             FileWriter fw = new FileWriter("src/main/resources/export.csv");
             File file = new File("src/main/resources/export.csv");
@@ -117,7 +117,7 @@ public class ReportGeneratorController {
             fw.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }*/
+        }
     }
 
     /**

@@ -90,7 +90,7 @@ public class AuthServiceClass {
         connectToDatabase();
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            String sql = "SELECT * FROM users ";
+            String sql = "SELECT * FROM patients ";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
 
             ResultSet resultSet = preparedStatement.executeQuery();
