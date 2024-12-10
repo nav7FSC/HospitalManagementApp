@@ -57,7 +57,7 @@
                   <Insets top="35.0" />
                </VBox.margin>
             </HBox>
-            <Label style="-fx-text-fill: white;" text="GENERATE PATIENT RECORD REPORT:">
+            <Label style="-fx-text-fill: white;" text="GENERATE PATIENT/BILLING RECORD REPORT:">
                <font>
                   <Font name="Inter Semi Bold Italic" size="28.0" />
                </font>
@@ -96,23 +96,7 @@
                   <Button fx:id="staffCsvBttn" mnemonicParsing="false" onAction="#generateStaffCsv" prefHeight="68.0" prefWidth="199.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="GENERATE CSV FILE REPORT" textAlignment="CENTER" wrapText="true" />
                </children>
             </HBox>
-            <Label style="-fx-text-fill: white;" text="GENERATE BILLING REPORT:">
-               <font>
-                  <Font name="Inter Semi Bold Italic" size="28.0" />
-               </font>
-               <VBox.margin>
-                  <Insets left="375.0" top="15.0" />
-               </VBox.margin>
-            </Label>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Button fx:id="billingPdfBttn" mnemonicParsing="false" onAction="#generateBillingPdf" prefHeight="68.0" prefWidth="199.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="GENERATE PDF REPORT" />
-                  <Button fx:id="billingCsvBttn" mnemonicParsing="false" onAction="#genrateBillingCsv" prefHeight="68.0" prefWidth="199.0" styleClass="confirm-button" stylesheets="@../css/styles.css" text="GENERATE CSV FILE REPORT" textAlignment="CENTER" wrapText="true">
-                     <HBox.margin>
-                        <Insets left="40.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
                <VBox.margin>
                   <Insets />
                </VBox.margin>
