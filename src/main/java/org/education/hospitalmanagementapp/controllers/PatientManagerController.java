@@ -1,5 +1,9 @@
 package org.education.hospitalmanagementapp.controllers;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +29,36 @@ public class PatientManagerController {
     private TextField confirmFirstNameField, confirmLastNameField, changePhoneNumberField, changeAddressField;
     private AuthServiceClass asc = new AuthServiceClass();
     private AlertMessages alert = new AlertMessages();
+
+    @FXML
+    private ImageView profile_Image;
+    private String currentUsername;
+
+    /**
+     * Sets the current username and loads the profile picture.
+     */
+    public void setCurrentUsername(String username) {
+        this.currentUsername = username;
+        loadProfilePicture();
+    }
+
+    /**
+     * Loads the profile picture from the database.
+     */
+    private void loadProfilePicture() {
+        try {
+            byte[] imageData = asc.getProfilePicture(currentUsername);
+            if (imageData != null && imageData.length > 0) {
+                ByteArrayInputStream bis = new ByteArrayInputStream(imageData);
+                Image image = new Image(bis);
+                profile_Image.setImage(image);
+                bis.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * Initializes the controller by setting up listeners for real-time input validation.
@@ -167,9 +201,14 @@ public class PatientManagerController {
      * @param event the action event triggered by the user
      */
     @FXML
-    void goToMain(ActionEvent event){
+    void goToMain(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+            Parent root = loader.load();
+
+            MainMenuController mainMenuController = loader.getController();
+            mainMenuController.setCurrentUsername(currentUsername);
+
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -186,7 +225,12 @@ public class PatientManagerController {
     @FXML
     void goToTheMain(MouseEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+            Parent root = loader.load();
+
+            MainMenuController mainMenuController = loader.getController();
+            mainMenuController.setCurrentUsername(currentUsername);
+
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();

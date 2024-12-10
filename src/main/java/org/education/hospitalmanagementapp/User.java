@@ -1,5 +1,7 @@
 package org.education.hospitalmanagementapp;
 
+import java.util.Arrays;
+
 /**
  * Represents a user in the Hospital Management App with attributes for personal and account information.
  */
@@ -9,6 +11,7 @@ public class User {
     private String userName;
     private String email;
     private String password;
+    private byte[] profilePicture;
 
     /**
      * Default constructor for creating an empty User object.
@@ -39,6 +42,22 @@ public class User {
      */
     public String getFirstName() {
         return firstName;
+    }
+
+    /**
+     * Gets the profile picture of the user.
+     * @return the user's profile picture as a byte array
+     */
+    public byte[] getProfilePicture() {
+        return profilePicture;
+    }
+
+    /**
+     * Sets the profile picture of the user.
+     * @param profilePicture the profile picture to set as a byte array
+     */
+    public void setProfilePicture(byte[] profilePicture) {
+        this.profilePicture = profilePicture;
     }
 
     /**

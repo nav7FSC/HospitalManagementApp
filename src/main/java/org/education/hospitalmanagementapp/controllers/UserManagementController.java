@@ -6,11 +6,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.regex.Pattern;
 import org.education.hospitalmanagementapp.AlertMessages;
 import org.education.hospitalmanagementapp.services.AuthServiceClass;
@@ -19,7 +28,7 @@ import org.education.hospitalmanagementapp.services.AuthServiceClass;
  * Controller class for user management functionalities, including user authentication,
  * navigation to main menu, sign-out, and updating user credentials with validation.
  */
-public class UserManagementController {
+public class UserManagementController  {
 
     @FXML
     private ImageView clearEmail;
@@ -39,6 +48,7 @@ public class UserManagementController {
     @FXML
     private PasswordField currPassField;
 
+
     @FXML
     private TextField emailField;
 
@@ -57,76 +67,90 @@ public class UserManagementController {
     @FXML
     private ImageView profile_Image;
 
+    private ContextMenu profileMenu;
+    private byte[] profileImageData;
+
     private AuthServiceClass asc = new AuthServiceClass();
     private AlertMessages alert = new AlertMessages();
 
     // Regex patterns for username and password validation
     private static final Pattern USERNAME_PATTERN = Pattern.compile("^[a-zA-Z0-9_-]{5,20}$");
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%?&])[A-Za-z\\d@$!%?&]{8,20}$");
-    private static final Pattern EMAIL_PATTERN = Pattern.compile(
-            "^[A-Za-z0-9.%+-]+@(gmail|yahoo|hotmail|outlook|aol|icloud|protonmail|zoho|yandex|mail)\\.(com|edu|gov|org|net|io|co)$",
-            Pattern.CASE_INSENSITIVE
-    );
 
-    /**
-     * Initializes the controller by setting up clear buttons and adding validation listeners to input fields.
-     */
+    private String currentUsername;
+
+    public void setCurrentUsername(String username) {
+        this.currentUsername = username;
+        loadProfilePicture();
+    }
+
+    private void loadProfilePicture() {
+        try {
+            byte[] imageData = asc.getProfilePicture(currentUsername);
+            if (imageData != null && imageData.length > 0) {
+                ByteArrayInputStream bis = new ByteArrayInputStream(imageData);
+                Image image = new Image(bis);
+                profile_Image.setImage(image);
+                bis.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     public void initialize() {
         setupClearButtons();
-        // Add validation listeners
-        addValidationListener(emailField, EMAIL_PATTERN);
-        addValidationListener(currUserField, USERNAME_PATTERN);
-        addValidationListener(currPassField, PASSWORD_PATTERN);
-        addValidationListener(newUserField, USERNAME_PATTERN);
-        addValidationListener(newPassField, PASSWORD_PATTERN);
+        if (profile_Image != null) {
+            setupProfilePictureMenu();
+            profile_Image.setOnMouseClicked(event -> {
+                profileMenu.show(profile_Image, event.getScreenX(), event.getScreenY());
+            });
+        }
+    }
+    private void setupProfilePictureMenu() {
+        profileMenu = new ContextMenu();
+        MenuItem addPictureItem = new MenuItem("Add profile picture");
+        MenuItem removePictureItem = new MenuItem("Remove Profile Picture");
+
+        addPictureItem.setOnAction(event -> selectProfileImage());
+        removePictureItem.setOnAction(event -> removeProfilePicture());
+
+        profileMenu.getItems().addAll(addPictureItem, removePictureItem);
+
+        profileMenu.setStyle(
+                "-fx-background-color: #F8F7FA; " +
+                        "-fx-background-radius: 8px; " +
+                        "-fx-border-radius: 8px;"
+        );
     }
 
-    /**
-     * Adds a validation listener to a TextField to validate its input against a regex pattern
-     * and apply corresponding styles based on validity.
-     *
-     * @param field   the TextField to which the listener is added
-     * @param pattern the regex pattern used for validation
-     */
-    private void addValidationListener(TextField field, Pattern pattern) {
-        field.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (pattern.matcher(newValue).matches()) {
-                field.setStyle("-fx-background-color: #d4edda; -fx-border-color: #28a745; -fx-border-width: 2px;");
-            } else {
-                field.setStyle("-fx-background-color: #f8d7da; -fx-border-color: #dc3545; -fx-border-width: 2px;");
+
+    private void selectProfileImage() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Profile Picture");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif")
+        );
+        File selectedFile = fileChooser.showOpenDialog(null);
+        if (selectedFile != null) {
+            try {
+                profileImageData = Files.readAllBytes(selectedFile.toPath());
+                Image image = new Image(selectedFile.toURI().toString());
+                profile_Image.setImage(image);
+                // Update the profile picture in the database
+                asc.updateProfilePicture(currentUsername, profileImageData);
+            } catch (IOException e) {
+                alert.errorMessage("Error reading image file: " + e.getMessage());
             }
-        });
+        }
     }
-
-    /**
-     * Adds a validation listener to a PasswordField to validate its input against a regex pattern
-     * and apply corresponding styles based on validity.
-     *
-     * @param field   the PasswordField to which the listener is added
-     * @param pattern the regex pattern used for validation
-     */
-    private void addValidationListener(PasswordField field, Pattern pattern) {
-        field.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (pattern.matcher(newValue).matches()) {
-                field.setStyle("-fx-background-color: #d4edda; -fx-border-color: #28a745; -fx-border-width: 2px;");
-            } else {
-                field.setStyle("-fx-background-color: #f8d7da; -fx-border-color: #dc3545; -fx-border-width: 2px;");
-            }
-        });
+    private void removeProfilePicture() {
+        Image defaultImage = new Image(getClass().getResourceAsStream("/images/Generic_avatar.png"));
+        profile_Image.setImage(defaultImage);
+        profileImageData = null;
+        asc.updateProfilePicture(currentUsername, null);
     }
-
-    /**
-     * Sets up clear buttons to clear the corresponding input fields when clicked.
-     */
-    public void setupClearButtons() {
-        clearEmail.setOnMouseClicked(event -> emailField.clear());
-        clearUserName.setOnMouseClicked(event -> currUserField.clear());
-        clearCurrPassField.setOnMouseClicked(event -> currPassField.clear());
-        clearNewUserField.setOnMouseClicked(event -> newUserField.clear());
-        clearNewPassField.setOnMouseClicked(event -> newPassField.clear());
-    }
-
     /**
      * Navigates to the main menu view.
      *
@@ -135,7 +159,12 @@ public class UserManagementController {
     @FXML
     void goToMainMenu(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+            Parent root = loader.load();
+
+            MainMenuController mainMenuController = loader.getController();
+            mainMenuController.setCurrentUsername(currentUsername);
+
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -144,6 +173,14 @@ public class UserManagementController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void setupClearButtons() {
+        clearEmail.setOnMouseClicked(event -> emailField.clear());
+        clearUserName.setOnMouseClicked(event -> currUserField.clear());
+        clearCurrPassField.setOnMouseClicked(event -> currPassField.clear());
+        clearNewUserField.setOnMouseClicked(event -> newUserField.clear());
+        clearNewPassField.setOnMouseClicked(event -> newPassField.clear());
     }
 
     /**
@@ -166,14 +203,19 @@ public class UserManagementController {
     }
 
     /**
-     * Navigates to the main menu view when triggered by a mouse event.
+     * Signs the user out and navigates to the login view.
      *
-     * @param event the MouseEvent triggered by the user
+     * @param event MouseClickEvent triggered by the user.
      */
     @FXML
     void goToMain(MouseEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+            Parent root = loader.load();
+
+            MainMenuController mainMenuController = loader.getController();
+            mainMenuController.setCurrentUsername(currentUsername);
+
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();

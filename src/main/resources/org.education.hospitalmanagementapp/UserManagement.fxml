@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="982.0" prefWidth="1512.0" style="-fx-background-color: #AFD8DA;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.education.hospitalmanagementapp.controllers.UserManagementController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="982.0" prefWidth="1512.0" style="-fx-background-color: #AFD8DA;" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.education.hospitalmanagementapp.controllers.UserManagementController">
     <right>
         <ImageView fitHeight="982.0" fitWidth="502.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
             <image>
@@ -44,7 +44,7 @@
                         </ImageView>
                         <StackPane prefHeight="76.0" prefWidth="68.0">
                             <children>
-                                <ImageView fx:id="profile_Image" fitHeight="76.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fx:id="profile_Image" fitHeight="76.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true" styleClass="profile-image-view">
                                     <image>
                                         <Image url="@../images/Generic_avatar.png" />
                                     </image>

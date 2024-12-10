@@ -1,5 +1,7 @@
 package org.education.hospitalmanagementapp.controllers;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
@@ -13,10 +15,12 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.education.hospitalmanagementapp.AlertMessages;
+import org.education.hospitalmanagementapp.services.AuthServiceClass;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -85,7 +89,33 @@ public class AppointmentSchedulerController {
         addNameFieldValidation(doctorFirstName);
         addNameFieldValidation(doctorLastName);
         addNameFieldValidation(appointmentType);
+
+        if (profile_Image != null) {
+            loadProfilePicture();
+        }
     }
+
+    public void setCurrentUsername(String username) {
+        this.currentUsername = username;
+        loadProfilePicture();
+    }
+
+    private void loadProfilePicture() {
+        try {
+            byte[] imageData = asc.getProfilePicture(currentUsername);
+            if (imageData != null && imageData.length > 0) {
+                ByteArrayInputStream bis = new ByteArrayInputStream(imageData);
+                Image image = new Image(bis);
+                profile_Image.setImage(image);
+                bis.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String currentUsername;
+    private AuthServiceClass asc = new AuthServiceClass();
 
     /**
      * Resets the DatePicker field.
@@ -232,6 +262,7 @@ public class AppointmentSchedulerController {
     /**
      * Handles the confirmation of an appointment by collecting user input, validating it,
      * and inserting the appointment details into the database.
+     *
      * @param event The action event triggered by clicking the confirm appointment button.
      */
     @FXML
@@ -285,6 +316,7 @@ public class AppointmentSchedulerController {
 
     /**
      * Generates a unique patient ID by attempting up to 10 times to ensure no collision with the database.
+     *
      * @return A unique patient ID.
      * @throws RuntimeException if a unique ID could not be generated after the maximum number of attempts.
      */
@@ -307,6 +339,7 @@ public class AppointmentSchedulerController {
 
     /**
      * Checks if the provided patient ID already exists in the database.
+     *
      * @param patientID The patient ID to check.
      * @return true if the ID exists, false otherwise.
      */
@@ -331,12 +364,18 @@ public class AppointmentSchedulerController {
 
     /**
      * Navigates the user to the main menu scene.
+     *
      * @param event The action event triggered by clicking the navigation button.
      */
     @FXML
     void goToMain(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+            Parent root = loader.load();
+
+            MainMenuController mainMenuController = loader.getController();
+            mainMenuController.setCurrentUsername(currentUsername);
+
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -347,14 +386,22 @@ public class AppointmentSchedulerController {
         }
     }
 
+
     /**
      * Navigates the user to the main menu scene when clicking an image.
+     *
      * @param event The mouse event triggered by clicking the image.
      */
     @FXML
     void goToMainFromImage(MouseEvent event) {
+
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+            Parent root = loader.load();
+
+            MainMenuController mainMenuController = loader.getController();
+            mainMenuController.setCurrentUsername(currentUsername);
+
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -367,6 +414,7 @@ public class AppointmentSchedulerController {
 
     /**
      * Handles the sign-out process by navigating the user back to the login view.
+     *
      * @param event The action event triggered by clicking the sign-out button.
      */
     @FXML

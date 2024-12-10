@@ -108,7 +108,12 @@ public class LoginViewController {
 
         if (isValidUser) {
             try {
-                Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+                Parent root = loader.load();
+
+                MainMenuController mainMenuController = loader.getController();
+                mainMenuController.setCurrentUsername(username);
+
                 Scene scene = new Scene(root);
                 scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();

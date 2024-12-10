@@ -6,11 +6,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import org.education.hospitalmanagementapp.AlertMessages;
 import org.education.hospitalmanagementapp.services.AuthServiceClass;
+import javafx.stage.FileChooser;
+import javafx.scene.image.Image;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 
 import java.util.regex.Pattern;
 
@@ -28,64 +37,78 @@ public class RegistrationController {
             Pattern.CASE_INSENSITIVE
     );
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%?&])[A-Za-z\\d@$!%?&]{8,20}$");
-
     private AlertMessages alert = new AlertMessages();
     AuthServiceClass asc = new AuthServiceClass();
 
     @FXML
-    private TextField firstNameField, lastNameField, usernameField, emailField;
+    private TextField usernameField, emailField;
+
+    @FXML
+    private TextField firstNameField, lastNameField;
 
     @FXML
     private PasswordField passwordField, confirmPassField;
 
-    /**
-     * Initializes the controller by attaching real-time validation listeners to the fields.
-     */
     @FXML
-    private void initialize() {
-        addValidationListener(firstNameField, FIRSTNAME_PATTERN);
-        addValidationListener(lastNameField, LAST_NAME_PATTERN);
-        addValidationListener(usernameField, USERNAME_PATTERN);
-        addValidationListener(emailField, EMAILPATTERN);
-        addValidationListener(passwordField, PASSWORD_PATTERN);
-        addConfirmPasswordListener(confirmPassField, passwordField);
-    }
+    private ImageView profileImageView;
 
-    /**
-     * Adds a validation listener to a text field, updating its style based on the validity of input.
-     *
-     * @param field   the text field to validate
-     * @param pattern the regex pattern for validation
-     */
-    private void addValidationListener(TextField field, Pattern pattern) {
-        field.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (pattern.matcher(newValue).matches()) {
-                field.setStyle("-fx-background-color: #d4edda; -fx-border-color: #28a745; -fx-border-width: 2px;");
-            } else {
-                field.setStyle("-fx-background-color: #f8d7da; -fx-border-color: #dc3545; -fx-border-width: 2px;");
-            }
+    private ContextMenu profileMenu;
+
+    private byte[] profileImageData;
+
+    @FXML
+    public void initialize() {
+        setupProfilePictureMenu();
+        profileImageView.setOnMouseClicked(event -> {
+            profileMenu.show(profileImageView, event.getScreenX(), event.getScreenY());
         });
     }
 
-    /**
-     * Adds a listener to validate that the confirm password field matches the original password field.
-     *
-     * @param confirmField the confirmation password field
-     * @param originalField the original password field
-     */
-    private void addConfirmPasswordListener(PasswordField confirmField, PasswordField originalField) {
-        confirmField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.equals(originalField.getText()) && !newValue.isEmpty()) {
-                confirmField.setStyle("-fx-background-color: #d4edda; -fx-border-color: #28a745; -fx-border-width: 2px;");
-            } else {
-                confirmField.setStyle("-fx-background-color: #f8d7da; -fx-border-color: #dc3545; -fx-border-width: 2px;");
+    private void selectProfileImage() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Profile Picture");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif")
+        );
+        File selectedFile = fileChooser.showOpenDialog(null);
+        if (selectedFile != null) {
+            try {
+                profileImageData = Files.readAllBytes(selectedFile.toPath());
+                Image image = new Image(selectedFile.toURI().toString());
+                profileImageView.setImage(image);
+            } catch (IOException e) {
+                alert.errorMessage("Error reading image file: " + e.getMessage());
             }
-        });
+        }
     }
+
+    private void setupProfilePictureMenu() {
+        profileMenu = new ContextMenu();
+        MenuItem addPictureItem = new MenuItem("Add profile picture");
+        MenuItem removePictureItem = new MenuItem("Remove Profile Picture");
+
+        addPictureItem.setOnAction(event -> selectProfileImage());
+        removePictureItem.setOnAction(event -> removeProfilePicture());
+
+        profileMenu.getItems().addAll(addPictureItem, removePictureItem);
+
+        profileMenu.setStyle(
+                "-fx-background-color: #F8F7FA; " +
+                        "-fx-background-radius: 8px; " +
+                        "-fx-border-radius: 8px;"
+        );
+    }
+
+    private void removeProfilePicture() {
+        profileImageView.setImage(null);
+        profileImageData = null;
+    }
+
 
     /**
      * Handles the user registration process. Validates input, checks for existing usernames,
      * creates a new user, and navigates to the main menu upon successful registration.
+     *
      * @param event the action event triggered by clicking the register button
      */
     @FXML
@@ -97,7 +120,8 @@ public class RegistrationController {
         String password = passwordField.getText();
         String confirmPassword = confirmPassField.getText();
 
-        if (firstName.isEmpty() || lastName.isEmpty() || username.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+        if (firstName.isEmpty() || lastName.isEmpty() || username.isEmpty() ||
+                email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             alert.errorMessage("Fill in all fields.");
             return;
         }
@@ -107,7 +131,7 @@ public class RegistrationController {
             return;
         }
 
-        if (!validateInput(firstName, lastName, username, email, password)) {
+        if (!validateInput(username, email, password)) {
             return;
         }
 
@@ -116,12 +140,17 @@ public class RegistrationController {
             return;
         }
 
-        asc.insertUser(username, email, password);
+        asc.insertUser(username, email, password, profileImageData);
 
         alert.successMessage("Successfully created your account!");
 
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
+            Parent root = loader.load();
+
+            MainMenuController mainMenuController = loader.getController();
+            mainMenuController.setCurrentUsername(username);
+
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -134,6 +163,7 @@ public class RegistrationController {
 
     /**
      * Navigates back to the login page from the registration view.
+     *
      * @param event the action event triggered by clicking the "Go back to login" button
      */
     @FXML
@@ -151,22 +181,21 @@ public class RegistrationController {
     }
 
     /**
-     * Validates user input for all fields against predefined regex patterns.
+     * Validates user input for username, email, and password against predefined regex patterns.
      * Displays error messages if any input fails validation.
-     * @param firstName the first name entered by the user
-     * @param lastName the last name entered by the user
+     *
      * @param username the username entered by the user
-     * @param email the email entered by the user
+     * @param email    the email entered by the user
      * @param password the password entered by the user
      * @return true if all inputs are valid, false otherwise
      */
-    private boolean validateInput(String firstName, String lastName, String username, String email, String password) {
-        if (!FIRSTNAME_PATTERN.matcher(firstName).matches()) {
-            alert.errorMessage("Invalid first name format.");
+    private boolean validateInput(String username, String email, String password) {
+        if (!FIRSTNAME_PATTERN.matcher(firstNameField.getText()).matches()) {
+            alert.errorMessage("Invalid first name format. Must start with uppercase letter.");
             return false;
         }
-        if (!LAST_NAME_PATTERN.matcher(lastName).matches()) {
-            alert.errorMessage("Invalid last name format.");
+        if (!LAST_NAME_PATTERN.matcher(lastNameField.getText()).matches()) {
+            alert.errorMessage("Invalid last name format. Must start with uppercase letter.");
             return false;
         }
         if (!USERNAME_PATTERN.matcher(username).matches()) {
