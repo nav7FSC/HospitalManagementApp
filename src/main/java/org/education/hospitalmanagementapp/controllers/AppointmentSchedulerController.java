@@ -31,11 +31,15 @@ import java.time.LocalDate;
 import java.security.SecureRandom;
 import java.sql.ResultSet;
 import java.util.Random;
+import java.util.regex.Pattern;
 
 /**
  * Controller class for handling appointment scheduling functionality.
  */
 public class AppointmentSchedulerController {
+
+    // Define a pattern to match alphabetic characters and spaces
+    private static final Pattern NAME_PATTERN = Pattern.compile("[a-zA-Z\\s]*");
 
     @FXML
     private ToggleButton amtoggle;
@@ -76,6 +80,7 @@ public class AppointmentSchedulerController {
     final String DB_URL = "jdbc:mysql://hospitalmanagement.mysql.database.azure.com/hospital-management";
     final String USERNAME = "hospitaladmin";
     final String PASSWORD = "Manager1!";
+    private TextField field;
 
     /**
      * Initializes the controller, adding validation to input fields.
@@ -84,15 +89,40 @@ public class AppointmentSchedulerController {
     private void initialize() {
         addTimeFieldValidation(hourField);
         addTimeFieldValidation(minuteField);
-        addNameFieldValidation(patientFirstName);
-        addNameFieldValidation(patientLastName);
+
+        // Apply name field validation with styling for doctor and patient name fields
         addNameFieldValidation(doctorFirstName);
         addNameFieldValidation(doctorLastName);
+        addNameFieldValidation(patientFirstName);
+        addNameFieldValidation(patientLastName);
+
         addNameFieldValidation(appointmentType);
 
         if (profile_Image != null) {
             loadProfilePicture();
         }
+    }
+
+    /**
+     * Validates name field input to allow only alphabetic characters and spaces.
+     * Also applies styling based on the validity of the input for name fields only.
+     *
+     * @param field the TextField to validate
+     */
+    private void addNameFieldValidation(TextField field) {
+        this.field = field;
+        field.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isEmpty()) {
+                // If the field is empty, apply red background and border
+                field.setStyle("-fx-background-color: #f8d7da; -fx-border-color: #dc3545; -fx-border-width: 2px;");
+            } else if (!NAME_PATTERN.matcher(newValue).matches()) {
+                // Invalid input: Apply red background and border
+                field.setStyle("-fx-background-color: #f8d7da; -fx-border-color: #dc3545; -fx-border-width: 2px;");
+            } else {
+                // Valid input: Apply green background and border
+                field.setStyle("-fx-background-color: #d4edda; -fx-border-color: #28a745; -fx-border-width: 2px;");
+            }
+        });
     }
 
     public void setCurrentUsername(String username) {
@@ -158,19 +188,6 @@ public class AppointmentSchedulerController {
     private void addTimeFieldValidation(TextField field) {
         field.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d{0,2}")) {
-                field.setText(oldValue);
-            }
-        });
-    }
-
-    /**
-     * Validates name field input to allow only alphabetic characters.
-     *
-     * @param field the TextField to validate
-     */
-    private void addNameFieldValidation(TextField field) {
-        field.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("[a-zA-Z\\s]*")) {
                 field.setText(oldValue);
             }
         });
