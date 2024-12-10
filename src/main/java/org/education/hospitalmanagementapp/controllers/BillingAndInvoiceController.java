@@ -185,14 +185,15 @@ public class BillingAndInvoiceController implements Initializable {
         Double price = servicePrices.get(selectedService);
         int patientId = generateRandomPatientId();
 
-        if (insertPatientData(patientId, firstName, lastName, selectedService, price)) {
-            String message = String.format(
-                    "Patient ID: %d\nPatient: %s %s\nService: %s\nCharge: $%.2f",
-                    patientId, firstName, lastName, selectedService, price
-            );
-            alertMessages.successMessage(message);
-        } else {
-            alertMessages.errorMessage("Failed to save patient data.");
+        if(authService.patientExists(firstName,lastName)){
+            if (insertExistingPatientData(firstName, lastName, selectedService, price)) {
+                alertMessages.successMessage("Successfully charged an existing patient.");
+            }
+        } else if (insertNewPatientData(patientId,firstName,lastName,selectedService,price)){
+            alertMessages.successMessage("Successfully charged a new patient.");
+        }
+        else {
+            alertMessages.errorMessage("Failed to charge a patient.");
         }
     }
 
@@ -201,7 +202,7 @@ public class BillingAndInvoiceController implements Initializable {
         return 100000 + random.nextInt(900000);
     }
 
-    private boolean insertPatientData(int patientId, String firstName, String lastName, String service, Double cost) {
+    private boolean insertNewPatientData(int patientId, String firstName, String lastName, String service, Double cost) {
         String sql = "INSERT INTO patients (PatientID, FirstName, LastName, Services, Cost) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = authService.getConnection();
@@ -211,6 +212,23 @@ public class BillingAndInvoiceController implements Initializable {
             pstmt.setString(3, lastName);
             pstmt.setString(4, service);
             pstmt.setDouble(5, cost);
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private boolean insertExistingPatientData(String firstName, String lastName, String service, Double cost) {
+        String sql = "UPDATE patients SET services = ?, cost = ? WHERE FirstName = ? AND LastName = ?";
+
+        try (Connection conn = authService.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(3, firstName);
+            pstmt.setString(4, lastName);
+            pstmt.setString(1, service);
+            pstmt.setDouble(2, cost);
             int affectedRows = pstmt.executeUpdate();
             return affectedRows > 0;
         } catch (SQLException e) {
