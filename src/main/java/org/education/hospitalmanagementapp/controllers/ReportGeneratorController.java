@@ -176,6 +176,7 @@ public class ReportGeneratorController {
             alertMessages.errorMessage("Failed to load the Main Menu.");
         }
     }
+
     /**
      * Logs out the user and navigates to the Login View.
      *

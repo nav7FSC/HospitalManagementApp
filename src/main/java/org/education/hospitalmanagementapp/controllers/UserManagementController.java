@@ -145,7 +145,6 @@ public class UserManagementController  {
             }
         }
     }
-
     private void removeProfilePicture() {
         Image defaultImage = new Image(getClass().getResourceAsStream("/images/Generic_avatar.png"));
         profile_Image.setImage(defaultImage);

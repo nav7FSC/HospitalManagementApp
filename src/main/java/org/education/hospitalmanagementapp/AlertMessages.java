@@ -9,6 +9,7 @@ import javafx.stage.StageStyle;
  * Utility class for displaying various types of alert messages in the application.
  */
 public class AlertMessages {
+
     private Alert alert;
     /**
      * Displays an alert dialog with the specified title, content, and type.

@@ -263,6 +263,27 @@ public class AuthServiceClass {
 
         return exists;
     }
+    public boolean patientExists(String firstName, String lastName) {
+        boolean exists = false;
+
+        String query = "SELECT COUNT(*) FROM patients WHERE FirstName = ? AND LastName = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, firstName);
+            stmt.setString(2, lastName);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                exists = rs.getInt(1) > 0;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return exists;
+    }
 
     /**
      * Updates a user's username and password in the "users" table.

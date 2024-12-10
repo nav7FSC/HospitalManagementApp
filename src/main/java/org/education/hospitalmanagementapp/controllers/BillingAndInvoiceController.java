@@ -26,7 +26,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
-
 /**
  * Controller class for handling billing and invoice-related operations in the Hospital Management App.
  * Manages service selection, price calculations, and navigation between scenes.

@@ -179,6 +179,7 @@ public class RegistrationController {
             e.printStackTrace();
         }
     }
+
     /**
      * Validates user input for username, email, and password against predefined regex patterns.
      * Displays error messages if any input fails validation.
