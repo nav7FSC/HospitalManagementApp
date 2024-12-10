@@ -23,6 +23,18 @@ public class Patient {
         this.services = services;
     }
 
+    @Override
+    public String toString() {
+        return "Patient ID: " + patientID +
+                ", First Name: " + firstName +
+                ", Last Name: " + lastName +
+                ", Date of Birth: " + dateOfBirth +
+                ", Contact Number: " + contactNumber +
+                ", Address: " + address +
+                ", Cost: " + cost +
+                ", Services: " + services;
+    }
+
     // Getters and Setters
     public int getPatientID() {
         return patientID;

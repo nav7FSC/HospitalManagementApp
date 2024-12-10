@@ -1,5 +1,11 @@
+
 package org.education.hospitalmanagementapp.controllers;
 
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,9 +19,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.education.hospitalmanagementapp.AlertMessages;
+import org.education.hospitalmanagementapp.Patient;
 import org.education.hospitalmanagementapp.services.AuthServiceClass;
 
+import javax.print.Doc;
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 /**
@@ -49,6 +59,12 @@ public class ReportGeneratorController {
 
     private String currentUsername;
     private AuthServiceClass asc = new AuthServiceClass();
+
+    private final ObservableList<Patient> data = asc.getPatientInfo();
+
+    public static String status = "";
+
+
 
     public void setCurrentUsername(String username) {
         this.currentUsername = username;
@@ -85,8 +101,23 @@ public class ReportGeneratorController {
      * @param event the action event triggered by the user
      */
     @FXML
-    void generatePtntCsv(ActionEvent event) {
+    void generatePtntCsv(ActionEvent event)
+    {
+        /*try {
+            System.out.println("exportCsv");
+            FileWriter fw = new FileWriter("src/main/resources/export.csv");
+            File file = new File("src/main/resources/export.csv");
+            file.createNewFile();
 
+            fw.write("id,first_name,last_name,DateOfBirth,ContactNumber,Address,Cost,Services\n");
+            fw.write(asc.stringAllUsers());
+
+
+
+            fw.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }*/
     }
 
     /**
@@ -95,8 +126,25 @@ public class ReportGeneratorController {
      * @param event the action event triggered by the user
      */
     @FXML
-    void generatePtntPdf(ActionEvent event) {
+    void generatePtntPdf(ActionEvent event)
+    {
+        try
+        {
+            File file = new File("src/main/resources/export.pdf");
+            PdfWriter writer = new PdfWriter(file);
+            PdfDocument pdfDoc = new PdfDocument(writer);
+            Document document = new Document(pdfDoc);
 
+            for(Patient person: data){
+
+                    document.add(new Paragraph(person.toString()));
+                    System.out.println(person);
+
+            }
+            document.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**

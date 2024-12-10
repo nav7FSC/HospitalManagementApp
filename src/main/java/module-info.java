@@ -4,6 +4,9 @@ module org.education.hospitalmanagementapp {
     requires java.sql;
     requires mysql.connector.j;
     requires com.google.protobuf;
+    requires kernel;
+    requires java.desktop;
+    requires layout;
 
 
     opens org.education.hospitalmanagementapp to javafx.fxml;
