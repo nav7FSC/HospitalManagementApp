@@ -76,9 +76,13 @@ public class RegistrationController {
             profileMenu.show(profileImageView, event.getScreenX(), event.getScreenY());
         });
 
-        // Setup real-time validation
+        String defaultImagePath = "/images/Generic_avatar.png";
+        Image defaultImage = new Image(getClass().getResourceAsStream(defaultImagePath));
+        profileImageView.setImage(defaultImage);
+
         setupRealTimeValidation();
     }
+
 
     /**
      * Sets up real-time validation for user input fields.
@@ -180,9 +184,12 @@ public class RegistrationController {
      * Removes the profile picture from the view.
      */
     private void removeProfilePicture() {
-        profileImageView.setImage(null);
+        String defaultImagePath = "/images/Generic_avatar.png";
+        Image defaultImage = new Image(getClass().getResourceAsStream(defaultImagePath));
+        profileImageView.setImage(defaultImage);
         profileImageData = null;
     }
+
 
     /**
      * Handles the user registration process. Validates input, checks for existing usernames,
