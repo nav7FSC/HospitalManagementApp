@@ -125,11 +125,24 @@ public class AppointmentSchedulerController {
         });
     }
 
+    /**
+     * User-related operations including setting the current username
+     * and loading the profile picture from the authentication service.
+     */
+
+    /**
+     * Sets the current username and loads the associated profile picture.
+     *
+     * @param username the username to set as the current user
+     */
     public void setCurrentUsername(String username) {
         this.currentUsername = username;
         loadProfilePicture();
     }
 
+    /**
+     * Loads the profile picture of the current user by fetching it from the authentication service.
+     */
     private void loadProfilePicture() {
         try {
             byte[] imageData = asc.getProfilePicture(currentUsername);
@@ -144,7 +157,14 @@ public class AppointmentSchedulerController {
         }
     }
 
+    /**
+     * The current username for which the profile picture is loaded.
+     */
     private String currentUsername;
+
+    /**
+     * Instance of the authentication service class used for user-related operations.
+     */
     private AuthServiceClass asc = new AuthServiceClass();
 
     /**
