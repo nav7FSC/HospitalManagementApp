@@ -1,5 +1,8 @@
 package org.education.hospitalmanagementapp;
 
+/**
+ * Represents a patient in the hospital management system.
+ */
 public class Patient {
     private int patientID;
     private String firstName;
@@ -10,7 +13,18 @@ public class Patient {
     private int cost;
     private String services;
 
-    // Constructor
+    /**
+     * Constructs a Patient with the specified details.
+     *
+     * @param patientID     the unique ID of the patient
+     * @param firstName     the first name of the patient
+     * @param lastName      the last name of the patient
+     * @param dateOfBirth   the date of birth of the patient (in YYYY-MM-DD format)
+     * @param contactNumber the contact number of the patient
+     * @param address       the address of the patient
+     * @param cost          the total cost of services for the patient
+     * @param services      the services received by the patient
+     */
     public Patient(int patientID, String firstName, String lastName, String dateOfBirth,
                    String contactNumber, String address, int cost, String services) {
         this.patientID = patientID;
@@ -23,6 +37,11 @@ public class Patient {
         this.services = services;
     }
 
+    /**
+     * Returns a string representation of the patient's details.
+     *
+     * @return a string containing patient information
+     */
     @Override
     public String toString() {
         return "Patient ID: " + patientID +

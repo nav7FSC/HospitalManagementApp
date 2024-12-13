@@ -32,6 +32,10 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Controller class for the Dashboard view in the Hospital Management Application.
+ * Manages calendar display, user profile updates, and navigation.
+ */
 public class DashBoardController implements Initializable {
     private final AlertMessages alertMessages = new AlertMessages();
     @FXML private VBox calendarContainer;
@@ -42,12 +46,18 @@ public class DashBoardController implements Initializable {
     private String currentUsername;
     private Map<LocalDate, List<Appointment>> appointmentMap = new HashMap<>();
 
+    /**
+     * Initializes the DashboardController by loading appointments and creating the calendar.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadAppointments();
         createCalendarInContainer();
     }
 
+    /**
+     * Loads appointments from the authentication service and maps them by date.
+     */
     private void loadAppointments() {
         List<Appointment> appointments = asc.getAppointments();
         for (Appointment appointment : appointments) {
@@ -55,12 +65,19 @@ public class DashBoardController implements Initializable {
         }
     }
 
+    /**
+     * Sets the current username and updates the profile picture and username label.
+     * @param username The username of the logged-in user.
+     */
     public void setCurrentUsername(String username) {
         this.currentUsername = username;
         loadProfilePicture();
         updateUserNameLabel();
     }
 
+    /**
+     * Loads the user's profile picture and displays it in the dashboard.
+     */
     private void loadProfilePicture() {
         try {
             byte[] imageData = asc.getProfilePicture(currentUsername);
@@ -75,6 +92,9 @@ public class DashBoardController implements Initializable {
         }
     }
 
+    /**
+     * Updates the username label with the current username or displays an error message.
+     */
     private void updateUserNameLabel() {
         if (currentUsername != null && !currentUsername.isEmpty()) {
             userNameLabel.setText(currentUsername);
@@ -83,6 +103,9 @@ public class DashBoardController implements Initializable {
         }
     }
 
+    /**
+     * Creates and populates the calendar view in the dashboard.
+     */
     private void createCalendarInContainer() {
         calendarContainer.getChildren().clear();
         calendarContainer.setSpacing(20);
@@ -171,11 +194,19 @@ public class DashBoardController implements Initializable {
         nextMonth.setOnAction(e -> navigateMonth(1));
     }
 
+    /**
+     * Navigates the calendar view to the specified number of months ahead or behind.
+     * @param months The number of months to navigate.
+     */
     private void navigateMonth(int months) {
         currentDate = currentDate.plusMonths(months);
         createCalendarInContainer();
     }
 
+    /**
+     * Handles the action of navigating to the main menu view.
+     * @param event The mouse event triggering the navigation.
+     */
     @FXML
     void goToTheMain(MouseEvent event) {
         try {
@@ -194,6 +225,10 @@ public class DashBoardController implements Initializable {
         }
     }
 
+    /**
+     * Handles the action of signing out and navigating to the login view.
+     * @param event The action event triggering the sign-out.
+     */
     @FXML
     void signOut(ActionEvent event) {
         try {
@@ -208,6 +243,10 @@ public class DashBoardController implements Initializable {
         }
     }
 
+    /**
+     * Navigates to the main menu view (duplicate method with ActionEvent).
+     * @param event The action event triggering the navigation.
+     */
     @FXML
     private void goToMain(ActionEvent event) {
         try {

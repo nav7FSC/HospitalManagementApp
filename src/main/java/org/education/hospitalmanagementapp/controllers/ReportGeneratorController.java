@@ -31,7 +31,7 @@ import java.io.IOException;
 
 /**
  * Controller for the Report Generator module in the Hospital Management App.
- * Provides functionality to generate reports in various formats.
+ * Provides functionality to generate reports in various formats, including CSV and PDF.
  */
 public class ReportGeneratorController {
 
@@ -66,13 +66,19 @@ public class ReportGeneratorController {
 
     public static String status = "";
 
-
-
+    /**
+     * Sets the username of the current user and loads their profile picture.
+     *
+     * @param username the username of the current user
+     */
     public void setCurrentUsername(String username) {
         this.currentUsername = username;
         loadProfilePicture();
     }
 
+    /**
+     * Loads the profile picture for the current user and displays it in the ImageView.
+     */
     private void loadProfilePicture() {
         try {
             byte[] imageData = asc.getProfilePicture(currentUsername);
