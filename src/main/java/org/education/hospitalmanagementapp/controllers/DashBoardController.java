@@ -8,10 +8,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
@@ -27,54 +23,36 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import org.education.hospitalmanagementapp.AlertMessages;
 import org.education.hospitalmanagementapp.services.AuthServiceClass;
+import org.education.hospitalmanagementapp.services.Appointment;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
+import java.util.stream.Collectors;
 
-/**
- * Controller class for the Dashboard view.
- * Manages the calendar view, charts, and user interactions on the dashboard.
- */
 public class DashBoardController implements Initializable {
-
     private final AlertMessages alertMessages = new AlertMessages();
-
-   // LoginViewController user;
-
-/*    public DashBoardController(LoginViewController user)
-    {
-        this.user = user;
-    }*/
-
-    @FXML
-    private VBox calendarContainer;
-    @FXML
-    private ImageView userProfileImage;
-    @FXML
-    private Label userNameLabel;
-
-
-
-    private final Map<LocalDate, String> sampleAppointments = new HashMap<>();
+    @FXML private VBox calendarContainer;
+    @FXML private ImageView userProfileImage;
+    @FXML private Label userNameLabel;
     private LocalDate currentDate = LocalDate.now();
     AuthServiceClass asc = new AuthServiceClass();
-
     private String currentUsername;
+    private Map<LocalDate, List<Appointment>> appointmentMap = new HashMap<>();
 
-    /**
-     * Initializes the dashboard by setting up charts, calendar, and user label.
-     * @param location URL location for controller
-     * @param resources ResourceBundle
-     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        initializeSampleAppointments();
+        loadAppointments();
         createCalendarInContainer();
+    }
+
+    private void loadAppointments() {
+        List<Appointment> appointments = asc.getAppointments();
+        for (Appointment appointment : appointments) {
+            appointmentMap.computeIfAbsent(appointment.getAppointmentDate(), k -> new ArrayList<>()).add(appointment);
+        }
     }
 
     public void setCurrentUsername(String username) {
@@ -97,13 +75,6 @@ public class DashBoardController implements Initializable {
         }
     }
 
-
-
-
-
-    /**
-     * Updates the user name label if the username exists in the authentication service.
-     */
     private void updateUserNameLabel() {
         if (currentUsername != null && !currentUsername.isEmpty()) {
             userNameLabel.setText(currentUsername);
@@ -112,41 +83,21 @@ public class DashBoardController implements Initializable {
         }
     }
 
-
-    /**
-     * Initializes a sample list of appointments for calendar demonstration.
-     */
-    private void initializeSampleAppointments() {
-        LocalDate today = LocalDate.now();
-        sampleAppointments.put(today.plusDays(2), "Doctor's Appointment");
-        sampleAppointments.put(today.plusDays(5), "Follow-up Checkup");
-        sampleAppointments.put(today.plusDays(10), "Specialist Consultation");
-    }
-
-    /**
-     * Creates the calendar interface in the calendar container view.
-     */
     private void createCalendarInContainer() {
         calendarContainer.getChildren().clear();
         calendarContainer.setSpacing(20);
         calendarContainer.setPadding(new Insets(20));
 
-        // Create header with navigation
         HBox header = new HBox(40);
         header.setAlignment(Pos.CENTER);
         header.setPadding(new Insets(0, 0, 20, 0));
-
         Button prevMonth = new Button("<");
         Button nextMonth = new Button(">");
-
-        // Updated the label to show current month and year
         String monthYearText = currentDate.getMonth().toString() + " " + currentDate.getYear();
         Label monthLabel = new Label(monthYearText);
-
         prevMonth.getStyleClass().add("calendar-nav-button");
         nextMonth.getStyleClass().add("calendar-nav-button");
         monthLabel.getStyleClass().add("calendar-header");
-
         header.getChildren().addAll(prevMonth, monthLabel, nextMonth);
 
         GridPane calendarGrid = new GridPane();
@@ -165,31 +116,32 @@ public class DashBoardController implements Initializable {
             calendarGrid.add(dayLabel, i, 0);
         }
 
-        // Calculating first day of month offset
         LocalDate firstOfMonth = currentDate.withDayOfMonth(1);
         int dayOfWeek = firstOfMonth.getDayOfWeek().getValue() % 7;
         int daysInMonth = currentDate.lengthOfMonth();
-
         int row = 1;
         int col = dayOfWeek;
 
-        // Adding the calendar days
         for (int day = 1; day <= daysInMonth; day++) {
+            LocalDate currentDateInLoop = LocalDate.of(currentDate.getYear(), currentDate.getMonth(), day);
             StackPane dateContainer = new StackPane();
             Label dateLabel = new Label(String.valueOf(day));
             dateLabel.getStyleClass().add("date-label");
             dateLabel.setMaxWidth(Double.MAX_VALUE);
             dateLabel.setAlignment(Pos.CENTER);
 
-            LocalDate currentDateInLoop = LocalDate.of(currentDate.getYear(),
-                    currentDate.getMonth(), day);
-
-            if (hasAppointment(currentDateInLoop)) {
+            if (appointmentMap.containsKey(currentDateInLoop)) {
                 Circle indicator = new Circle(3);
                 indicator.getStyleClass().add("appointment-indicator");
 
-                Tooltip tooltip = new Tooltip(sampleAppointments.get(currentDateInLoop));
-                tooltip.getStyleClass().add("appointment-tooltip");
+                List<Appointment> dayAppointments = appointmentMap.get(currentDateInLoop);
+                String tooltipText = dayAppointments.stream()
+                        .map(a -> a.getPatientFirstName() + " " + a.getPatientLastName() + ": " + a.getAppointmentType())
+                        .collect(Collectors.joining("\n"));
+
+
+                Tooltip tooltip = new Tooltip(tooltipText);
+                tooltip.getStyleClass().add("tooltip");
                 Tooltip.install(dateContainer, tooltip);
 
                 dateContainer.getChildren().addAll(dateLabel, indicator);
@@ -203,13 +155,10 @@ public class DashBoardController implements Initializable {
                 dateLabel.getStyleClass().add("selected");
             }
 
-            dateContainer.setOnMouseEntered(e ->
-                    dateLabel.getStyleClass().add("date-hover"));
-            dateContainer.setOnMouseExited(e ->
-                    dateLabel.getStyleClass().remove("date-hover"));
+            dateContainer.setOnMouseEntered(e -> dateLabel.getStyleClass().add("date-hover"));
+            dateContainer.setOnMouseExited(e -> dateLabel.getStyleClass().remove("date-hover"));
 
             calendarGrid.add(dateContainer, col, row);
-
             col++;
             if (col > 6) {
                 col = 0;
@@ -218,101 +167,22 @@ public class DashBoardController implements Initializable {
         }
 
         calendarContainer.getChildren().addAll(header, calendarGrid);
-
         prevMonth.setOnAction(e -> navigateMonth(-1));
         nextMonth.setOnAction(e -> navigateMonth(1));
     }
 
-    private void createDateLabel(int day, StackPane dateContainer) {
-        Label dateLabel = new Label(String.valueOf(day));
-        dateLabel.getStyleClass().add("date-label");
-        dateLabel.setMaxWidth(Double.MAX_VALUE);
-        dateLabel.setAlignment(Pos.CENTER);
-
-        LocalDate currentDateInLoop = LocalDate.of(currentDate.getYear(),
-                currentDate.getMonth(), day);
-
-        if (hasAppointment(currentDateInLoop)) {
-            Circle indicator = new Circle(3);
-            indicator.getStyleClass().add("appointment-indicator");
-
-            Tooltip tooltip = new Tooltip(sampleAppointments.get(currentDateInLoop));
-            tooltip.getStyleClass().add("appointment-tooltip");
-            Tooltip.install(dateContainer, tooltip);
-
-            dateContainer.getChildren().addAll(dateLabel, indicator);
-            StackPane.setAlignment(indicator, Pos.BOTTOM_CENTER);
-            StackPane.setMargin(indicator, new Insets(0, 0, 2, 0));
-        } else {
-            dateContainer.getChildren().add(dateLabel);
-        }
-    }
-
-    private boolean hasAppointment(LocalDate date) {
-        return sampleAppointments.containsKey(date);
-    }
-
-    /**
-     * Navigates the calendar by changing the displayed month.
-     * @param months Number of months to navigate
-     */
     private void navigateMonth(int months) {
         currentDate = currentDate.plusMonths(months);
         createCalendarInContainer();
     }
 
-    /**
-     * Sets up a bar chart with the given color and data.
-     * @param chart BarChart to configure
-     * @param color Color string for the bars
-     */
-    private void setupChart(BarChart<String, Number> chart, String color) {
-        chart.setAnimated(false);
-        chart.setLegendVisible(false);
-        chart.setVerticalGridLinesVisible(false);
-        chart.setHorizontalGridLinesVisible(true);
-
-        CategoryAxis xAxis = (CategoryAxis) chart.getXAxis();
-        NumberAxis yAxis = (NumberAxis) chart.getYAxis();
-
-        xAxis.setTickLabelGap(10);
-        xAxis.setTickMarkVisible(false);
-        xAxis.setTickLabelsVisible(false);
-
-        yAxis.setTickLabelFill(javafx.scene.paint.Color.valueOf("#666666"));
-        yAxis.setTickMarkVisible(false);
-        yAxis.setMinorTickVisible(false);
-
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
-        series.getData().addAll(
-                new XYChart.Data<>("1", 100),
-                new XYChart.Data<>("2", 150),
-                new XYChart.Data<>("3", 80),
-                new XYChart.Data<>("4", 200),
-                new XYChart.Data<>("5", 120),
-                new XYChart.Data<>("6", 170)
-        );
-
-        chart.getData().add(series);
-
-        series.getData().forEach(data -> {
-            data.getNode().setStyle("-fx-bar-fill: " + color + ";");
-        });
-    }
-
-    /**
-     * Navigates the user back to the main menu.
-     * @param event the mouse click event triggered by clicking the navigation button
-     */
     @FXML
     void goToTheMain(MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
             Parent root = loader.load();
-
             MainMenuController mainMenuController = loader.getController();
             mainMenuController.setCurrentUsername(currentUsername);
-
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -323,10 +193,7 @@ public class DashBoardController implements Initializable {
             alertMessages.errorMessage("Failed to load the Main Menu.");
         }
     }
-    /**
-     * Handles sign-out action and redirects to the login screen.
-     * @param event ActionEvent triggered by button press
-     */
+
     @FXML
     void signOut(ActionEvent event) {
         try {
@@ -341,19 +208,13 @@ public class DashBoardController implements Initializable {
         }
     }
 
-    /**
-     * Navigates to the main menu.
-     * @param event ActionEvent triggered by button press
-     */
     @FXML
     private void goToMain(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org.education.hospitalmanagementapp/MainMenu.fxml"));
             Parent root = loader.load();
-
             MainMenuController mainMenuController = loader.getController();
             mainMenuController.setCurrentUsername(currentUsername);
-
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();

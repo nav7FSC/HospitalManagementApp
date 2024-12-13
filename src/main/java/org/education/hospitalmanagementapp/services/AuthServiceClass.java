@@ -11,6 +11,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * AuthServiceClass provides database-related authentication and user/patient management services.
@@ -204,6 +208,40 @@ public class AuthServiceClass {
         }
         return data_user;
     }
+
+    public List<Appointment> getAppointments() {
+        List<Appointment> appointments = new ArrayList<>();
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            String sql = "SELECT * FROM appointments";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                int appointmentID = resultSet.getInt("AppointmentID");
+                int patientID = resultSet.getInt("PatientID");
+                LocalDate appointmentDate = resultSet.getDate("appointment_date").toLocalDate();
+                LocalTime appointmentTime = resultSet.getTime("appointment_time").toLocalTime();
+                String patientFirstName = resultSet.getString("patient_first_name");
+                String patientLastName = resultSet.getString("patient_last_name");
+                String doctorFirstName = resultSet.getString("doctor_first_name");
+                String doctorLastName = resultSet.getString("doctor_last_name");
+                String appointmentType = resultSet.getString("appointment_type");
+
+                appointments.add(new Appointment(appointmentID, patientID, appointmentDate, appointmentTime,
+                        patientFirstName, patientLastName, doctorFirstName,
+                        doctorLastName, appointmentType));
+            }
+
+            preparedStatement.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return appointments;
+    }
+
+
 
     /**
      * Inserts a new user into the "users" table with profile picture support.
